@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">LogiApp</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="log_out">Cerrar sesión</string>
+
+    <string name="menu_perfil">Perfil</string>
+    <string name="menu_tiempo">Tiempo real</string>
+    <string name="menu_sincronizar">Sincronizar</string>
+
+    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="Usuario">Usuario:</string>
+    <string name="Contrasena">Contraseña:</string>
+    <string name="Ingresar">Ingresar</string>
+    <string name="Olvide_contrasena">Olvidé mi contraseña</string>
+    <string name="hint_usuario">innovati@gmail.com</string>
+    <string name="hint_contrasena">**********</string>
+    <string name="ingresar_contrasena">Ingresar contraseña para Iniciar sesión</string>
+    <string name="hint_correo">Ingrese su correo electrónico</string>
+
+    <string-array name="cargamentos">
+        <item>Cargo-001</item>
+        <item>Cargo-002</item>
+        <item>Cargo-003</item>
+    </string-array>
+</resources>
