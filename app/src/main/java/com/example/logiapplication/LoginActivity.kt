@@ -10,8 +10,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.logiapplication.ui.profile.ProfileFragment
-import com.google.android.material.internal.ContextUtils.getActivity
+import com.example.logiapplication.carrier.CarrierMainActivity
+import com.example.logiapplication.logisticOperator.LogisticMainActivity
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun goToMainActivity(view: View) {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, LogisticMainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         startActivity(intent)
     }

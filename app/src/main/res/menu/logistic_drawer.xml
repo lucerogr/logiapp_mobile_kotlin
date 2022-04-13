@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_logistic_profile"
+            android:icon="@drawable/perfil"
+            android:title="@string/menu_perfil" />
+        <item
+            android:id="@+id/nav_register"
+            android:icon="@drawable/registrar"
+            android:title="Registrar carga"/>
+        <item
+            android:id="@+id/nav_followup"
+            android:icon="@drawable/seguimiento"
+            android:title="Seguimiento de carga" />
+        <item
+            android:id="@+id/nav_reporting"
+            android:icon="@drawable/reporte"
+            android:title="Reporte" />
+    </group>
+</menu>

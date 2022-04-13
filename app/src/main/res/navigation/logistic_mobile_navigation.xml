@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/logistic_mobile_navigation"
+    app:startDestination="@+id/nav_logistic_profile">
+
+    <fragment
+        android:id="@+id/nav_logistic_profile"
+        android:name="com.example.logiapplication.logisticOperator.ui.profile.LogisticProfileFragment"
+        android:label="@string/menu_perfil"
+        tools:layout="@layout/logistic_fragment_profile" />
+
+    <fragment
+        android:id="@+id/nav_register"
+        android:name="com.example.logiapplication.logisticOperator.ui.register.RegisterFragment"
+        android:label="Registrar carga"
+        tools:layout="@layout/logistic_fragment_register" />
+
+    <fragment
+        android:id="@+id/nav_followup"
+        android:name="com.example.logiapplication.logisticOperator.ui.followup.FollowUpFragment"
+        android:label="Seguimiento de carga"
+        tools:layout="@layout/logistic_fragment_followup" />
+
+    <fragment
+        android:id="@+id/nav_reporting"
+        android:name="com.example.logiapplication.logisticOperator.ui.reporting.ReportingFragment"
+        android:label="Reporte"
+        tools:layout="@layout/logistic_fragment_reporting" />
+</navigation>
