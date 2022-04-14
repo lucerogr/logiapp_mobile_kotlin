@@ -39,6 +39,8 @@
         <activity android:name=".logisticOperator.ui.followup.ModifyCargoActivity" />
         <activity android:name=".logisticOperator.ui.reporting.ConditionsActivity" />
         <activity android:name=".logisticOperator.ui.reporting.FinalStateActivity" />
+        <activity android:name=".client.ui.confirm.ConfirmCargoActivity" />
+        <activity android:name=".client.ClientMainActivity"/>
     </application>
 
 </manifest>

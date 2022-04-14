@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.logiapplication.carrier.CarrierMainActivity
+import com.example.logiapplication.client.ClientMainActivity
 import com.example.logiapplication.logisticOperator.LogisticMainActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -35,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun goToMainActivity(view: View) {
-        val intent = Intent(this, LogisticMainActivity::class.java)
+        val intent = Intent(this, ClientMainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         startActivity(intent)
     }
