@@ -180,7 +180,7 @@
                 tools:layout_editor_absoluteY="201dp" />
 
             <ImageView
-                android:id="@+id/im_edit"
+                android:id="@+id/iv_edit"
                 android:layout_width="0dp"
                 android:layout_height="39dp"
                 android:layout_weight="1.5"

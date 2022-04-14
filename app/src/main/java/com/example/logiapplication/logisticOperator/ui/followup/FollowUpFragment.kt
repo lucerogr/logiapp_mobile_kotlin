@@ -22,6 +22,8 @@ class FollowUpFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     lateinit var viewCargo : ImageView
+    lateinit var editCargo : ImageView
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +44,13 @@ class FollowUpFragment : Fragment() {
             startActivity(intent)
         })
 
+        editCargo = binding.root.findViewById(R.id.iv_edit)
+
+        editCargo.setOnClickListener(View.OnClickListener {
+            val intent = Intent(requireContext(), ModifyCargoActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            startActivity(intent)
+        })
         return root
     }
 
