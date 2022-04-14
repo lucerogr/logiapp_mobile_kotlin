@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".logisticOperator.ui.register.NextRegisterActivity">
+
+    <include
+        android:id="@+id/app_bar_main"
+        layout="@layout/logistic_app_bar_secondary"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="203dp" />
+
+    <TextView
+        android:id="@+id/tv_cargo_nro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CARGO-001"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.125" />
+
+    <TextView
+        android:id="@+id/tv_family_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Frutos rojos"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.261" />
+
+    <TableLayout
+        android:id="@+id/add_product_table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:background="@color/gray"
+        android:paddingTop="1dp"
+        android:stretchColumns="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.675"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_family_name"
+        app:layout_constraintVertical_bias="0.048">
+
+        <TableRow
+            android:background="@color/gray"
+            android:paddingRight="1dp"
+            android:paddingBottom="1dp"
+            tools:layout_editor_absoluteX="54dp"
+            tools:layout_editor_absoluteY="235dp">
+
+            <TextView
+                android:layout_marginLeft="1dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="Agregar"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="55dp"
+                tools:layout_editor_absoluteY="235dp" />
+
+            <TextView
+                android:layout_marginLeft="1dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="Producto"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="121dp"
+                tools:layout_editor_absoluteY="235dp" />
+
+            <TextView
+                android:layout_marginLeft="1dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="Nº Jabas"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="253dp"
+                tools:layout_editor_absoluteY="235dp" />
+        </TableRow>
+
+        <TableRow
+            android:background="@color/gray"
+            android:paddingRight="1dp"
+            android:paddingBottom="1dp"
+            tools:layout_editor_absoluteX="54dp"
+            tools:layout_editor_absoluteY="265dp">
+
+            <CheckBox
+                android:layout_marginLeft="1dp"
+                android:id="@+id/add_producto_checkbox"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                tools:layout_editor_absoluteX="55dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+            <TextView
+                android:layout_marginLeft="1dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="Fresas"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="121dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+            <AutoCompleteTextView
+                android:layout_marginLeft="1dp"
+                android:id="@+id/nro_jabas"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                android:text=" "
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="253dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+        </TableRow>
+        <TableRow
+            android:background="@color/gray"
+            android:paddingRight="1dp"
+            android:paddingBottom="1dp"
+            tools:layout_editor_absoluteX="54dp"
+            tools:layout_editor_absoluteY="265dp">
+
+            <CheckBox
+                android:layout_marginLeft="1dp"
+                android:id="@+id/add_producto_checkbox_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                tools:layout_editor_absoluteX="55dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+            <TextView
+                android:layout_marginLeft="1dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="Arandanos"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="121dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+            <AutoCompleteTextView
+                android:layout_marginLeft="1dp"
+                android:id="@+id/nro_jabas_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                android:text=" "
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="253dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+        </TableRow>
+        <TableRow
+            android:background="@color/gray"
+            android:paddingRight="1dp"
+            android:paddingBottom="1dp"
+            tools:layout_editor_absoluteX="54dp"
+            tools:layout_editor_absoluteY="265dp">
+
+            <CheckBox
+                android:layout_marginLeft="1dp"
+                android:id="@+id/add_producto_checkbox_3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                tools:layout_editor_absoluteX="55dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+            <TextView
+                android:layout_marginLeft="1dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="Frambuesas"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="121dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+            <AutoCompleteTextView
+                android:layout_marginLeft="1dp"
+                android:id="@+id/nro_jabas_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                android:text=" "
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="253dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+        </TableRow>
+        <TableRow
+            android:background="@color/gray"
+            android:paddingRight="1dp"
+            android:paddingBottom="1dp"
+            tools:layout_editor_absoluteX="54dp"
+            tools:layout_editor_absoluteY="265dp">
+
+            <CheckBox
+                android:layout_marginLeft="1dp"
+                android:id="@+id/add_producto_checkbox_4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                tools:layout_editor_absoluteX="55dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+            <TextView
+                android:layout_marginLeft="1dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="Cerezas"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="121dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+            <AutoCompleteTextView
+                android:layout_marginLeft="1dp"
+                android:id="@+id/nro_jabas_4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                android:text=" "
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="253dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+        </TableRow>
+        <TableRow
+            android:background="@color/gray"
+            android:paddingRight="1dp"
+            android:paddingBottom="1dp"
+            tools:layout_editor_absoluteX="54dp"
+            tools:layout_editor_absoluteY="265dp">
+
+            <CheckBox
+                android:layout_marginLeft="1dp"
+                android:id="@+id/add_producto_checkbox_5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                tools:layout_editor_absoluteX="55dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+            <TextView
+                android:layout_marginLeft="1dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="Moras"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="121dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+            <AutoCompleteTextView
+                android:layout_marginLeft="1dp"
+                android:id="@+id/nro_jabas_5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                android:text=" "
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="253dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        android:id="@+id/btn_cancel_cargo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancelar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.757"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.872" />
+
+    <Button
+        android:id="@+id/btn_register_cargo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:text="Registrar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_cancel_cargo"
+        app:layout_constraintHorizontal_bias="0.916"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.872" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

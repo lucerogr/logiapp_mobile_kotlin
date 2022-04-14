@@ -32,6 +32,7 @@
         </activity>
         <activity android:name=".logisticOperator.LogisticMainActivity"/>
         <activity android:name=".carrier.ui.syncup.ConnectionActivity" />
+        <activity android:name=".logisticOperator.ui.register.NextRegisterActivity" />
         <activity android:name=".ForgetPassword" />
         <activity android:name=".carrier.CarrierMainActivity" />
     </application>

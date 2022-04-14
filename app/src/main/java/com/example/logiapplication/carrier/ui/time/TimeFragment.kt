@@ -40,6 +40,8 @@ class TimeFragment : Fragment() {
         binding.autoCompleteTextView.setOnItemClickListener { parent, view, position, id ->
             when (position) {
                 0 -> {
+                    //seleccionar el cargamento para que la info se guarde en ese cargamento y luego presionar el boton iNICIO
+                    //igual para los otros
                     val intent = Intent(requireContext(), ConnectionActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
                     startActivity(intent)
