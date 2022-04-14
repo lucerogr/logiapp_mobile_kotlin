@@ -73,7 +73,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
-                android:background="@color/white"
+                android:background="@color/third_gray"
                 android:gravity="center_horizontal"
                 android:padding="5dp"
                 android:text="Agregar"
@@ -83,11 +83,10 @@
                 tools:layout_editor_absoluteY="235dp" />
 
             <TextView
-                android:layout_marginLeft="1dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:background="@color/white"
+                android:background="@color/third_gray"
                 android:gravity="center_horizontal"
                 android:padding="5dp"
                 android:text="Producto"
@@ -97,11 +96,10 @@
                 tools:layout_editor_absoluteY="235dp" />
 
             <TextView
-                android:layout_marginLeft="1dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:background="@color/white"
+                android:background="@color/third_gray"
                 android:gravity="center_horizontal"
                 android:padding="5dp"
                 android:text="Nº Jabas"
@@ -131,7 +129,6 @@
                 tools:layout_editor_absoluteY="265dp" />
 
             <TextView
-                android:layout_marginLeft="1dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -145,7 +142,6 @@
                 tools:layout_editor_absoluteY="265dp" />
 
             <AutoCompleteTextView
-                android:layout_marginLeft="1dp"
                 android:id="@+id/nro_jabas"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -180,7 +176,6 @@
                 tools:layout_editor_absoluteY="265dp" />
 
             <TextView
-                android:layout_marginLeft="1dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -194,7 +189,6 @@
                 tools:layout_editor_absoluteY="265dp" />
 
             <AutoCompleteTextView
-                android:layout_marginLeft="1dp"
                 android:id="@+id/nro_jabas_2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -229,7 +223,6 @@
                 tools:layout_editor_absoluteY="265dp" />
 
             <TextView
-                android:layout_marginLeft="1dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -243,7 +236,6 @@
                 tools:layout_editor_absoluteY="265dp" />
 
             <AutoCompleteTextView
-                android:layout_marginLeft="1dp"
                 android:id="@+id/nro_jabas_3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -278,7 +270,6 @@
                 tools:layout_editor_absoluteY="265dp" />
 
             <TextView
-                android:layout_marginLeft="1dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -292,7 +283,6 @@
                 tools:layout_editor_absoluteY="265dp" />
 
             <AutoCompleteTextView
-                android:layout_marginLeft="1dp"
                 android:id="@+id/nro_jabas_4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -327,7 +317,6 @@
                 tools:layout_editor_absoluteY="265dp" />
 
             <TextView
-                android:layout_marginLeft="1dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -341,7 +330,6 @@
                 tools:layout_editor_absoluteY="265dp" />
 
             <AutoCompleteTextView
-                android:layout_marginLeft="1dp"
                 android:id="@+id/nro_jabas_5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
