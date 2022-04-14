@@ -121,8 +121,8 @@
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/truckTextInput"
-        app:layout_constraintEnd_toStartOf="@+id/truckTextInput"
+        app:layout_constraintBaseline_toBaselineOf="@+id/cargoTextInput"
+        app:layout_constraintEnd_toStartOf="@+id/cargoTextInput"
         app:layout_constraintHorizontal_bias="0.179"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -133,7 +133,7 @@
         android:layout_height="57dp"
         android:layout_marginTop="10dp"
         app:boxStrokeErrorColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/truckTextInput"
+        app:layout_constraintBottom_toTopOf="@+id/cargoTextInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.919"
         app:layout_constraintStart_toStartOf="parent"
@@ -253,7 +253,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/truckTextInput"
+        android:id="@+id/cargoTextInput"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="200dp"
         android:layout_height="57dp"
@@ -266,7 +266,7 @@
         app:layout_constraintVertical_bias="1.0">
 
         <AutoCompleteTextView
-            android:id="@+id/truckAutoComplete"
+            android:id="@+id/cargoAutoComplete"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"

@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".logisticOperator.ui.reporting.ConditionsActivity">
+
+    <include
+        android:id="@+id/app_bar_main"
+        layout="@layout/logistic_app_bar_secondary"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="203dp" />
+
+    <TextView
+        android:id="@+id/tv_cargament"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cargamento:"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/cargoTextInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.116"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_parametro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Parámetro:"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/parameterTextInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/cargoTextInput"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="200dp"
+        android:layout_height="57dp"
+        app:boxStrokeErrorColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/parameterTextInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toEndOf="@+id/tv_cargament"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <AutoCompleteTextView
+            android:id="@+id/cargoAutoComplete"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="none"
+            android:text=" "
+            android:textColor="#000000"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/parameterTextInput"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="200dp"
+        android:layout_height="57dp"
+        app:boxStrokeErrorColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.574"
+        app:layout_constraintStart_toEndOf="@+id/tv_parametro"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.192">
+
+        <AutoCompleteTextView
+            android:id="@+id/parameterAutoComplete"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="none"
+            android:text=" "
+            android:textColor="#000000"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tv_alertas"
+        android:layout_width="81dp"
+        android:layout_height="24dp"
+        android:text="Alertas"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.622" />
+
+    <TableLayout
+        android:id="@+id/alerts_table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@color/gray"
+        android:paddingTop="1dp"
+        android:stretchColumns="0"
+        app:layout_constraintBottom_toTopOf="@+id/btn_export"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_alertas">
+
+        <TableRow
+            android:background="@color/gray"
+            android:paddingRight="1dp"
+            android:paddingBottom="1dp"
+            tools:layout_editor_absoluteX="54dp"
+            tools:layout_editor_absoluteY="265dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1.5"
+                android:background="@color/third_gray"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="Nº"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="121dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="@color/third_gray"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="Hora"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="121dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@color/third_gray"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="Fecha"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="121dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@color/third_gray"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="Ubicación"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="121dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@color/third_gray"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="Temperatura"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="121dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+        </TableRow>
+
+        <TableRow
+            android:background="@color/gray"
+            android:paddingRight="1dp"
+            android:paddingBottom="1dp"
+            tools:layout_editor_absoluteX="54dp"
+            tools:layout_editor_absoluteY="265dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1.5"
+                android:background="@color/white"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="1"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="121dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:background="@color/white"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="15:00"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="121dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/white"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="05/03/2022"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="121dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/white"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="23123,-123213"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="121dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/white"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="33ºC"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="121dp"
+                tools:layout_editor_absoluteY="265dp" />
+
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        android:id="@+id/btn_export"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Exportar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.942" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
