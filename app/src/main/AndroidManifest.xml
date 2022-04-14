@@ -35,6 +35,7 @@
         <activity android:name=".logisticOperator.ui.register.NextRegisterActivity" />
         <activity android:name=".ForgetPassword" />
         <activity android:name=".carrier.CarrierMainActivity" />
+        <activity android:name=".logisticOperator.ui.followup.ViewRegisterCargoActivity" />
     </application>
 
 </manifest>

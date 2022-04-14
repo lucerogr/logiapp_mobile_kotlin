@@ -168,6 +168,7 @@
                 tools:layout_editor_absoluteY="201dp" />
 
             <ImageView
+                android:id="@+id/iv_view"
                 android:layout_width="0dp"
                 android:layout_height="39dp"
                 android:layout_weight="1.5"
@@ -179,6 +180,7 @@
                 tools:layout_editor_absoluteY="201dp" />
 
             <ImageView
+                android:id="@+id/im_edit"
                 android:layout_width="0dp"
                 android:layout_height="39dp"
                 android:layout_weight="1.5"
@@ -190,6 +192,7 @@
                 tools:layout_editor_absoluteY="201dp" />
 
             <ImageView
+                android:id="@+id/iv_close"
                 android:layout_width="0dp"
                 android:layout_height="39dp"
                 android:layout_weight="1.5"
