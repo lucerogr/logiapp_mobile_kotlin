@@ -35,7 +35,6 @@ class LoginActivity : AppCompatActivity() {
     lateinit var editPassword : EditText
     lateinit var getObjectUser : String
     lateinit var getfname : String
-    lateinit var saved : String
     lateinit var buttonIngresar: Button
 
 
@@ -78,15 +77,16 @@ class LoginActivity : AppCompatActivity() {
                                 val jsonArray1: String = mapper.writeValueAsString(list)
                                 val jsonArray = JSONArray(jsonArray1)
                                 var i = 0
-                                getObjectUser = "user"
-                                while(i<jsonArray.length() && emailUser != getObjectUser){
+                                getObjectUser = "u"
+                                getfname="p"
+                                while(i<jsonArray.length() && emailUser != getObjectUser && passwordUser != getfname){
                                     val jsonObject: JSONObject = jsonArray.getJSONObject(i)
                                     getObjectUser=jsonObject.getString("userUsername")
                                     getfname=jsonObject.getString("userPassword")
                                     i++
                                 }
                                 //Toast.makeText(applicationContext, emailUser, Toast.LENGTH_SHORT).show()
-                                if(emailUser == getObjectUser) {
+                                if(emailUser == getObjectUser && passwordUser ==getfname) {
                                     //Toast.makeText(applicationContext, "Usuario", Toast.LENGTH_SHORT).show()
                                     val editor: SharedPreferences.Editor=sharedPreferences.edit()
                                     editor.putString(FirstName, getfname);
@@ -96,7 +96,7 @@ class LoginActivity : AppCompatActivity() {
                                     startActivity(intent)
 
                                 }else{
-                                    Toast.makeText(this@LoginActivity, "Error al iniciar sesión", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this@LoginActivity, "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT).show()
                                 }
                             }
                             catch (ex: JSONException){
