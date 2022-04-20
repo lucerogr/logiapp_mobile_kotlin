@@ -14,8 +14,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.logiapplication.carrier.CarrierMainActivity
 import com.example.logiapplication.client.ClientMainActivity
 import com.example.logiapplication.interfaces.UserService
+import com.example.logiapplication.logisticOperator.LogisticMainActivity
 import com.example.logiapplication.models.User
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.json.JSONArray
@@ -35,8 +37,8 @@ class LoginActivity : AppCompatActivity() {
     lateinit var editPassword : EditText
     lateinit var getObjectUser : String
     lateinit var getfname : String
+    var getCodigo : Int = 0
     lateinit var buttonIngresar: Button
-
 
     lateinit var sharedPreferences : SharedPreferences
 
@@ -74,26 +76,51 @@ class LoginActivity : AppCompatActivity() {
                             try {
                                 val mapper = ObjectMapper()
                                 val list: List<User>? = response.body()
+                                println(list)
                                 val jsonArray1: String = mapper.writeValueAsString(list)
+                                println(jsonArray1)
                                 val jsonArray = JSONArray(jsonArray1)
+                                println(jsonArray)
                                 var i = 0
+                                var rol = 0
                                 getObjectUser = "u"
                                 getfname="p"
                                 while(i<jsonArray.length() && emailUser != getObjectUser && passwordUser != getfname){
                                     val jsonObject: JSONObject = jsonArray.getJSONObject(i)
                                     getObjectUser=jsonObject.getString("userUsername")
                                     getfname=jsonObject.getString("userPassword")
+                                    getCodigo =jsonObject.getInt("codigo")
+                                    //Toast.makeText(applicationContext, rol.toString(), Toast.LENGTH_SHORT).show()
                                     i++
                                 }
-                                //Toast.makeText(applicationContext, emailUser, Toast.LENGTH_SHORT).show()
                                 if(emailUser == getObjectUser && passwordUser ==getfname) {
-                                    //Toast.makeText(applicationContext, "Usuario", Toast.LENGTH_SHORT).show()
+                                    //Toast.makeText(applicationContext, "GREAT", Toast.LENGTH_SHORT).show()
                                     val editor: SharedPreferences.Editor=sharedPreferences.edit()
                                     editor.putString(FirstName, getfname);
                                     editor.apply()
-                                    val intent = Intent(this@LoginActivity, ClientMainActivity::class.java)
-                                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                    startActivity(intent)
+                                    when(getCodigo) {
+                                        2 -> {
+                                            val editor: SharedPreferences.Editor=sharedPreferences.edit()
+                                            editor.putString(FirstName, getfname);
+                                            editor.apply()
+                                            val intent = Intent(this@LoginActivity, ClientMainActivity::class.java)
+                                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                            startActivity(intent) }
+                                        3 -> {
+                                            val editor: SharedPreferences.Editor=sharedPreferences.edit()
+                                            editor.putString(FirstName, getfname);
+                                            editor.apply()
+                                            val intent = Intent(this@LoginActivity, CarrierMainActivity::class.java)
+                                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                            startActivity(intent) }
+                                        else -> {
+                                            val editor: SharedPreferences.Editor=sharedPreferences.edit()
+                                            editor.putString(FirstName, getfname);
+                                            editor.apply()
+                                            val intent = Intent(this@LoginActivity, LogisticMainActivity::class.java)
+                                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                            startActivity(intent) }
+                                    }
 
                                 }else{
                                     Toast.makeText(this@LoginActivity, "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT).show()

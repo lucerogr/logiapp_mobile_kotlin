@@ -1,9 +1,13 @@
 package com.example.logiapplication.logisticOperator
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -20,8 +24,13 @@ class LogisticMainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: LogisticActivityMainBinding
 
+    lateinit var nameUser : TextView
+    lateinit var sharedPreferences: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        sharedPreferences = getSharedPreferences(LoginActivity.SHARED_PREF_NAME, Context.MODE_PRIVATE)
 
         binding = LogisticActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -40,6 +49,12 @@ class LogisticMainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        //EN EL MENU DE NAVEGACION S EMUESTRO EL NOMBRE DEL USUARIO QUE INICIO SESION
+        val headerView: View = navView.getHeaderView(0)
+        nameUser = headerView.findViewById(R.id.nameAndLastNameTextO)
+        nameUser.text = sharedPreferences.getString(LoginActivity.FirstName, null)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -62,6 +77,9 @@ class LogisticMainActivity : AppCompatActivity() {
         startActivity(intent)
     }
     fun goToLoginActivity() {
+        val editor: SharedPreferences.Editor=sharedPreferences.edit()
+        editor.clear()
+        editor.apply()
         val intent = Intent(this, LoginActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         startActivity(intent)
