@@ -10,7 +10,7 @@ class User (
 
     val userPassword: String,
 
-    val roleId: Int,
+    var roleId:  Int,
 
-    val personId: Int
+    var personId: Int
 )
