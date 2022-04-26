@@ -19,4 +19,10 @@ interface UserService {
      */
     @GET("buscarRoles/{codigo}")
     fun getRolesByUserId(@Path("codigo") id: Int): Call<Array<Any?>?>
+
+    @GET("buscarPerson/{codigo}")
+    fun getPersonByUserId(@Path("codigo") id: Int): Call<Array<Any?>?>
+
+    @GET("buscarUsersPorRol/{codigo}")
+    fun getUsersByRolId(@Path("codigo") id: Int): Call<List<User>>
 }

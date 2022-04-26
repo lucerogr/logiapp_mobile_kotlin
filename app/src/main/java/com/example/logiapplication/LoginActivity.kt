@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -29,6 +30,7 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
 
@@ -36,17 +38,24 @@ class LoginActivity : AppCompatActivity() {
     companion object {
         var SHARED_PREF_NAME = "log_info"
         var FirstName = "userPassword"
+        var Name = "name"
+        var LastName = "lastName"
+        var DateBirth = "dateBirth"
+        var Email = "email"
+        //var UserId ="userId"
     }
     lateinit var editUsuario : EditText
     lateinit var editPassword : EditText
-    lateinit var getObjectUser : String
-    lateinit var getfname : String
+    lateinit var getUsername : String
+    lateinit var getPassword : String
+    lateinit var getPersonName : String
+    lateinit var getPersonBirthDate : String
+    lateinit var getPersonLastName : String
+    lateinit var getNameAndLastName : String
     var getCodigo : Int = 0
     lateinit var buttonIngresar: Button
-    var getRolCodigo : Int = 0
     var getRolId : Int = 0
-    lateinit var rol: Rol
-    var gson: Gson = Gson()
+    var getPersonId : Int = 0
 
 
     lateinit var sharedPreferences : SharedPreferences
@@ -69,39 +78,6 @@ class LoginActivity : AppCompatActivity() {
         if (!hasPermissions(this, permissions)) {
             ActivityCompat.requestPermissions(this, permissions, 1)
         }
-        //ROL
-        /*val rolService: RolService = RetrofitClients.getUsersClient().create(RolService::class.java)
-        rolService.getRolData().enqueue(object : Callback<List<Rol>>{
-            override fun onResponse(call: Call<List<Rol>>, response: Response<List<Rol>>) {
-                if(response.isSuccessful) {
-                    Log.i("Success", response.body().toString())
-                    try {
-                        val mapper = ObjectMapper()
-                        val list: List<Rol>? = response.body()
-                        val jsonArray1: String = mapper.writeValueAsString(list)
-                        val jsonArray = JSONArray(jsonArray1)
-                        println(jsonArray)
-                        var i = 0
-                        getObjectUser = "u"
-                        getfname="p"
-                        while(i<jsonArray.length()){
-                            val jsonObject: JSONObject = jsonArray.getJSONObject(i)
-                            getRolCodigo=jsonObject.getInt("codigo")
-                            println(getRolCodigo)
-                            //el json object. getint(rol id) se debe igualar a json object dentro del array rol
-                            //Toast.makeText(applicationContext, rol.toString(), Toast.LENGTH_SHORT).show()
-                            i++
-                        }
-                    }
-                    catch (ex: JSONException){
-                        ex.printStackTrace()
-                    }
-                }
-            }
-            override fun onFailure(call: Call<List<Rol>>, t: Throwable) {
-                Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT).show()
-            }
-        })*/
 
         //INGRESAR LOGIN
         buttonIngresar.setOnClickListener(View.OnClickListener {
@@ -121,16 +97,18 @@ class LoginActivity : AppCompatActivity() {
                                 val jsonArray1: String = mapper.writeValueAsString(list)
                                 val jsonArray = JSONArray(jsonArray1)
 
-                                println(jsonArray)
+                                //println(jsonArray)
 
                                 var i = 0
-                                getObjectUser = "u"
-                                getfname="p"
-                                while(i<jsonArray.length() && emailUser != getObjectUser && passwordUser != getfname){
+                                getUsername = "u"
+                                getPassword = "p"
+                                getNameAndLastName = "n"
+                                while(i<jsonArray.length() && emailUser != getUsername && passwordUser != getPassword){
                                     val jsonObject: JSONObject = jsonArray.getJSONObject(i)
-                                    getObjectUser=jsonObject.getString("userUsername")
-                                    getfname=jsonObject.getString("userPassword")
+                                    getUsername=jsonObject.getString("userUsername")
+                                    getPassword=jsonObject.getString("userPassword")
                                     getCodigo =jsonObject.getInt("codigo")
+
                                     i++
                                 }
                                 userService.getRolesByUserId(getCodigo).enqueue(object: Callback<Array<Any?>?> {
@@ -144,13 +122,10 @@ class LoginActivity : AppCompatActivity() {
                                                 val jsonArrayR = JSONArray(jsonArray1R)
                                                 val jsonArrayR2 = jsonArrayR.getJSONArray(0)
 
-                                                //println(jsonArrayR2)
 
                                                 val jsonObjectR: JSONObject = jsonArrayR2.getJSONObject(0)
-                                                //rol = gson.fromJson(jsonObjectR.toString(), Rol::class.java)
                                                 getRolId=jsonObjectR.getInt("codigo")
-                                                println(getRolId)
-                                                //println(rol.toString())
+                                                //println(getRolId)
                                             }
                                             catch (ex: JSONException){
                                                 ex.printStackTrace()
@@ -161,42 +136,84 @@ class LoginActivity : AppCompatActivity() {
                                         Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT).show()
                                     }
                                 })
-                                println(getRolId)
-                                if(emailUser == getObjectUser && passwordUser ==getfname) {
-                                    //Toast.makeText(applicationContext, "GREAT", Toast.LENGTH_SHORT).show()
-                                    val editor: SharedPreferences.Editor=sharedPreferences.edit()
-                                    editor.putString(FirstName, getfname);
-                                    editor.apply()
-                                    when(getRolId) {
-                                        1 -> {
-                                            println(getRolId)
-                                            val editor: SharedPreferences.Editor=sharedPreferences.edit()
-                                            editor.putString(FirstName, getfname);
-                                            editor.apply()
-                                            val intent = Intent(this@LoginActivity, ClientMainActivity::class.java)
-                                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                            startActivity(intent) }
-                                        2 -> {
-                                            println(getRolId)
-                                            val editor: SharedPreferences.Editor=sharedPreferences.edit()
-                                            editor.putString(FirstName, getfname);
-                                            editor.apply()
-                                            val intent = Intent(this@LoginActivity, CarrierMainActivity::class.java)
-                                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                            startActivity(intent) }
-                                        3 -> {
-                                            println(getRolId)
-                                            val editor: SharedPreferences.Editor=sharedPreferences.edit()
-                                            editor.putString(FirstName, getfname);
-                                            editor.apply()
-                                            val intent = Intent(this@LoginActivity, LogisticMainActivity::class.java)
-                                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                            startActivity(intent) }
-                                    }
+                                userService.getPersonByUserId(getCodigo).enqueue(object: Callback<Array<Any?>?> {
+                                    override fun onResponse(call: Call<Array<Any?>?>, response: Response<Array<Any?>?>) {
+                                        if (response.isSuccessful) {
+                                            Log.i("Success", response.body().toString())
+                                            try {
+                                                val mapperP = ObjectMapper()
+                                                val listP: Array<Any?>? = response.body()
+                                                val jsonArray1P: String = mapperP.writeValueAsString(listP)
+                                                val jsonArrayP = JSONArray(jsonArray1P)
+                                                val jsonArrayP2 = jsonArrayP.getJSONArray(0)
 
-                                }else{
-                                    Toast.makeText(this@LoginActivity, "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT).show()
-                                }
+
+                                                val jsonObjectP: JSONObject = jsonArrayP2.getJSONObject(0)
+                                                getPersonId=jsonObjectP.getInt("codigo")
+                                                getPersonName = jsonObjectP.getString("personName")
+                                                getPersonLastName = jsonObjectP.getString("personLastName")
+                                                getPersonBirthDate = jsonObjectP.getString("personBirthDate")
+                                                getNameAndLastName = "$getPersonName $getPersonLastName"
+
+                                                if(emailUser == getUsername && passwordUser ==getPassword) {
+                                                    //Toast.makeText(applicationContext, "GREAT", Toast.LENGTH_SHORT).show()
+                                                    //println(getNameAndLastName)
+                                                    val editor: SharedPreferences.Editor=sharedPreferences.edit()
+                                                    editor.putString(FirstName, getNameAndLastName);
+                                                    editor.apply()
+                                                    when(getRolId) {
+                                                        1 -> {
+                                                            val editor: SharedPreferences.Editor=sharedPreferences.edit()
+                                                            editor.putString(FirstName, getNameAndLastName)
+                                                            editor.apply()
+                                                            val intent = Intent(this@LoginActivity, ClientMainActivity::class.java)
+                                                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                                            intent.putExtra("UserId", getPersonId)
+                                                            intent.putExtra(Name, getPersonName)
+                                                            intent.putExtra(LastName, getPersonLastName)
+                                                            intent.putExtra(DateBirth, getPersonBirthDate)
+                                                            intent.putExtra(Email, getUsername)
+                                                            startActivity(intent) }
+                                                        2 -> {
+                                                            val editor: SharedPreferences.Editor=sharedPreferences.edit()
+                                                            editor.putString(FirstName, getNameAndLastName)
+                                                            editor.apply()
+                                                            val intent = Intent(this@LoginActivity, CarrierMainActivity::class.java)
+                                                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                                            intent.putExtra("UserId", getPersonId)
+                                                            intent.putExtra(Name, getPersonName)
+                                                            intent.putExtra(LastName, getPersonLastName)
+                                                            intent.putExtra(DateBirth, getPersonBirthDate)
+                                                            intent.putExtra(Email, getUsername)
+                                                            startActivity(intent) }
+                                                        3 -> {
+                                                            val editor: SharedPreferences.Editor=sharedPreferences.edit()
+                                                            editor.putString(FirstName, getNameAndLastName)
+                                                            //editor.putString(UserId, getCodigo.toString())
+                                                            editor.apply()
+                                                            val intent = Intent(this@LoginActivity, LogisticMainActivity::class.java)
+                                                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                                            intent.putExtra("UserId", getPersonId)
+                                                            intent.putExtra(Name, getPersonName)
+                                                            intent.putExtra(LastName, getPersonLastName)
+                                                            intent.putExtra(DateBirth, getPersonBirthDate)
+                                                            intent.putExtra(Email, getUsername)
+                                                            startActivity(intent) }
+                                                    }
+
+                                                }else{
+                                                    Toast.makeText(this@LoginActivity, "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT).show()
+                                                }
+                                            }
+                                            catch (ex: JSONException){
+                                                ex.printStackTrace()
+                                            }
+                                        }
+                                    }
+                                    override fun onFailure(call: Call<Array<Any?>?>, t: Throwable) {
+                                        Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT).show()
+                                    }
+                                })
                             }
                             catch (ex: JSONException){
                                 ex.printStackTrace()

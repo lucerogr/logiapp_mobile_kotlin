@@ -86,6 +86,17 @@
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/graphic"
+        android:layout_width="378dp"
+        android:layout_height="194dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.575"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.407" />
+
     <TextView
         android:id="@+id/tv_alertas"
         android:layout_width="81dp"

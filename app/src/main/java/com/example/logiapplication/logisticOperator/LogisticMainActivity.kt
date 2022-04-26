@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -16,16 +17,34 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.logiapplication.LoginActivity
+import com.example.logiapplication.LoginActivity.Companion.DateBirth
+import com.example.logiapplication.LoginActivity.Companion.Email
+import com.example.logiapplication.LoginActivity.Companion.LastName
+import com.example.logiapplication.LoginActivity.Companion.Name
 import com.example.logiapplication.R
 import com.example.logiapplication.databinding.LogisticActivityMainBinding
+import com.example.logiapplication.logisticOperator.ui.profile.LogisticProfileFragment
+import com.example.logiapplication.logisticOperator.ui.register.RegisterFragment
 import com.google.android.material.navigation.NavigationView
+import java.util.*
 
 class LogisticMainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: LogisticActivityMainBinding
 
     lateinit var nameUser : TextView
+    var userCodigo : Int = 0
+    lateinit var name : String
+    lateinit var lastName : String
+    lateinit var birthDate : String
+    lateinit var email : String
+
     lateinit var sharedPreferences: SharedPreferences
+
+    companion object {
+        var UserCodigo ="userCodigo"
+        var EmailU = "email"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +74,32 @@ class LogisticMainActivity : AppCompatActivity() {
         nameUser = headerView.findViewById(R.id.nameAndLastNameTextO)
         nameUser.text = sharedPreferences.getString(LoginActivity.FirstName, null)
 
+        //RECUPERAR INFO DEL USUARIO DESDE EL LOGIN
+        userCodigo = intent.getIntExtra("UserId", 0)
+        name = intent.getStringExtra(Name).toString()
+        lastName = intent.getStringExtra(LastName).toString()
+        birthDate = intent.getStringExtra(DateBirth).toString()
+        email = intent.getStringExtra(Email).toString()
+
+        //println(userCodigo)
+        val bundle = Bundle()
+        val logisticProfileFragment = LogisticProfileFragment()
+        bundle.putString(Name, name)
+        bundle.putString(LastName, lastName)
+        bundle.putString(DateBirth, birthDate)
+        bundle.putString(EmailU, email)
+        logisticProfileFragment.arguments = bundle
+
+        //println(registerFragment.arguments)
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.add(R.id.logistic_profile_frag, logisticProfileFragment)
+        transaction.commit()
+
+        //MANDAR ID DEL USUARIO A NEXTREGISTER ACTIVITY
+        val editor: SharedPreferences.Editor=sharedPreferences.edit()
+        editor.putInt(UserCodigo, userCodigo)
+        //editor.putString(UserId, getCodigo.toString())
+        editor.apply()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

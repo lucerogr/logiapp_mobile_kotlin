@@ -14,7 +14,7 @@ class Person (
 
     val personDocument: String,
 
-    val personBirthDate: DateFormat,
+    val personBirthDate: String,
 
     val personEmail: String
 
