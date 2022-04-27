@@ -20,21 +20,5 @@ class RetrofitClients {
                 .client(httpClient)
                 .build()
         }
-        /*var API_BASE_URL : String = "http://10.0.2.2:8080/api/"
-        lateinit var retrofit : Retrofit
-        lateinit var gson : Gson
-
-        fun getUsersClient(): Retrofit{
-            if(retrofit == null) {
-                gson = GsonBuilder()
-                    .setLenient()
-                    .create()
-                retrofit=Retrofit.Builder()
-                    .baseUrl(API_BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .build()
-            }
-            return retrofit
-        }*/
     }
 }

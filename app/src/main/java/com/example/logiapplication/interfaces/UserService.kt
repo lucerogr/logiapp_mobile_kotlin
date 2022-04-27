@@ -13,10 +13,7 @@ interface UserService {
 
     @GET("buscarUsers/{codigo}")
     fun getUser(@Path("codigo") id: Int): Call<User>
-    /*@GET("Usersdata")
-    fun login(@Query("userUsername") userUsername: String,
-              @Query("userPassword") userPassword: String): Call<List<User>>
-     */
+
     @GET("buscarRoles/{codigo}")
     fun getRolesByUserId(@Path("codigo") id: Int): Call<Array<Any?>?>
 

@@ -1,7 +1,6 @@
 package com.example.logiapplication.models
 
 import android.text.format.DateFormat
-import com.example.logiapplication.DateTimeConversions
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.fasterxml.jackson.databind.ser.std.DateSerializer

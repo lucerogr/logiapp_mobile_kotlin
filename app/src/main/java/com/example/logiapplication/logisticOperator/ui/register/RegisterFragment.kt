@@ -96,14 +96,6 @@ class RegisterFragment : Fragment() {
     private val binding get() = _binding!!
     lateinit var nextButton : Button
 
-    /*override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //RECUPERAR ID DEL USUARIO DESDE EL ACTIVITY
-        if(arguments != null) {
-            getOperatorCodigo = arguments?.getInt(LogisticMainActivity.UserCodigo, 0)
-            println(getOperatorCodigo)
-        }
-    }*/
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

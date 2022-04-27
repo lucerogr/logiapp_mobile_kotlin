@@ -17,7 +17,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.logiapplication.LoginActivity
 import com.example.logiapplication.R
+import com.example.logiapplication.carrier.ui.profile.ProfileFragment
+import com.example.logiapplication.client.ui.profile.ClientProfileFragment
 import com.example.logiapplication.databinding.CarrierActivityMainBinding
+import com.example.logiapplication.logisticOperator.LogisticMainActivity
 import com.google.android.material.navigation.NavigationView
 
 
@@ -27,7 +30,17 @@ class CarrierMainActivity : AppCompatActivity() {
     private lateinit var binding: CarrierActivityMainBinding
 
     lateinit var nameUser : TextView
+    var userCodigo : Int = 0
+    lateinit var name : String
+    lateinit var lastName : String
+    lateinit var birthDate : String
+    lateinit var email : String
     lateinit var sharedPreferences: SharedPreferences
+
+    companion object {
+        var UserCodigo ="userCodigo"
+        var EmailU = "email"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +69,27 @@ class CarrierMainActivity : AppCompatActivity() {
         val headerView: View = navView.getHeaderView(0)
         nameUser = headerView.findViewById(R.id.nameAndLastNameTextC)
         nameUser.text = sharedPreferences.getString(LoginActivity.FirstName, null)
+
+        //RECUPERAR INFO DEL USUARIO DESDE EL LOGIN
+        userCodigo = intent.getIntExtra("UserId", 0)
+        name = intent.getStringExtra(LoginActivity.Name).toString()
+        lastName = intent.getStringExtra(LoginActivity.LastName).toString()
+        birthDate = intent.getStringExtra(LoginActivity.DateBirth).toString()
+        email = intent.getStringExtra(LoginActivity.Email).toString()
+
+        //println(userCodigo)
+        val bundle = Bundle()
+        val carrierProfileFragment = ProfileFragment()
+        bundle.putString(LoginActivity.Name, name)
+        bundle.putString(LoginActivity.LastName, lastName)
+        bundle.putString(LoginActivity.DateBirth, birthDate)
+        bundle.putString(LogisticMainActivity.EmailU, email)
+        carrierProfileFragment.arguments = bundle
+
+        //println(registerFragment.arguments)
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.add(R.id.profile_frag, carrierProfileFragment)
+        transaction.commit()
 
     }
 
