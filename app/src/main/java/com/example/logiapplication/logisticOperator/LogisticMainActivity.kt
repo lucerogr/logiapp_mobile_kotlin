@@ -70,36 +70,6 @@ class LogisticMainActivity : AppCompatActivity() {
         val editor: SharedPreferences.Editor=sharedPreferences.edit()
         editor.putInt(UserCodigo, userCodigo)
         editor.apply()
-
-        /*//RECUPERAR INFO DEL USUARIO DESDE EL LOGIN
-        userCodigo = intent.getIntExtra("UserId", 0)
-        name = intent.getStringExtra(Name).toString()
-        lastName = intent.getStringExtra(LastName).toString()
-        birthDate = intent.getStringExtra(DateBirth).toString()
-        email = intent.getStringExtra(Email).toString()
-
-        //println(userCodigo)
-        /*val bundle = Bundle()
-        val logisticProfileFragment = LogisticProfileFragment()
-        bundle.putString(Name, name)
-        bundle.putString(LastName, lastName)
-        bundle.putString(DateBirth, birthDate)
-        bundle.putString(EmailU, email)
-        logisticProfileFragment.arguments = bundle
-
-        //println(registerFragment.arguments)
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.logistic_profile_frag, logisticProfileFragment)
-        transaction.commit()*/
-
-        //MANDAR ID DEL USUARIO A NEXTREGISTER ACTIVITY
-        val editor: SharedPreferences.Editor=sharedPreferences.edit()
-        editor.putInt(UserCodigo, userCodigo)
-        editor.putString(Name, name)
-        editor.putString(LastName, lastName)
-        editor.putString(DateBirth, birthDate)
-        editor.putString(Email, email)
-        editor.apply()*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

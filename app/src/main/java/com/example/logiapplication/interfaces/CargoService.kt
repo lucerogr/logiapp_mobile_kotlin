@@ -17,4 +17,13 @@ interface CargoService {
 
     @GET("buscarCargo/{codigo}")
     fun getCargo(@Path("codigo") id: Int): Call<Cargo>
+
+    @GET("buscarCargoporCliente/{codigo}")
+    fun getCargoByClient(@Path("codigo") id: Int): Call<List<Cargo>>
+
+    @GET("buscarCargoporConductor/{codigo}")
+    fun getCargoByCarrier(@Path("codigo") id: Int): Call<List<Cargo>>
+
+    @GET("buscarCargoporOperador/{codigo}")
+    fun getCargoByOperator(@Path("codigo") id: Int): Call<List<Cargo>>
 }

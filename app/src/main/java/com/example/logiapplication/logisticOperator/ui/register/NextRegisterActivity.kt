@@ -271,9 +271,6 @@ class NextRegisterActivity : AppCompatActivity() {
                                                                                                                                                                 Toast.makeText(applicationContext, "Error al registrar los productos de la carga", Toast.LENGTH_SHORT).show()
                                                                                                                                                             }
                                                                                                                                                         }
-
-                                                                                                                                                        //val getCargoCodigo = jsonObjectC.getInt("codigo")
-
                                                                                                                                                     }
                                                                                                                                                     catch (ex: JSONException){
                                                                                                                                                         ex.printStackTrace()
@@ -401,7 +398,7 @@ class NextRegisterActivity : AppCompatActivity() {
         )
         tv0.text = " Agregar "
         tv0.setTextColor(Color.BLACK)
-        tv0.setBackgroundColor(Color.GRAY)
+        tv0.setBackgroundColor(Color.LTGRAY)
         tv0.gravity = Gravity.CENTER
         row0.addView(tv0)
 
@@ -413,7 +410,7 @@ class NextRegisterActivity : AppCompatActivity() {
         )
         tv1.text = " Producto "
         tv1.setTextColor(Color.BLACK)
-        tv1.setBackgroundColor(Color.GRAY)
+        tv1.setBackgroundColor(Color.LTGRAY)
         tv1.gravity = Gravity.CENTER
         row0.addView(tv1)
 
@@ -425,7 +422,7 @@ class NextRegisterActivity : AppCompatActivity() {
         )
         tv2.text = " Nº Jabas "
         tv2.setTextColor(Color.BLACK)
-        tv2.setBackgroundColor(Color.GRAY)
+        tv2.setBackgroundColor(Color.LTGRAY)
         tv2.gravity = Gravity.CENTER
         row0.addView(tv2)
         table.addView(row0)
@@ -475,16 +472,6 @@ class NextRegisterActivity : AppCompatActivity() {
             tbrow.addView(t2v)
             table.addView(tbrow)
         }
-
-
-        /*for (i in 0 until table.childCount-1) {
-            val rowTable = table.getChildAt(i+1) as TableRow
-            val itemTable = rowTable.getChildAt(0) as CheckBox
-            val itemThirdTable = rowTable.getChildAt(2) as AutoCompleteTextView
-            if (itemTable.isChecked) {
-                itemThirdTable.inputType = InputType.TYPE_CLASS_TEXT
-            }
-        }*/
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.

@@ -123,123 +123,117 @@
 
     <TextView
         android:id="@+id/tv_family_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Frutos rojos"
+        android:layout_width="130dp"
+        android:layout_height="28dp"
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tv_camion_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.689"
+        app:layout_constraintHorizontal_bias="0.825"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.941" />
+        app:layout_constraintVertical_bias="0.939" />
 
     <TextView
         android:id="@+id/tv_camion_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="321QWE"
+        android:layout_width="130dp"
+        android:layout_height="28dp"
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tv_carrier_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.641"
+        app:layout_constraintHorizontal_bias="0.825"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.936" />
 
     <TextView
         android:id="@+id/tv_carrier_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hugo Maduro"
+        android:layout_width="130dp"
+        android:layout_height="28dp"
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tv_client_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.717"
+        app:layout_constraintHorizontal_bias="0.825"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.957" />
+        app:layout_constraintVertical_bias="0.956" />
 
     <TextView
         android:id="@+id/tv_client_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Jose Wong"
+        android:layout_width="130dp"
+        android:layout_height="28dp"
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tv_fecha_recojo_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.676"
+        app:layout_constraintHorizontal_bias="0.825"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.948" />
 
     <TextView
         android:id="@+id/tv_fecha_recojo_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="04/05/2022"
+        android:layout_width="130dp"
+        android:layout_height="28dp"
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tv_hora_recojo_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.687"
+        app:layout_constraintHorizontal_bias="0.825"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.954" />
+        app:layout_constraintVertical_bias="0.952" />
 
     <TextView
         android:id="@+id/tv_hora_recojo_text"
         android:layout_width="130dp"
         android:layout_height="28dp"
-        android:text="15:00"
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tv_lugar_recojo_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.797"
+        app:layout_constraintHorizontal_bias="0.825"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
+        app:layout_constraintVertical_bias="0.975" />
 
     <TextView
         android:id="@+id/tv_lugar_recojo_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Granja Ramirez, Ica"
+        android:layout_width="130dp"
+        android:layout_height="28dp"
+        android:textAlignment="viewStart"
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tv_lugar_entrega_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.826"
+        app:layout_constraintHorizontal_bias="0.825"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.965" />
+        app:layout_constraintVertical_bias="0.964" />
 
     <TextView
         android:id="@+id/tv_lugar_entrega_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Wong San Isidro"
+        android:layout_width="130dp"
+        android:layout_height="28dp"
+        android:textAlignment="viewStart"
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.761"
+        app:layout_constraintHorizontal_bias="0.825"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.565" />
+        app:layout_constraintVertical_bias="0.605" />
 
     <Button
         android:id="@+id/btn_back"
@@ -258,118 +252,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
-        android:background="@color/gray"
+        android:background="@color/third_gray"
         android:paddingTop="1dp"
-        android:stretchColumns="0"
+        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/btn_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_lugar_entrega">
 
-        <TableRow
-            android:background="@color/gray"
-            android:paddingRight="1dp"
-            android:paddingBottom="1dp">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="1dp"
-                android:layout_weight="1.5"
-                android:background="@color/third_gray"
-                android:gravity="center_horizontal"
-                android:padding="5dp"
-                android:text="Producto"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.5"
-                android:background="@color/third_gray"
-                android:gravity="center_horizontal"
-                android:padding="5dp"
-                android:text="Nº Jabas"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-        </TableRow>
-
-        <TableRow
-            android:background="@color/gray"
-            android:paddingRight="1dp"
-            android:paddingBottom="1dp"
-            tools:layout_editor_absoluteX="40dp"
-            tools:layout_editor_absoluteY="517dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="1dp"
-                android:layout_weight="1.5"
-                android:background="@color/white"
-                android:gravity="center_horizontal"
-                android:padding="5dp"
-                android:text="Fresas"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                tools:layout_editor_absoluteX="40dp"
-                tools:layout_editor_absoluteY="517dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.5"
-                android:background="@color/white"
-                android:gravity="center_horizontal"
-                android:padding="5dp"
-                android:text="25"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                tools:layout_editor_absoluteX="205dp"
-                tools:layout_editor_absoluteY="517dp" />
-        </TableRow>
-
-        <TableRow
-            android:background="@color/gray"
-            android:paddingRight="1dp"
-            android:paddingBottom="1dp"
-            tools:layout_editor_absoluteX="40dp"
-            tools:layout_editor_absoluteY="548dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="1dp"
-                android:layout_weight="1.5"
-                android:background="@color/white"
-                android:gravity="center_horizontal"
-                android:padding="5dp"
-                android:text="Arandanos"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                tools:layout_editor_absoluteX="40dp"
-                tools:layout_editor_absoluteY="548dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.5"
-                android:background="@color/white"
-                android:gravity="center_horizontal"
-                android:padding="5dp"
-                android:text="60"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                tools:layout_editor_absoluteX="205dp"
-                tools:layout_editor_absoluteY="548dp" />
-        </TableRow>
     </TableLayout>
 
     <TextView
         android:id="@+id/tv_cargo_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CARGO-001"
+        android:layout_width="130dp"
+        android:layout_height="28dp"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="20sp"
