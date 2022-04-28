@@ -17,14 +17,10 @@ import com.example.logiapplication.R
 import com.example.logiapplication.RetrofitClients
 import com.example.logiapplication.databinding.LogisticViewRegisterCargoActivityBinding
 import com.example.logiapplication.interfaces.CargoService
-import com.example.logiapplication.interfaces.PersonService
 import com.example.logiapplication.interfaces.ProductCargoService
-import com.example.logiapplication.interfaces.ProductService
 import com.example.logiapplication.logisticOperator.LogisticMainActivity
 import com.example.logiapplication.logisticOperator.ui.followup.FollowUpFragment.Companion.CARGA_ID
 import com.example.logiapplication.models.Cargo
-import com.example.logiapplication.models.FamilyProduct
-import com.example.logiapplication.models.Product
 import com.example.logiapplication.models.ProductCargo
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
@@ -124,40 +120,10 @@ class ViewRegisterCargoActivity:AppCompatActivity() {
                                             getCrates = productCargoObject.productCargoCrates
                                             getProductId = productCargoObject.producto.codigo
                                             getProductName = productCargoObject.producto.productName
-                                            //getProductCargoId=jsonObjectP.getInt("codigo")
-                                            //getCrates=jsonObjectP.getString("productCargoCrates")
                                             listProductId.add(getProductId)
                                             listProductName.add(getProductName)
                                             listCrates.add(getCrates)
-                                            //println(getProductId)
-                                            //println(getCrates)
-                                            /*val productService: ProductService = RetrofitClients.getUsersClient().create(ProductService::class.java)
-                                            productService.getProduct(getProductId).enqueue(object : Callback<Product>{
-                                                override fun onResponse(call: Call<Product>, response: Response<Product>) {
-                                                    if(response.isSuccessful) {
-                                                        Log.i("Success", response.body().toString())
-                                                        try {
-                                                            val product: Product? = response.body()
-                                                            val jsonObjectProduct = JSONObject(Gson().toJson(product))
-                                                            val productObject = Gson().fromJson(jsonObjectProduct.toString(), Product::class.java)
-                                                            getProductName = productObject.productName
-                                                            listProductName.add(getProductName)
-                                                            println(getProductName)
-
-                                                        }
-                                                        catch (ex: JSONException){
-                                                            ex.printStackTrace()
-                                                        }
-                                                    }
-                                                }
-                                                override fun onFailure(call: Call<Product>, t: Throwable) {
-                                                    Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT).show()
-                                                }
-                                            })*/
                                         }
-                                        /*println(listProductId.size)
-                                        println(listProductName.size)
-                                        println(listCrates.size)*/
                                         init()
 
                                     }

@@ -29,7 +29,7 @@ class ModifyCargoActivity:AppCompatActivity() {
         nextButton = binding.root.findViewById(R.id.btn_next_register)
 
         nextButton.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this, NextRegisterActivity::class.java)
+            val intent = Intent(this, ModifyProductsActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             startActivity(intent)
         })

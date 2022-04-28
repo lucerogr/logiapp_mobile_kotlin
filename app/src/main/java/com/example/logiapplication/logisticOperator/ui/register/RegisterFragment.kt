@@ -1,6 +1,5 @@
 package com.example.logiapplication.logisticOperator.ui.register
 
-import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.app.TimePickerDialog

@@ -68,7 +68,7 @@ class CarrierMainActivity : AppCompatActivity() {
         //RECUPERAR INFO DEL USUARIO DESDE EL LOGIN
         userCodigo = intent.getIntExtra("UserId", 0)
         val editor: SharedPreferences.Editor=sharedPreferences.edit()
-        editor.putInt(LogisticMainActivity.UserCodigo, userCodigo)
+        editor.putInt(UserCodigo, userCodigo)
         editor.apply()
 
     }
