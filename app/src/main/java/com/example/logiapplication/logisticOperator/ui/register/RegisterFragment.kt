@@ -147,12 +147,18 @@ class RegisterFragment : Fragment() {
                         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, listFamilyProduct)
                         familiaProducto.setAdapter(arrayAdapter)
                         familiaProducto.setOnItemClickListener { parent, view, position, id ->
-                            for(i in listFamilyProductId) {
+                            /*for(i in listFamilyProductId) {
                                 if(position+1 == i){
                                     getFamilyProductSelected = position + 1
                                     getFamilyProductNameSelected = listFamilyProduct[position]
                                     println(getFamilyProductNameSelected)
 
+                                }
+                            }*/
+                            for (i in 0 until listFamilyProductId.size) {
+                                if (position == i) {
+                                    getFamilyProductSelected = listFamilyProductId[i]
+                                    getFamilyProductNameSelected = listFamilyProduct[i]
                                 }
                             }
                         }
@@ -199,10 +205,9 @@ class RegisterFragment : Fragment() {
                         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, listTruckPlate)
                         camion.setAdapter(arrayAdapter)
                         camion.setOnItemClickListener { parent, view, position, id ->
-                            for(i in listTrucktId) {
-                                if(position+1 == i){
-                                    getTruckSelected = position+1
-                                    //println(getTruckSelected)
+                            for (i in 0 until listTrucktId.size) {
+                                if (position == i) {
+                                    getTruckSelected = listTrucktId[i]
                                 }
                             }
                         }
@@ -422,7 +427,6 @@ class RegisterFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-    //@SuppressLint("SimpleDateFormat")
     private fun updateLabel() {
         val myFormat = "yyyy-MM-dd"
         val dateFormat = SimpleDateFormat(myFormat)

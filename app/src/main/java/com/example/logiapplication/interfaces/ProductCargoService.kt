@@ -16,4 +16,7 @@ interface ProductCargoService {
 
     @GET("buscarProductoCargoPorCargo/{codigo}")
     fun getProductCargoByCargoId(@Path("codigo") id: Int): Call<List<ProductCargo>>
+
+    @POST("actualizarProductCargo/{codigo}")
+    fun updateProductCargo(@Body productCargoData: ProductCargo, @Path("codigo") id: Int): Call<ProductCargo>
 }

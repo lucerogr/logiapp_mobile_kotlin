@@ -13,11 +13,10 @@
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="203dp" />
 
-    <TextView
-        android:id="@+id/tv_cargo_number"
+    <EditText
+        android:id="@+id/tv_cargo_number_L"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CARGO-001"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="22sp"
@@ -30,141 +29,140 @@
         app:layout_constraintVertical_bias="0.106" />
 
     <TextView
-        android:id="@+id/tv_family"
+        android:id="@+id/tv_family_L"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Familia de producto:"
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/familyTextInput"
-        app:layout_constraintEnd_toStartOf="@+id/familyTextInput"
+        app:layout_constraintBaseline_toBaselineOf="@+id/familyTextInput_L"
+        app:layout_constraintEnd_toStartOf="@+id/familyTextInput_L"
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/tv_hora_recojo"
+        android:id="@+id/tv_hora_recojo_L"
         android:layout_width="130dp"
         android:layout_height="28dp"
         android:text="Hora de recojo:"
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/horaRecojoTextInput"
-        app:layout_constraintEnd_toStartOf="@+id/horaRecojoTextInput"
+        app:layout_constraintBaseline_toBaselineOf="@+id/horaRecojoTextInput_L"
+        app:layout_constraintEnd_toStartOf="@+id/horaRecojoTextInput_L"
         app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/tv_lugar_recojo"
+        android:id="@+id/tv_lugar_recojo_L"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lugar de recojo:"
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/lugarRecojoTextInput"
-        app:layout_constraintEnd_toStartOf="@+id/lugarRecojoTextInput"
+        app:layout_constraintBaseline_toBaselineOf="@+id/lugarRecojoTextInput_L"
+        app:layout_constraintEnd_toStartOf="@+id/lugarRecojoTextInput_L"
         app:layout_constraintHorizontal_bias="0.311"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/tv_carrier"
+        android:id="@+id/tv_carrier_L"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Transportista:"
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/carrierTextInput"
-        app:layout_constraintEnd_toStartOf="@+id/carrierTextInput"
+        app:layout_constraintBaseline_toBaselineOf="@+id/carrierTextInput_L"
+        app:layout_constraintEnd_toStartOf="@+id/carrierTextInput_L"
         app:layout_constraintHorizontal_bias="0.26"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/tv_lugar_entrega"
+        android:id="@+id/tv_lugar_entrega_L"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lugar de entrega:"
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/lugarEntregaTextInput"
-        app:layout_constraintEnd_toStartOf="@+id/lugarEntregaTextInput"
+        app:layout_constraintBaseline_toBaselineOf="@+id/lugarEntregaTextInput_L"
+        app:layout_constraintEnd_toStartOf="@+id/lugarEntregaTextInput_L"
         app:layout_constraintHorizontal_bias="0.358"
         app:layout_constraintStart_toStartOf="parent" />
 
 
     <TextView
-        android:id="@+id/tv_client"
+        android:id="@+id/tv_client_L"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cliente:"
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/clientTextInput"
-        app:layout_constraintEnd_toStartOf="@+id/clientTextInput"
+        app:layout_constraintBaseline_toBaselineOf="@+id/clientTextInput_L"
+        app:layout_constraintEnd_toStartOf="@+id/clientTextInput_L"
         app:layout_constraintHorizontal_bias="0.202"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/tv_fecha_recojo"
+        android:id="@+id/tv_fecha_recojo_L"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Fecha de recojo:"
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fechaRecojoTextInput"
-        app:layout_constraintEnd_toStartOf="@+id/fechaRecojoTextInput"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fechaRecojoTextInput_L"
+        app:layout_constraintEnd_toStartOf="@+id/fechaRecojoTextInput_L"
         app:layout_constraintHorizontal_bias="0.293"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/tv_camion"
+        android:id="@+id/tv_camion_L"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Camión:"
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/cargoTextInput"
-        app:layout_constraintEnd_toStartOf="@+id/cargoTextInput"
+        app:layout_constraintBaseline_toBaselineOf="@+id/cargoTextInput_L"
+        app:layout_constraintEnd_toStartOf="@+id/cargoTextInput_L"
         app:layout_constraintHorizontal_bias="0.179"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/familyTextInput"
+        android:id="@+id/familyTextInput_L"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="200dp"
         android:layout_height="57dp"
         android:layout_marginTop="10dp"
         app:boxStrokeErrorColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/cargoTextInput"
+        app:layout_constraintBottom_toTopOf="@+id/cargoTextInput_L"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.919"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_cargo_number"
+        app:layout_constraintTop_toBottomOf="@+id/tv_cargo_number_L"
         app:layout_constraintVertical_bias="1.0">
 
         <AutoCompleteTextView
-            android:id="@+id/familyAutoComplete"
+            android:id="@+id/familyAutoComplete_L"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"
-            android:text=" "
             android:textColor="#000000"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/carrierTextInput"
+        android:id="@+id/carrierTextInput_L"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="200dp"
         android:layout_height="57dp"
         app:boxStrokeErrorColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/clientTextInput"
+        app:layout_constraintBottom_toTopOf="@+id/clientTextInput_L"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.919"
         app:layout_constraintStart_toStartOf="parent"
@@ -172,22 +170,21 @@
         app:layout_constraintVertical_bias="1.0">
 
         <AutoCompleteTextView
-            android:id="@+id/carrierAutoComplete"
+            android:id="@+id/carrierAutoComplete_L"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"
-            android:text=" "
             android:textColor="#000000"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/lugarEntregaTextInput"
+        android:id="@+id/lugarEntregaTextInput_L"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="200dp"
         android:layout_height="57dp"
         app:boxStrokeErrorColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/btn_cancel_register"
+        app:layout_constraintBottom_toTopOf="@+id/btn_cancel_register_L"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.919"
         app:layout_constraintStart_toStartOf="parent"
@@ -195,33 +192,33 @@
         app:layout_constraintVertical_bias="0.964">
 
         <AutoCompleteTextView
-            android:id="@+id/lugarEntregaAutoComplete"
+            android:id="@+id/lugarEntregaAutoComplete_L"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text=" "
+            android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btn_next_register"
+        android:id="@+id/btn_next_register_L"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Siguiente"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_cancel_register"
+        app:layout_constraintEnd_toStartOf="@+id/btn_cancel_register_L"
         app:layout_constraintHorizontal_bias="0.648"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.939" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/clientTextInput"
+        android:id="@+id/clientTextInput_L"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="200dp"
         android:layout_height="57dp"
         app:boxStrokeErrorColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/fechaRecojoTextInput"
+        app:layout_constraintBottom_toTopOf="@+id/fechaRecojoTextInput_L"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.919"
         app:layout_constraintStart_toStartOf="parent"
@@ -229,22 +226,21 @@
         app:layout_constraintVertical_bias="1.0">
 
         <AutoCompleteTextView
-            android:id="@+id/clientAutoComplete"
+            android:id="@+id/clientAutoComplete_L"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"
-            android:text=" "
             android:textColor="#000000"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/lugarRecojoTextInput"
+        android:id="@+id/lugarRecojoTextInput_L"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="200dp"
         android:layout_height="57dp"
         app:boxStrokeErrorColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/lugarEntregaTextInput"
+        app:layout_constraintBottom_toTopOf="@+id/lugarEntregaTextInput_L"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.919"
         app:layout_constraintStart_toStartOf="parent"
@@ -252,21 +248,21 @@
         app:layout_constraintVertical_bias="1.0">
 
         <AutoCompleteTextView
-            android:id="@+id/lugarRecojoAutoComplete"
+            android:id="@+id/lugarRecojoAutoComplete_L"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text=" "
+            android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/cargoTextInput"
+        android:id="@+id/cargoTextInput_L"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="200dp"
         android:layout_height="57dp"
         app:boxStrokeErrorColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/carrierTextInput"
+        app:layout_constraintBottom_toTopOf="@+id/carrierTextInput_L"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.919"
         app:layout_constraintStart_toStartOf="parent"
@@ -274,22 +270,21 @@
         app:layout_constraintVertical_bias="1.0">
 
         <AutoCompleteTextView
-            android:id="@+id/camionAutoComplete"
+            android:id="@+id/camionAutoComplete_L"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"
-            android:text=" "
             android:textColor="#000000"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/fechaRecojoTextInput"
+        android:id="@+id/fechaRecojoTextInput_L"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="200dp"
         android:layout_height="57dp"
         app:boxStrokeErrorColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/horaRecojoTextInput"
+        app:layout_constraintBottom_toTopOf="@+id/horaRecojoTextInput_L"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.919"
         app:layout_constraintStart_toStartOf="parent"
@@ -297,16 +292,17 @@
         app:layout_constraintVertical_bias="1.0">
 
         <AutoCompleteTextView
-            android:id="@+id/fechaRecojoAutoComplete"
+            android:id="@+id/fechaRecojoAutoComplete_L"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text=" "
+            android:inputType="none"
+            android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btn_cancel_register"
+        android:id="@+id/btn_cancel_register_L"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cancelar"
@@ -318,12 +314,12 @@
         app:layout_constraintVertical_bias="0.939" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/horaRecojoTextInput"
+        android:id="@+id/horaRecojoTextInput_L"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="200dp"
         android:layout_height="57dp"
         app:boxStrokeErrorColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/lugarRecojoTextInput"
+        app:layout_constraintBottom_toTopOf="@+id/lugarRecojoTextInput_L"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.919"
         app:layout_constraintStart_toStartOf="parent"
@@ -331,10 +327,11 @@
         app:layout_constraintVertical_bias="1.0">
 
         <AutoCompleteTextView
-            android:id="@+id/horaRecojoAutoComplete"
+            android:id="@+id/horaRecojoAutoComplete_L"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text=" "
+            android:inputType="none"
+            android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>

@@ -26,4 +26,9 @@ interface CargoService {
 
     @GET("buscarCargoporOperador/{codigo}")
     fun getCargoByOperator(@Path("codigo") id: Int): Call<List<Cargo>>
+
+    @POST("actualizarCargo/{codigo}")
+    fun updateCargo(@Body cargoData: Cargo, @Path("codigo") id: Int): Call<Cargo>
+
+
 }

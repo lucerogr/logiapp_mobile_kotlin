@@ -360,7 +360,6 @@ class NextRegisterActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "a", Toast.LENGTH_SHORT).show()
             }
         })
-        //println(truckObject.codigo)
     }
     fun addCargo(cargoData: Cargo, onResult: (Cargo?) -> Unit){
         val cargoService: CargoService = RetrofitClients.getUsersClient().create(CargoService::class.java)
