@@ -31,15 +31,10 @@ class CarrierMainActivity : AppCompatActivity() {
 
     lateinit var nameUser : TextView
     var userCodigo : Int = 0
-    lateinit var name : String
-    lateinit var lastName : String
-    lateinit var birthDate : String
-    lateinit var email : String
     lateinit var sharedPreferences: SharedPreferences
 
     companion object {
         var UserCodigo ="userCodigo"
-        var EmailU = "email"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,24 +67,9 @@ class CarrierMainActivity : AppCompatActivity() {
 
         //RECUPERAR INFO DEL USUARIO DESDE EL LOGIN
         userCodigo = intent.getIntExtra("UserId", 0)
-        name = intent.getStringExtra(LoginActivity.Name).toString()
-        lastName = intent.getStringExtra(LoginActivity.LastName).toString()
-        birthDate = intent.getStringExtra(LoginActivity.DateBirth).toString()
-        email = intent.getStringExtra(LoginActivity.Email).toString()
-
-        //println(userCodigo)
-        val bundle = Bundle()
-        val carrierProfileFragment = ProfileFragment()
-        bundle.putString(LoginActivity.Name, name)
-        bundle.putString(LoginActivity.LastName, lastName)
-        bundle.putString(LoginActivity.DateBirth, birthDate)
-        bundle.putString(LogisticMainActivity.EmailU, email)
-        carrierProfileFragment.arguments = bundle
-
-        //println(registerFragment.arguments)
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.profile_frag, carrierProfileFragment)
-        transaction.commit()
+        val editor: SharedPreferences.Editor=sharedPreferences.edit()
+        editor.putInt(LogisticMainActivity.UserCodigo, userCodigo)
+        editor.apply()
 
     }
 

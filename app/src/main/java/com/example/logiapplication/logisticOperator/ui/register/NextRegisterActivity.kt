@@ -29,6 +29,7 @@ import com.example.logiapplication.logisticOperator.ui.register.RegisterFragment
 import com.example.logiapplication.logisticOperator.ui.register.RegisterFragment.Companion.HORA_RECOJO
 import com.example.logiapplication.logisticOperator.ui.register.RegisterFragment.Companion.LUGAR_ENTREGA
 import com.example.logiapplication.logisticOperator.ui.register.RegisterFragment.Companion.LUGAR_RECOJO
+import com.example.logiapplication.logisticOperator.ui.register.RegisterFragment.Companion.NOMBRE_CARGA
 import com.example.logiapplication.logisticOperator.ui.register.RegisterFragment.Companion.TRUCK_ID
 import com.example.logiapplication.models.*
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -63,9 +64,11 @@ class NextRegisterActivity : AppCompatActivity() {
     lateinit var getHoraRecojo : String
     lateinit var getLugarRecojo : String
     lateinit var getLugarEntrega : String
+    lateinit var getNombreCarga : String
 
     lateinit var botonRegistrar : Button
     lateinit var botonRegistrarProductos : Button
+    lateinit var tv_nombre_carga : TextView
 
     var truckObject : Truck = Truck(0, "", "", 0, 0, 0)
 
@@ -88,6 +91,7 @@ class NextRegisterActivity : AppCompatActivity() {
         botonRegistrar = binding.root.findViewById(R.id.btn_register_cargo)
         botonRegistrarProductos = binding.root.findViewById(R.id.btn_register_products)
         table = binding.root.findViewById(R.id.add_product_table)
+        tv_nombre_carga = binding.root.findViewById(R.id.tv_cargo_nro)
 
         //es del person
         getOperatorCodigo = sharedPreferences.getInt(UserCodigo, 0)
@@ -100,10 +104,13 @@ class NextRegisterActivity : AppCompatActivity() {
         getHoraRecojo = intent.getStringExtra(HORA_RECOJO).toString()
         getLugarRecojo = intent.getStringExtra(LUGAR_RECOJO).toString()
         getLugarEntrega = intent.getStringExtra(LUGAR_ENTREGA).toString()
+        getNombreCarga = intent.getStringExtra(NOMBRE_CARGA).toString()
+
 
         //FAMILIA DE PRODUCTO
         tvFamily = binding.root.findViewById(R.id.tv_family_name)
         tvFamily.text = getFamilyProductName
+        tv_nombre_carga.text = getNombreCarga
 
         //DURACION INICIAL
         val duracionInicial = "00:00"
@@ -178,7 +185,7 @@ class NextRegisterActivity : AppCompatActivity() {
                                                                                                         val jsonObjectOperator = JSONObject(Gson().toJson(operator))
                                                                                                         val operatorObject = Gson().fromJson(jsonObjectOperator.toString(), Person::class.java)
                                                                                                         val cargoData = Cargo(  codigo = null,
-                                                                                                            cargoName = "test",
+                                                                                                            cargoName = tv_nombre_carga.text.toString(),
                                                                                                             cargoDate = getFechaRecojo,
                                                                                                             cargoHour = getHoraRecojo,
                                                                                                             cargoInitialUbication = getLugarRecojo,
@@ -186,7 +193,6 @@ class NextRegisterActivity : AppCompatActivity() {
                                                                                                             cargoStatus = "Registrado",
                                                                                                             cargoRouteDuration = duracionInicial,
                                                                                                             cargoRouteStatus = "Correcto",
-                                                                                                            //array de un user
                                                                                                             camion = truckObject,
                                                                                                             famproducto = familyProductObject,
                                                                                                             personClientId = clientObject,
@@ -198,8 +204,6 @@ class NextRegisterActivity : AppCompatActivity() {
                                                                                                         botonRegistrar.setOnClickListener(View.OnClickListener{
                                                                                                             addCargo(cargoData) {
                                                                                                                 if (it?.codigo != null) {
-                                                                                                                    // it = newly added user parsed as response
-                                                                                                                    // it?.id = newly added user ID
                                                                                                                     Toast.makeText(applicationContext, "Se registró la carga. Ahora registre los productos", Toast.LENGTH_SHORT).show()
 
                                                                                                                 } else {
@@ -207,11 +211,10 @@ class NextRegisterActivity : AppCompatActivity() {
                                                                                                                 }
                                                                                                             }
                                                                                                             botonRegistrar.isVisible=false
-                                                                                                            //HASTA ACA SI VA
+
                                                                                                             botonRegistrarProductos.setOnClickListener(View.OnClickListener{
                                                                                                                 val contador = ArrayList<Int>()
                                                                                                                 val texto = ArrayList<String>()
-                                                                                                                //var rowTable: TableRow
                                                                                                                 for (i in 0 until table.childCount-1) {
                                                                                                                     tableRow = table.getChildAt(i+1) as TableRow
                                                                                                                     itemTableCheckBox = tableRow.getChildAt(0) as CheckBox
@@ -222,75 +225,80 @@ class NextRegisterActivity : AppCompatActivity() {
                                                                                                                         texto.add(crates.text.toString())
                                                                                                                     }
                                                                                                                 }
-                                                                                                                for (i in contador) {
-                                                                                                                    // ingresar al producto id
-                                                                                                                    //Toast.makeText(applicationContext,listProductId[i] .toString(), Toast.LENGTH_LONG).show()
-                                                                                                                    productService.getProduct(listProductId[i]).enqueue(object : Callback<Product>{
-                                                                                                                        override fun onResponse(call: Call<Product>, response: Response<Product>) {
-                                                                                                                            if(response.isSuccessful) {
-                                                                                                                                Log.i("Success", response.body().toString())
-                                                                                                                                try {
-                                                                                                                                    val product: Product? = response.body()
-                                                                                                                                    val jsonObjectProduct = JSONObject(Gson().toJson(product))
-                                                                                                                                    val productObject = Gson().fromJson(jsonObjectProduct.toString(), Product::class.java)
-                                                                                                                                    val cargoService: CargoService = RetrofitClients.getUsersClient().create(CargoService::class.java)
-                                                                                                                                    //val listCargoId = ArrayList<Int>()
-                                                                                                                                    cargoService.getCargoList().enqueue(object : Callback<List<Cargo>>{
-                                                                                                                                        override fun onResponse(call: Call<List<Cargo>>, response: Response<List<Cargo>>) {
-                                                                                                                                            if(response.isSuccessful) {
-                                                                                                                                                Log.i("Success", response.body().toString())
-                                                                                                                                                try {
-                                                                                                                                                    //ARRAY DE ID DE CARG Y GET BY EL ULTIMO ID
-                                                                                                                                                    val mapperT = ObjectMapper()
-                                                                                                                                                    val listC: List<Cargo>? = response.body()
-                                                                                                                                                    val jsonArray1C: String = mapperT.writeValueAsString(listC)
-                                                                                                                                                    val jsonArrayC = JSONArray(jsonArray1C)
+                                                                                                                if(contador.size==0 ) {
+                                                                                                                    Toast.makeText(applicationContext, "Por favor seleccione los productos a registrar en la carga", Toast.LENGTH_LONG).show()
+                                                                                                                }
+                                                                                                                else {
+                                                                                                                    for (i in contador) {
+                                                                                                                        // ingresar al producto id
+                                                                                                                        //Toast.makeText(applicationContext,listProductId[i] .toString(), Toast.LENGTH_LONG).show()
+                                                                                                                        productService.getProduct(listProductId[i]).enqueue(object : Callback<Product>{
+                                                                                                                            override fun onResponse(call: Call<Product>, response: Response<Product>) {
+                                                                                                                                if(response.isSuccessful) {
+                                                                                                                                    Log.i("Success", response.body().toString())
+                                                                                                                                    try {
+                                                                                                                                        val product: Product? = response.body()
+                                                                                                                                        val jsonObjectProduct = JSONObject(Gson().toJson(product))
+                                                                                                                                        val productObject = Gson().fromJson(jsonObjectProduct.toString(), Product::class.java)
+                                                                                                                                        val cargoService: CargoService = RetrofitClients.getUsersClient().create(CargoService::class.java)
+                                                                                                                                        //val listCargoId = ArrayList<Int>()
+                                                                                                                                        cargoService.getCargoList().enqueue(object : Callback<List<Cargo>>{
+                                                                                                                                            override fun onResponse(call: Call<List<Cargo>>, response: Response<List<Cargo>>) {
+                                                                                                                                                if(response.isSuccessful) {
+                                                                                                                                                    Log.i("Success", response.body().toString())
+                                                                                                                                                    try {
+                                                                                                                                                        //ARRAY DE ID DE CARG Y GET BY EL ULTIMO ID
+                                                                                                                                                        val mapperT = ObjectMapper()
+                                                                                                                                                        val listC: List<Cargo>? = response.body()
+                                                                                                                                                        val jsonArray1C: String = mapperT.writeValueAsString(listC)
+                                                                                                                                                        val jsonArrayC = JSONArray(jsonArray1C)
 
-                                                                                                                                                    val jsonObjectC: JSONObject = jsonArrayC.getJSONObject(jsonArrayC.length()-1)
-                                                                                                                                                    val cargoObject = Gson().fromJson(jsonObjectC.toString(), Cargo::class.java)
+                                                                                                                                                        val jsonObjectC: JSONObject = jsonArrayC.getJSONObject(jsonArrayC.length()-1)
+                                                                                                                                                        val cargoObject = Gson().fromJson(jsonObjectC.toString(), Cargo::class.java)
 
-                                                                                                                                                    val productCargoData = ProductCargo (codigo = null,
-                                                                                                                                                        productCargoCrates = texto[i],
-                                                                                                                                                        cargo = cargoObject,
-                                                                                                                                                        producto = productObject
-                                                                                                                                                    )
-                                                                                                                                                    addProductCargo(productCargoData) {
-                                                                                                                                                        if (it?.codigo != null) {
-                                                                                                                                                            // it = newly added user parsed as response
-                                                                                                                                                            // it?.id = newly added user ID
-                                                                                                                                                            Toast.makeText(applicationContext, "Se registraron los productos de la carga", Toast.LENGTH_SHORT).show()
+                                                                                                                                                        val productCargoData = ProductCargo (codigo = null,
+                                                                                                                                                            productCargoCrates = texto[i],
+                                                                                                                                                            cargo = cargoObject,
+                                                                                                                                                            producto = productObject
+                                                                                                                                                        )
+                                                                                                                                                        addProductCargo(productCargoData) {
+                                                                                                                                                            if (it?.codigo != null) {
+                                                                                                                                                                // it = newly added user parsed as response
+                                                                                                                                                                // it?.id = newly added user ID
+                                                                                                                                                                Toast.makeText(applicationContext, "Se registraron los productos de la carga", Toast.LENGTH_SHORT).show()
 
-                                                                                                                                                        } else {
-                                                                                                                                                            Toast.makeText(applicationContext, "Error al registrar los productos de la carga", Toast.LENGTH_SHORT).show()
+                                                                                                                                                            } else {
+                                                                                                                                                                Toast.makeText(applicationContext, "Error al registrar los productos de la carga", Toast.LENGTH_SHORT).show()
+                                                                                                                                                            }
                                                                                                                                                         }
+
+                                                                                                                                                        //val getCargoCodigo = jsonObjectC.getInt("codigo")
+
                                                                                                                                                     }
-
-                                                                                                                                                    //val getCargoCodigo = jsonObjectC.getInt("codigo")
-
-                                                                                                                                                }
-                                                                                                                                                catch (ex: JSONException){
-                                                                                                                                                    ex.printStackTrace()
+                                                                                                                                                    catch (ex: JSONException){
+                                                                                                                                                        ex.printStackTrace()
+                                                                                                                                                    }
                                                                                                                                                 }
                                                                                                                                             }
-                                                                                                                                        }
-                                                                                                                                        override fun onFailure(call: Call<List<Cargo>>, t: Throwable) {
-                                                                                                                                            Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT).show()
-                                                                                                                                        }
-                                                                                                                                    })
+                                                                                                                                            override fun onFailure(call: Call<List<Cargo>>, t: Throwable) {
+                                                                                                                                                Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT).show()
+                                                                                                                                            }
+                                                                                                                                        })
 
 
 
-                                                                                                                                }
-                                                                                                                                catch (ex: JSONException){
-                                                                                                                                    ex.printStackTrace()
+                                                                                                                                    }
+                                                                                                                                    catch (ex: JSONException){
+                                                                                                                                        ex.printStackTrace()
+                                                                                                                                    }
                                                                                                                                 }
                                                                                                                             }
-                                                                                                                        }
-                                                                                                                        override fun onFailure(call: Call<Product>, t: Throwable) {
-                                                                                                                            Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT).show()
-                                                                                                                        }
-                                                                                                                    })
+                                                                                                                            override fun onFailure(call: Call<Product>, t: Throwable) {
+                                                                                                                                Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT).show()
+                                                                                                                            }
+                                                                                                                        })
 
+                                                                                                                    }
                                                                                                                 }
                                                                                                             })
                                                                                                         })

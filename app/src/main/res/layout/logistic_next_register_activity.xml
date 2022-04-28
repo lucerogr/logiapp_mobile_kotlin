@@ -18,7 +18,6 @@
         android:id="@+id/tv_cargo_nro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CARGO-001"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="22sp"

@@ -1,5 +1,7 @@
 package com.example.logiapplication.client.ui.profile
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,23 +25,13 @@ class ClientProfileFragment : Fragment() {
     lateinit var UserDate : TextView
     lateinit var UserEmail : TextView
 
+    lateinit var sharedPreferences : SharedPreferences
+
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        UserName = binding.root.findViewById(R.id.client_name)
-        UserLastName = binding.root.findViewById(R.id.client_last_name)
-        UserDate = binding.root.findViewById(R.id.client_date)
-        UserEmail = binding.root.findViewById(R.id.client_email)
-
-        val args = arguments
-        UserName.text = args?.getString(LoginActivity.Name)
-        UserLastName.text = args?.getString(LoginActivity.LastName)
-        UserDate.text = args?.getString(LoginActivity.DateBirth)
-        UserEmail.text = args?.getString(LoginActivity.Email)
-    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -51,6 +43,17 @@ class ClientProfileFragment : Fragment() {
         _binding = ClientFragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        sharedPreferences=requireActivity().getSharedPreferences(LoginActivity.SHARED_PREF_NAME, Context.MODE_PRIVATE)
+
+        UserName = binding.root.findViewById(R.id.client_name)
+        UserLastName = binding.root.findViewById(R.id.client_last_name)
+        UserDate = binding.root.findViewById(R.id.client_date)
+        UserEmail = binding.root.findViewById(R.id.client_email)
+
+        UserName.text = sharedPreferences.getString(LoginActivity.Name, null)
+        UserLastName.text = sharedPreferences.getString(LoginActivity.LastName, null)
+        UserDate.text = sharedPreferences.getString(LoginActivity.DateBirth, null)
+        UserEmail.text = sharedPreferences.getString(LoginActivity.Email, null)
 
         return root
     }

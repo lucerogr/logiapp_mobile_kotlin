@@ -45,6 +45,7 @@ class RegisterFragment : Fragment() {
         var HORA_RECOJO ="hora_recojo"
         var LUGAR_RECOJO ="lugar_recojo"
         var LUGAR_ENTREGA ="lugar_entrega"
+        var NOMBRE_CARGA = "nombre_carga"
     }
     private lateinit var registerViewModel: RegisterViewModel
     var getObjectFamilyProductId : Int = 0
@@ -83,6 +84,7 @@ class RegisterFragment : Fragment() {
     lateinit var horaRecojo : AutoCompleteTextView
     lateinit var lugarRecojo : AutoCompleteTextView
     lateinit var lugarEntrega : AutoCompleteTextView
+    lateinit var nombreCarga : EditText
 
     var getFamilyProductSelected : Int = 0
     var getTruckSelected : Int = 0
@@ -116,6 +118,7 @@ class RegisterFragment : Fragment() {
         horaRecojo = binding.root.findViewById(R.id.horaRecojoAutoComplete)
         lugarRecojo = binding.root.findViewById(R.id.lugarRecojoAutoComplete)
         lugarEntrega = binding.root.findViewById(R.id.lugarEntregaAutoComplete)
+        nombreCarga=binding.root.findViewById(R.id.tv_cargo_number)
 
 
         //FAMILIA DE PRODUCTO
@@ -393,7 +396,8 @@ class RegisterFragment : Fragment() {
                 || fechaRecojo.text.isEmpty()
                 || horaRecojo.text.isEmpty()
                 || lugarRecojo.text.isEmpty()
-                || lugarEntrega.text.isEmpty()) {
+                || lugarEntrega.text.isEmpty()
+                || nombreCarga.text.isEmpty()){
                 Toast.makeText(requireContext(), "Ingrese todos la información solicitada",Toast.LENGTH_SHORT).show()
             } else{
                 //IR A LA SIGUIENTE ACTIVIDAD PARA ELEGIR PRODUCTOS
@@ -408,6 +412,7 @@ class RegisterFragment : Fragment() {
                 intent.putExtra(HORA_RECOJO,horaRecojo.text.toString())
                 intent.putExtra(LUGAR_RECOJO,lugarRecojo.text.toString())
                 intent.putExtra(LUGAR_ENTREGA,lugarEntrega.text.toString())
+                intent.putExtra(NOMBRE_CARGA,nombreCarga.text.toString())
                 startActivity(intent)
             }
         })

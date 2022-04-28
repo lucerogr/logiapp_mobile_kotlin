@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -23,8 +22,6 @@ import com.example.logiapplication.LoginActivity.Companion.LastName
 import com.example.logiapplication.LoginActivity.Companion.Name
 import com.example.logiapplication.R
 import com.example.logiapplication.databinding.LogisticActivityMainBinding
-import com.example.logiapplication.logisticOperator.ui.profile.LogisticProfileFragment
-import com.example.logiapplication.logisticOperator.ui.register.RegisterFragment
 import com.google.android.material.navigation.NavigationView
 import java.util.*
 
@@ -34,16 +31,10 @@ class LogisticMainActivity : AppCompatActivity() {
 
     lateinit var nameUser : TextView
     var userCodigo : Int = 0
-    lateinit var name : String
-    lateinit var lastName : String
-    lateinit var birthDate : String
-    lateinit var email : String
-
     lateinit var sharedPreferences: SharedPreferences
 
     companion object {
         var UserCodigo ="userCodigo"
-        var EmailU = "email"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,7 +65,13 @@ class LogisticMainActivity : AppCompatActivity() {
         nameUser = headerView.findViewById(R.id.nameAndLastNameTextO)
         nameUser.text = sharedPreferences.getString(LoginActivity.FirstName, null)
 
-        //RECUPERAR INFO DEL USUARIO DESDE EL LOGIN
+        //DESDE EL LOGIN
+        userCodigo = intent.getIntExtra("UserId", 0)
+        val editor: SharedPreferences.Editor=sharedPreferences.edit()
+        editor.putInt(UserCodigo, userCodigo)
+        editor.apply()
+
+        /*//RECUPERAR INFO DEL USUARIO DESDE EL LOGIN
         userCodigo = intent.getIntExtra("UserId", 0)
         name = intent.getStringExtra(Name).toString()
         lastName = intent.getStringExtra(LastName).toString()
@@ -82,7 +79,7 @@ class LogisticMainActivity : AppCompatActivity() {
         email = intent.getStringExtra(Email).toString()
 
         //println(userCodigo)
-        val bundle = Bundle()
+        /*val bundle = Bundle()
         val logisticProfileFragment = LogisticProfileFragment()
         bundle.putString(Name, name)
         bundle.putString(LastName, lastName)
@@ -93,13 +90,16 @@ class LogisticMainActivity : AppCompatActivity() {
         //println(registerFragment.arguments)
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.logistic_profile_frag, logisticProfileFragment)
-        transaction.commit()
+        transaction.commit()*/
 
         //MANDAR ID DEL USUARIO A NEXTREGISTER ACTIVITY
         val editor: SharedPreferences.Editor=sharedPreferences.edit()
         editor.putInt(UserCodigo, userCodigo)
-        //editor.putString(UserId, getCodigo.toString())
-        editor.apply()
+        editor.putString(Name, name)
+        editor.putString(LastName, lastName)
+        editor.putString(DateBirth, birthDate)
+        editor.putString(Email, email)
+        editor.apply()*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

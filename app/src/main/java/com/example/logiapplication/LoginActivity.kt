@@ -165,39 +165,38 @@ class LoginActivity : AppCompatActivity() {
                                                         1 -> {
                                                             val editor: SharedPreferences.Editor=sharedPreferences.edit()
                                                             editor.putString(FirstName, getNameAndLastName)
+                                                            editor.putString(Name, getPersonName)
+                                                            editor.putString(LastName, getPersonLastName)
+                                                            editor.putString(DateBirth, getPersonBirthDate)
+                                                            editor.putString(Email, getUsername)
                                                             editor.apply()
                                                             val intent = Intent(this@LoginActivity, ClientMainActivity::class.java)
                                                             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                                             intent.putExtra("UserId", getPersonId)
-                                                            intent.putExtra(Name, getPersonName)
-                                                            intent.putExtra(LastName, getPersonLastName)
-                                                            intent.putExtra(DateBirth, getPersonBirthDate)
-                                                            intent.putExtra(Email, getUsername)
                                                             startActivity(intent) }
                                                         2 -> {
                                                             val editor: SharedPreferences.Editor=sharedPreferences.edit()
                                                             editor.putString(FirstName, getNameAndLastName)
+                                                            editor.putString(Name, getPersonName)
+                                                            editor.putString(LastName, getPersonLastName)
+                                                            editor.putString(DateBirth, getPersonBirthDate)
+                                                            editor.putString(Email, getUsername)
                                                             editor.apply()
                                                             val intent = Intent(this@LoginActivity, CarrierMainActivity::class.java)
                                                             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                                             intent.putExtra("UserId", getPersonId)
-                                                            intent.putExtra(Name, getPersonName)
-                                                            intent.putExtra(LastName, getPersonLastName)
-                                                            intent.putExtra(DateBirth, getPersonBirthDate)
-                                                            intent.putExtra(Email, getUsername)
                                                             startActivity(intent) }
                                                         3 -> {
                                                             val editor: SharedPreferences.Editor=sharedPreferences.edit()
                                                             editor.putString(FirstName, getNameAndLastName)
-                                                            //editor.putString(UserId, getCodigo.toString())
+                                                            editor.putString(Name, getPersonName)
+                                                            editor.putString(LastName, getPersonLastName)
+                                                            editor.putString(DateBirth, getPersonBirthDate)
+                                                            editor.putString(Email, getUsername)
                                                             editor.apply()
                                                             val intent = Intent(this@LoginActivity, LogisticMainActivity::class.java)
                                                             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                                             intent.putExtra("UserId", getPersonId)
-                                                            intent.putExtra(Name, getPersonName)
-                                                            intent.putExtra(LastName, getPersonLastName)
-                                                            intent.putExtra(DateBirth, getPersonBirthDate)
-                                                            intent.putExtra(Email, getUsername)
                                                             startActivity(intent) }
                                                     }
 
