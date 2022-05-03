@@ -93,7 +93,7 @@ class NextRegisterActivity : AppCompatActivity() {
         table = binding.root.findViewById(R.id.add_product_table)
         tv_nombre_carga = binding.root.findViewById(R.id.tv_cargo_nro)
 
-        //es del person
+        //es de la carga
         getOperatorCodigo = sharedPreferences.getInt(UserCodigo, 0)
         getFamilyProductId = intent.getIntExtra(FAMILY_ID, 0)
         getTruckId = intent.getIntExtra(TRUCK_ID, 0)

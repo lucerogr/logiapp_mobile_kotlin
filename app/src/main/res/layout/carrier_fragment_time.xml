@@ -23,17 +23,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.8" />
 
-    <Button
-        android:id="@+id/btn_fin_ruta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fin de ruta"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
 
     <Button
         android:id="@+id/btn_inicio_ruta"
@@ -42,12 +31,12 @@
         android:text="Inicio de ruta"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_fin_ruta"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.978" />
+        app:layout_constraintVertical_bias="0.878" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
@@ -63,12 +52,11 @@
         app:layout_constraintVertical_bias="0.144">
 
         <AutoCompleteTextView
-            android:id="@+id/autoCompleteTextView"
+            android:id="@+id/cargoAutoCompleteTextView"
             android:layout_width="351dp"
             android:layout_height="61dp"
             android:layout_weight="1"
             android:inputType="none"
-            android:text="Cargo"
             android:textColor="#000000"
             android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
