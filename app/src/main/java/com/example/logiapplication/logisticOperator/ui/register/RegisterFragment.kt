@@ -147,14 +147,7 @@ class RegisterFragment : Fragment() {
                         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, listFamilyProduct)
                         familiaProducto.setAdapter(arrayAdapter)
                         familiaProducto.setOnItemClickListener { parent, view, position, id ->
-                            /*for(i in listFamilyProductId) {
-                                if(position+1 == i){
-                                    getFamilyProductSelected = position + 1
-                                    getFamilyProductNameSelected = listFamilyProduct[position]
-                                    println(getFamilyProductNameSelected)
 
-                                }
-                            }*/
                             for (i in 0 until listFamilyProductId.size) {
                                 if (position == i) {
                                     getFamilyProductSelected = listFamilyProductId[i]

@@ -74,9 +74,6 @@ class TimeFragment : Fragment() {
     lateinit var getCargoFinalSelected : String
     val cargoFinalList = ArrayList<String>()
 
-    /*lateinit var getObjectCargoStatus : String
-    lateinit var getCargoStatusSelected : String
-    val cargoStatusList = ArrayList<String>()*/
 
     lateinit var getObjectCargoDuration : String
     lateinit var getCargoDurationSelected : String
@@ -111,6 +108,13 @@ class TimeFragment : Fragment() {
         var CARGO = "cargo_id"
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        sharedPreferences = requireActivity().getSharedPreferences(LoginActivity.SHARED_PREF_NAME, Context.MODE_PRIVATE)
+        getCarrierCodigo = sharedPreferences.getInt(CarrierMainActivity.UserCodigo, 0)
+        println(getCarrierCodigo)
+
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -130,7 +134,6 @@ class TimeFragment : Fragment() {
         btn_inicio = binding.root.findViewById(R.id.btn_inicio_ruta)
 
         val cargoService: CargoService = RetrofitClients.getUsersClient().create(CargoService::class.java)
-
         cargoService.getCargoByCarrier(getCarrierCodigo).enqueue(object : Callback<List<Cargo>> {
             override fun onResponse(call: Call<List<Cargo>>, response: Response<List<Cargo>>) {
                 if(response.isSuccessful) {
@@ -153,8 +156,6 @@ class TimeFragment : Fragment() {
                         getCargoFinalSelected = "s"
                         getObjectCargoRoute = "u"
                         getCargoRouteSelected = "s"
-                        //getObjectCargoStatus = "u"
-                        //getCargoStatusSelected = "s"
                         getObjectCargoDuration = "u"
                         getCargoDurationSelected = "s"
                         for(i in 0 until jsonArrayC.length()) {
@@ -168,7 +169,6 @@ class TimeFragment : Fragment() {
                             getObjectCargoInitial = cargoObject.cargoInitialUbication
                             getObjectCargoFinal=cargoObject.cargoFinalUbication
                             getObjectCargoRoute=cargoObject.cargoRouteStatus
-                            //getObjectCargoStatus=cargoObject.cargoStatus
                             getObjectCargoDuration=cargoObject.cargoRouteDuration
                             getObjectCargoTruck = cargoObject.camion
                             getObjectCargoFamily = cargoObject.famproducto
@@ -182,7 +182,6 @@ class TimeFragment : Fragment() {
                             cargoInitialList.add(getObjectCargoInitial)
                             cargoFinalList.add(getObjectCargoFinal)
                             cargoRouteList.add(getObjectCargoRoute)
-                            //cargoStatusList.add(getObjectCargoStatus)
                             cargoDurationList.add(getObjectCargoDuration)
                             cargoTruckList.add(getObjectCargoTruck)
                             cargoClientList.add(getObjectCargoClient)
@@ -203,7 +202,6 @@ class TimeFragment : Fragment() {
                                     getCargoInitialSelected = cargoInitialList[i]
                                     getCargoFinalSelected = cargoFinalList[i]
                                     getCargoRouteSelected = cargoRouteList[i]
-                                    //getCargoStatusSelected = cargoStatusList[i]
                                     getCargoDurationSelected = cargoDurationList[i]
                                     getCargoTruckSelected = cargoTruckList[i]
                                     getCargoFamilySelected = cargoFamilyList[i]
@@ -237,7 +235,9 @@ class TimeFragment : Fragment() {
                                     updateCargo(cargoData, getCargoIdSelected) {
                                         if (it?.codigo != null) {
                                             Toast.makeText(requireContext(), "Se actualizó el estado de la carga", Toast.LENGTH_SHORT).show()
+                                           //esto
                                             val intent = Intent(requireContext(), ConnectionActivity::class.java)
+                                            //
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
                                             intent.putExtra(CARGO,getCargoIdSelected)
                                             startActivity(intent)
@@ -274,10 +274,10 @@ class TimeFragment : Fragment() {
             }
         })
     }
-/*
-    override fun onResume() {
-        super.onResume()
 
-    }*/
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
 }

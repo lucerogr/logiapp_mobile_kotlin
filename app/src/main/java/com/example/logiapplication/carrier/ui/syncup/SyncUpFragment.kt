@@ -13,8 +13,9 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.logiapplication.R
+import com.example.logiapplication.carrier.BluetoothConfiguration
+import com.example.logiapplication.carrier.CarrierMainActivity
 import com.example.logiapplication.databinding.CarrierFragmentSyncupBinding
-import ingenieria.jhr.bluetoothjhr.BluetoothJhr
 import java.util.*
 
 
@@ -63,7 +64,13 @@ class SyncUpFragment : Fragment() {
 
         })
         //Conectar a dispositivo
-        val bluetoothJhr = BluetoothJhr(requireContext(), listDevices, ConnectionActivity::class.java)
+        //val bluetoothJhr = BluetoothJhr(requireContext(), listDevices, ConnectionActivity::class.java)
+
+        //esto
+        BluetoothConfiguration.parameters(requireContext(),listDevices,ConnectionActivity::class.java,requireContext(),CarrierMainActivity::class.java)
+        //BluetoothConfiguration.onBluetooth()
+        //esto
+
 
         viewDevices.setOnClickListener(View.OnClickListener{
             val all_devices: Set<BluetoothDevice> = adapterBlue.getBondedDevices()
@@ -84,7 +91,12 @@ class SyncUpFragment : Fragment() {
             }
         })
         listDevices.setOnItemClickListener { adapterView, view, i, l ->
-            bluetoothJhr.bluetoothSeleccion(i)
+           // bluetoothJhr.bluetoothSeleccion(i)
+            //Esto
+            BluetoothConfiguration.bluetoothSeleccion(i)
+
+            true
+            //Esto
         }
 
         return root
