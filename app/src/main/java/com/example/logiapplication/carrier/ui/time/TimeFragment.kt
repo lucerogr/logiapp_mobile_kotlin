@@ -127,7 +127,9 @@ class TimeFragment : Fragment() {
         val root: View = binding.root
 
         sharedPreferences = requireActivity().getSharedPreferences(LoginActivity.SHARED_PREF_NAME, Context.MODE_PRIVATE)
-        getCarrierCodigo = sharedPreferences.getInt(CarrierMainActivity.UserCodigo, 0)
+        //getCarrierCodigo = sharedPreferences.getInt(CarrierMainActivity.UserCodigo, 0)
+        //LO RECIBE DEL LOGIN (IDK WHY IT CAN'T FROM CARRIER MAIN ACTIVITY
+        getCarrierCodigo = sharedPreferences.getInt("DRIVER", 0)
 
 
         cargo = binding.root.findViewById(R.id.cargoAutoCompleteTextView)

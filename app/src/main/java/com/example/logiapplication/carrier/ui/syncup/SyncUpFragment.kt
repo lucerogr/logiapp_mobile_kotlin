@@ -71,7 +71,6 @@ class SyncUpFragment : Fragment() {
         //BluetoothConfiguration.onBluetooth()
         //esto
 
-
         viewDevices.setOnClickListener(View.OnClickListener{
             val all_devices: Set<BluetoothDevice> = adapterBlue.getBondedDevices()
             if (all_devices.size > 0) {

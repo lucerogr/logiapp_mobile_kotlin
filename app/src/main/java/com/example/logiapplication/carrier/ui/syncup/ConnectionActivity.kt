@@ -1,19 +1,16 @@
 package com.example.logiapplication.carrier.ui.syncup
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
-import android.location.LocationRequest
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -23,22 +20,16 @@ import com.example.logiapplication.carrier.CarrierMainActivity
 import com.example.logiapplication.R
 import com.example.logiapplication.RetrofitClients
 import com.example.logiapplication.carrier.BluetoothConfiguration
+import com.example.logiapplication.carrier.CLocation
 import com.example.logiapplication.carrier.ui.time.TimeFragment.Companion.CARGO
 import com.example.logiapplication.databinding.CarrierActivityConnectionBinding
 import com.example.logiapplication.interfaces.CargoService
 import com.example.logiapplication.interfaces.LogService
-import com.example.logiapplication.logisticOperator.ui.register.RegisterFragment
 import com.example.logiapplication.models.Cargo
 import com.example.logiapplication.models.Log
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY
 import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
@@ -47,7 +38,6 @@ import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.thread
-import kotlin.math.ceil
 
 class ConnectionActivity : AppCompatActivity(), LocationListener {
 
@@ -59,15 +49,16 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
     lateinit var data6: TextView
     var getCargoId : Int = 0
 
+    lateinit var latitude: String
+    lateinit var longitude: String
+
     var msj = ""
     var initHilo = false
-    var hilo = true
+    var hilo = false
     var boolean: Boolean = true
 
-    private val LOCATION_PERMISSION_REQ_CODE = 1000;
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private var latitude: Double = 0.0
-    private var longitude: Double = 0.0
+    var mLocation: Location? = null
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,24 +78,23 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
         data6 = findViewById(R.id.velocity)
 
 
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+
         boolean = true
         getCargoId = intent.getIntExtra(CARGO, 0)
-
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-
 
         //bluetoothJhr = BluetoothJhr(this, CarrierMainActivity::class.java)
 
         thread(start = true) {
-            while (!initHilo) {
+            while (!initHilo && !hilo) {
                 Thread.sleep(50)
             }
-            while (hilo) {
+            while (!hilo) {
                 BluetoothConfiguration.mTx("i")
-                Thread.sleep(100)
+                //Thread.sleep(100)
                 msj = BluetoothConfiguration.mRx()
                 if (msj != "") {
-                    if (hilo) {
+                    if (!hilo) {
                         runOnUiThread(Runnable {
                             val input: String = msj
                             val lines: List<String> = input.split("\n")
@@ -116,60 +106,68 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
                         })
                         //fun String.fullTrim() = trim().replace("\uFEFF", "")
                         //val number = "39.05166667".fullTrim().toDouble()
+                        //desde aca
+                        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+                        val fechaActual = dateFormat.format(Date())
+                        val dateFormat2 = SimpleDateFormat("HH:mm")
+                        val horaActual = dateFormat2.format(Date())
+
+                        getLastLocation()
+
+                        //val myHandler = Handler(Looper.getMainLooper())
+
+                        val cargoService: CargoService = RetrofitClients.getUsersClient().create(CargoService::class.java)
+                        cargoService.getCargo(getCargoId).enqueue(object : Callback<Cargo> {
+                            override fun onResponse(call: Call<Cargo>, response: Response<Cargo>) {
+                                if(response.isSuccessful) {
+                                    android.util.Log.i("Success", response.body().toString())
+                                    try {
+                                        val cargo: Cargo? = response.body()
+                                        val jsonObjectCargo= JSONObject(Gson().toJson(cargo))
+                                        val cargoObject = Gson().fromJson(jsonObjectCargo.toString(), Cargo::class.java)
+                                        val logData = Log(  codigo = null,
+                                            logCargoDate = fechaActual.toString(),
+                                            logCargoHour = horaActual.toString(),
+                                            logCargoUbication = "$latitude, $longitude",
+                                            logCargoTemperature = data2.text.toString(),
+                                            logCargoHumidity = data4.text.toString(),
+                                            logCargoVelocity = data6.text.toString(),
+                                            logCargoAlertType = 0,
+                                            cargo = cargoObject
+                                        )
+                                       /* myHandler.post(object : Runnable {
+                                            override fun run() {
+                                                //CODIGO
+                                                myHandler.postDelayed(this, 60000 /*1 min*/)
+                                            }
+                                        })*/
+
+                                        addLog(logData) {
+                                            Toast.makeText(applicationContext, "Se registró el log", Toast.LENGTH_SHORT).show()
+                                            /*if (it?.codigo != null) {
+                                                Toast.makeText(applicationContext, "Se registró el log", Toast.LENGTH_SHORT).show()
+
+                                            } else {
+                                                Toast.makeText(applicationContext, "Error al registrar el log", Toast.LENGTH_SHORT).show()
+                                            }*/
+                                        }
+
+                                    }
+                                    catch (ex: JSONException){
+                                        ex.printStackTrace()
+                                    }
+                                }
+                            }
+                            override fun onFailure(call: Call<Cargo>, t: Throwable) {
+                                Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT).show()
+                            }
+                        })
+                        //hasta aca
 
                     } else {
                         break
                     }
-                    val dateFormat = SimpleDateFormat("yyyy-MM-dd")
-                    val fechaActual = dateFormat.format(Date())
-                    val dateFormat2 = SimpleDateFormat("HH:mm")
-                    val horaActual = dateFormat2.format(Date())
 
-                    val myHandler = Handler(Looper.getMainLooper())
-
-                    myHandler.post(object : Runnable {
-                        override fun run() {
-                            val cargoService: CargoService = RetrofitClients.getUsersClient().create(CargoService::class.java)
-                            cargoService.getCargo(getCargoId).enqueue(object : Callback<Cargo> {
-                                override fun onResponse(call: Call<Cargo>, response: Response<Cargo>) {
-                                    if(response.isSuccessful) {
-                                        android.util.Log.i("Success", response.body().toString())
-                                        try {
-                                            val cargo: Cargo? = response.body()
-                                            val jsonObjectCargo= JSONObject(Gson().toJson(cargo))
-                                            val cargoObject = Gson().fromJson(jsonObjectCargo.toString(), Cargo::class.java)
-                                            val logData = Log(  codigo = null,
-                                                logCargoDate = fechaActual.toString(),
-                                                logCargoHour = horaActual.toString(),
-                                                logCargoUbication = "-12.1891128,-77.0145127,14z",
-                                                logCargoTemperature = data2.text.toString(),
-                                                logCargoHumidity = data4.text.toString(),
-                                                logCargoVelocity = data6.text.toString(),
-                                                logCargoAlertType = 0,
-                                                cargo = cargoObject
-                                            )
-                                            addLog(logData) {
-                                                Toast.makeText(applicationContext, "Se registró el log", Toast.LENGTH_SHORT).show()
-                                                /*if (it?.codigo != null) {
-                                                    Toast.makeText(applicationContext, "Se registró el log", Toast.LENGTH_SHORT).show()
-
-                                                } else {
-                                                    Toast.makeText(applicationContext, "Error al registrar el log", Toast.LENGTH_SHORT).show()
-                                                }*/
-                                            }
-                                        }
-                                        catch (ex: JSONException){
-                                            ex.printStackTrace()
-                                        }
-                                    }
-                                }
-                                override fun onFailure(call: Call<Cargo>, t: Throwable) {
-                                    Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT).show()
-                                }
-                            })
-                            myHandler.postDelayed(this, 60000 /*1 min*/)
-                        }
-                    })
                     BluetoothConfiguration.mensajeReset()
                 }
                 Thread.sleep(100)
@@ -179,6 +177,18 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
 
         this.updateSpeed(null)
 
+    }
+
+    @SuppressLint("MissingPermission")
+    fun getLastLocation(){
+        fusedLocationProviderClient.lastLocation
+            .addOnSuccessListener { location: Location? ->
+                mLocation = location
+                if (location != null) {
+                    latitude = location.latitude.toString()
+                    longitude = location.longitude.toString()
+                }
+            }
     }
 
     fun addLog(logData: Log, onResult: (Log?) -> Unit){
@@ -197,11 +207,11 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
     //esto cambiar por bluetoothJhr
     override fun onResume() {
         super.onResume()
-        //initHilo = bluetoothJhr.conectaBluetooth()
+        initHilo = BluetoothConfiguration.conectaBluetooth()
         //esto
-        if(!BluetoothConfiguration.inicioConexion){
-            initHilo = BluetoothConfiguration.conectaBluetooth()
-        }
+        /*if(!BluetoothConfiguration.inicioConexion){
+            BluetoothConfiguration.conectaBluetooth()
+        }*/
         //Esto
         doStuff()
 
@@ -210,17 +220,17 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
 
     override fun onPause() {
         super.onPause()
-        hilo=false
+        hilo=true
         initHilo=false
         BluetoothConfiguration.exitConexion()
         finish()
     }
 
-    override fun onDestroy() {
+    /*override fun onDestroy() {
         super.onDestroy()
-        initHilo=true
+        //initHilo=true
         hilo=false
-    }
+    }*/
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.carrier_main, menu)

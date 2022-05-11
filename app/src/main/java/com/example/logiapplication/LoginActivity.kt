@@ -176,6 +176,7 @@ class LoginActivity : AppCompatActivity() {
                                                             startActivity(intent) }
                                                         2 -> {
                                                             val editor: SharedPreferences.Editor=sharedPreferences.edit()
+                                                            editor.putInt("DRIVER", getPersonId)
                                                             editor.putString(FirstName, getNameAndLastName)
                                                             editor.putString(Name, getPersonName)
                                                             editor.putString(LastName, getPersonLastName)
