@@ -42,9 +42,7 @@ import kotlin.concurrent.thread
 class ConnectionActivity : AppCompatActivity(), LocationListener {
 
     private lateinit var binding: CarrierActivityConnectionBinding
-    lateinit var data1: TextView
     lateinit var data2: TextView
-    lateinit var data3: TextView
     lateinit var data4: TextView
     lateinit var data6: TextView
     var getCargoId : Int = 0
@@ -73,9 +71,7 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
         setSupportActionBar(binding.appBarMain.toolbar)
 
 
-        data1 = findViewById(R.id.tv_temperature)
         data2 = findViewById(R.id.temperature)
-        data3 = findViewById(R.id.tv_humidity)
         data4 = findViewById(R.id.humidity)
         data6 = findViewById(R.id.velocity)
 
@@ -100,9 +96,7 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
                         runOnUiThread(Runnable {
                             val input: String = msj
                             val lines: List<String> = input.split("\n")
-                            data1.text = lines[0]
                             data2.text = lines[1]
-                            data3.text = lines[2]
                             data4.text = lines[3]
 
                         })
@@ -132,13 +126,22 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
 
                                         val cargoTemperature = data2.text.toString().fullTrim().toDouble()
                                         val cargoHumidity = data4.text.toString().fullTrim().toDouble()
-                                        val cargoAlert : Int
-                                        if (cargoTemperature < minTemperatura || cargoTemperature > maxTemperatura
-                                            || cargoHumidity < minHumedad || cargoHumidity > maxHumedad) {
+                                        var cargoAlert = 0
+                                        if(cargoTemperature < minTemperatura) {
                                             cargoAlert = 1
+                                            data2.setBackgroundResource(R.drawable.box_yellow)
                                         }
-                                        else {
-                                            cargoAlert = 0
+                                        if(cargoHumidity < minHumedad) {
+                                            cargoAlert = 1
+                                            data4.setBackgroundResource(R.drawable.box_yellow)
+                                        }
+                                        if(cargoTemperature > maxTemperatura) {
+                                            cargoAlert = 1
+                                            data2.setBackgroundResource(R.drawable.box_red)
+                                        }
+                                        if(cargoHumidity > maxHumedad) {
+                                            cargoAlert = 1
+                                            data4.setBackgroundResource(R.drawable.box_red)
                                         }
                                         val logData = Log(  codigo = null,
                                             logCargoDate = fechaActual.toString(),
@@ -152,9 +155,12 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
                                         )
                                         if(contador%20 == 0){
                                             addLog(logData) {
-                                                Toast.makeText(applicationContext, "Se registró el log", Toast.LENGTH_SHORT).show()
+                                                if (cargoAlert == 1) {
+                                                    Toast.makeText(applicationContext, "ALERTA GENERADA", Toast.LENGTH_SHORT).show()
+                                                }
                                             }
                                         }
+
                                     }
                                     catch (ex: JSONException){
                                         ex.printStackTrace()
