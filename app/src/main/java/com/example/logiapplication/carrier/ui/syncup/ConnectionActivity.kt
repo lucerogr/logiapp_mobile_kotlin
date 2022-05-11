@@ -52,6 +52,8 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
     lateinit var latitude: String
     lateinit var longitude: String
 
+    var contador : Int = 0
+
     var msj = ""
     var initHilo = false
     var hilo = false
@@ -113,6 +115,7 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
                         val horaActual = dateFormat2.format(Date())
 
                         getLastLocation()
+                        contador++
 
                         //val myHandler = Handler(Looper.getMainLooper())
 
@@ -135,23 +138,11 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
                                             logCargoAlertType = 0,
                                             cargo = cargoObject
                                         )
-                                       /* myHandler.post(object : Runnable {
-                                            override fun run() {
-                                                //CODIGO
-                                                myHandler.postDelayed(this, 60000 /*1 min*/)
-                                            }
-                                        })*/
-
-                                        addLog(logData) {
-                                            Toast.makeText(applicationContext, "Se registró el log", Toast.LENGTH_SHORT).show()
-                                            /*if (it?.codigo != null) {
+                                        if(contador%20 == 0){
+                                            addLog(logData) {
                                                 Toast.makeText(applicationContext, "Se registró el log", Toast.LENGTH_SHORT).show()
-
-                                            } else {
-                                                Toast.makeText(applicationContext, "Error al registrar el log", Toast.LENGTH_SHORT).show()
-                                            }*/
+                                            }
                                         }
-
                                     }
                                     catch (ex: JSONException){
                                         ex.printStackTrace()
