@@ -38,6 +38,7 @@ import kotlin.collections.ArrayList
 class ModifyCargoActivity:AppCompatActivity() {
     private lateinit var binding: LogisticModifyCargoActivityBinding
     lateinit var nextButton : Button
+    lateinit var botonCancelarEdicion : Button
     companion object {
         var FAMILY_ID = "family_product"
         var FAMILY_NAME = "family_name"
@@ -130,6 +131,14 @@ class ModifyCargoActivity:AppCompatActivity() {
         lugarRecojo = binding.root.findViewById(R.id.lugarRecojoAutoComplete_L)
         lugarEntrega = binding.root.findViewById(R.id.lugarEntregaAutoComplete_L)
         nombreCarga=binding.root.findViewById(R.id.tv_cargo_number_L)
+        botonCancelarEdicion = binding.root.findViewById(R.id.btn_cancel_register_L)
+
+        //Cancelar edición de carga
+        botonCancelarEdicion.setOnClickListener(View.OnClickListener{
+            val intent = Intent(this, LogisticMainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            startActivity(intent)
+        })
 
         //GET DATOS DE LA CARGA
         val cargoService: CargoService = RetrofitClients.getUsersClient().create(CargoService::class.java)

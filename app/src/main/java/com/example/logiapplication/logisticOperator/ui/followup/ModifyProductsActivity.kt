@@ -16,6 +16,9 @@ import androidx.core.view.isVisible
 import com.example.logiapplication.LoginActivity
 import com.example.logiapplication.R
 import com.example.logiapplication.RetrofitClients
+import com.example.logiapplication.carrier.CarrierMainActivity
+import com.example.logiapplication.carrier.ui.syncup.ConnectionActivity
+import com.example.logiapplication.carrier.ui.time.TimeFragment
 import com.example.logiapplication.client.ClientMainActivity
 import com.example.logiapplication.client.ClientMainActivity.Companion.UserCodigo
 import com.example.logiapplication.databinding.LogisticModifyProductsActivityBinding
@@ -121,6 +124,7 @@ class ModifyProductsActivity:AppCompatActivity() {
         tvFamily = binding.root.findViewById(R.id.tv_family_name_L)
         tvFamily.text = getFamilyProductName
         tv_nombre_carga.text = getNombreCarga
+
 
         //PRODUCTOS
         val productService: ProductService = RetrofitClients.getUsersClient().create(ProductService::class.java)
@@ -398,7 +402,6 @@ class ModifyProductsActivity:AppCompatActivity() {
                 Toast.makeText(applicationContext, "a", Toast.LENGTH_SHORT).show()
             }
         })
-
 
     }
 

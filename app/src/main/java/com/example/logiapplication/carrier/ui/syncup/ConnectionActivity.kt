@@ -106,7 +106,7 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
                             data4.text = lines[3]
 
                         })
-                        //fun String.fullTrim() = trim().replace("\uFEFF", "")
+                        fun String.fullTrim() = trim().replace("\uFEFF", "")
                         //val number = "39.05166667".fullTrim().toDouble()
                         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
                         val fechaActual = dateFormat.format(Date())
@@ -125,14 +125,29 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
                                         val cargo: Cargo? = response.body()
                                         val jsonObjectCargo= JSONObject(Gson().toJson(cargo))
                                         val cargoObject = Gson().fromJson(jsonObjectCargo.toString(), Cargo::class.java)
+                                        val minTemperatura = cargoObject.famproducto.familyProductTemperatureMin
+                                        val maxTemperatura = cargoObject.famproducto.familyProductTemperatureMax
+                                        val minHumedad = cargoObject.famproducto.familyProductHumidityMin
+                                        val maxHumedad = cargoObject.famproducto.familyProductHumidityMax
+
+                                        val cargoTemperature = data2.text.toString().fullTrim().toDouble()
+                                        val cargoHumidity = data4.text.toString().fullTrim().toDouble()
+                                        val cargoAlert : Int
+                                        if (cargoTemperature < minTemperatura || cargoTemperature > maxTemperatura
+                                            || cargoHumidity < minHumedad || cargoHumidity > maxHumedad) {
+                                            cargoAlert = 1
+                                        }
+                                        else {
+                                            cargoAlert = 0
+                                        }
                                         val logData = Log(  codigo = null,
                                             logCargoDate = fechaActual.toString(),
                                             logCargoHour = horaActual.toString(),
                                             logCargoUbication = "$latitude, $longitude",
-                                            logCargoTemperature = data2.text.toString(),
-                                            logCargoHumidity = data4.text.toString(),
+                                            logCargoTemperature = cargoTemperature.toString(),
+                                            logCargoHumidity = cargoHumidity.toString(),
                                             logCargoVelocity = data6.text.toString(),
-                                            logCargoAlertType = 0,
+                                            logCargoAlertType = cargoAlert,
                                             cargo = cargoObject
                                         )
                                         if(contador%20 == 0){
