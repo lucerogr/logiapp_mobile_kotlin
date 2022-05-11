@@ -63,13 +63,8 @@ class SyncUpFragment : Fragment() {
             startActivityForResult(Intent2, 2)
 
         })
-        //Conectar a dispositivo
-        //val bluetoothJhr = BluetoothJhr(requireContext(), listDevices, ConnectionActivity::class.java)
-
-        //esto
         BluetoothConfiguration.parameters(requireContext(),listDevices,ConnectionActivity::class.java,requireContext(),CarrierMainActivity::class.java)
-        //BluetoothConfiguration.onBluetooth()
-        //esto
+
 
         viewDevices.setOnClickListener(View.OnClickListener{
             val all_devices: Set<BluetoothDevice> = adapterBlue.getBondedDevices()

@@ -11,6 +11,8 @@ import android.os.Handler
 import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -45,6 +47,7 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
     lateinit var data2: TextView
     lateinit var data4: TextView
     lateinit var data6: TextView
+    lateinit var botonFinRuta: Button
     var getCargoId : Int = 0
 
     lateinit var latitude: String
@@ -74,6 +77,7 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
         data2 = findViewById(R.id.temperature)
         data4 = findViewById(R.id.humidity)
         data6 = findViewById(R.id.velocity)
+        botonFinRuta = findViewById(R.id.btn_fin_ruta)
 
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
@@ -160,6 +164,35 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
                                                 }
                                             }
                                         }
+                                        val cargoData = Cargo(  codigo = cargoObject.codigo,
+                                            cargoName = cargoObject.cargoName,
+                                            cargoDate = cargoObject.cargoDate,
+                                            cargoHour = cargoObject.cargoHour,
+                                            cargoInitialUbication = cargoObject.cargoInitialUbication,
+                                            cargoFinalUbication = cargoObject.cargoFinalUbication,
+                                            cargoStatus = "Finalizada",
+                                            cargoRouteDuration = cargoObject.cargoRouteDuration,
+                                            cargoRouteStatus = cargoObject.cargoRouteStatus,
+                                            camion = cargoObject.camion,
+                                            famproducto = cargoObject.famproducto,
+                                            personClientId = cargoObject.personClientId,
+                                            personOperatorId = cargoObject.personOperatorId,
+                                            personDriverId = cargoObject.personDriverId
+                                        )
+                                        botonFinRuta.setOnClickListener(View.OnClickListener{
+                                            updateCargo(cargoData, getCargoId) {
+                                                if (it?.codigo != null) {
+                                                    Toast.makeText(this@ConnectionActivity, "Se actualizó el estado de la carga", Toast.LENGTH_SHORT).show()
+                                                    val intent = Intent(this@ConnectionActivity, CarrierMainActivity::class.java)
+                                                    //
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                                                    startActivity(intent)
+
+                                                } else {
+                                                    Toast.makeText(this@ConnectionActivity, "Error al actualizar el estado de la carga", Toast.LENGTH_SHORT).show()
+                                                }
+                                            }
+                                        })
 
                                     }
                                     catch (ex: JSONException){
@@ -185,6 +218,19 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
 
         this.updateSpeed(null)
 
+    }
+
+    fun updateCargo(cargoData: Cargo, id: Int, onResult: (Cargo?) -> Unit){
+        val cargoService: CargoService = RetrofitClients.getUsersClient().create(CargoService::class.java)
+        cargoService.updateCargo(cargoData, id).enqueue(object : Callback<Cargo> {
+            override fun onResponse(call: Call<Cargo>, response: Response<Cargo>) {
+                val updatedCargo = response.body()
+                onResult(updatedCargo)
+            }
+            override fun onFailure(call: Call<Cargo>, t: Throwable) {
+                onResult(null)
+            }
+        })
     }
 
     @SuppressLint("MissingPermission")
