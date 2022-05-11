@@ -108,7 +108,6 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
                         })
                         //fun String.fullTrim() = trim().replace("\uFEFF", "")
                         //val number = "39.05166667".fullTrim().toDouble()
-                        //desde aca
                         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
                         val fechaActual = dateFormat.format(Date())
                         val dateFormat2 = SimpleDateFormat("HH:mm")
@@ -116,8 +115,6 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
 
                         getLastLocation()
                         contador++
-
-                        //val myHandler = Handler(Looper.getMainLooper())
 
                         val cargoService: CargoService = RetrofitClients.getUsersClient().create(CargoService::class.java)
                         cargoService.getCargo(getCargoId).enqueue(object : Callback<Cargo> {
@@ -153,7 +150,6 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
                                 Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT).show()
                             }
                         })
-                        //hasta aca
 
                     } else {
                         break

@@ -17,14 +17,16 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.logiapplication.LoginActivity
 import com.example.logiapplication.R
 import com.example.logiapplication.RetrofitClients
+import com.example.logiapplication.carrier.ui.syncup.ConnectionActivity
+import com.example.logiapplication.carrier.ui.time.TimeFragment
 import com.example.logiapplication.databinding.LogisticFragmentFollowupBinding
 import com.example.logiapplication.interfaces.CargoService
 import com.example.logiapplication.interfaces.ProductService
 import com.example.logiapplication.logisticOperator.LogisticMainActivity
 import com.example.logiapplication.logisticOperator.ui.register.NextRegisterActivity
-import com.example.logiapplication.models.Cargo
-import com.example.logiapplication.models.Product
+import com.example.logiapplication.models.*
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.gson.Gson
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -57,6 +59,20 @@ class FollowUpFragment : Fragment() {
     val listImageView = ArrayList<ImageView>()
     val listImageEdit = ArrayList<ImageView>()
     val listImageCancel = ArrayList<ImageView>()
+
+    val listCargaDate = ArrayList<String>()
+    val listCargaHour = ArrayList<String>()
+    val listCargaInitialUbication = ArrayList<String>()
+    val listCargaFinalUbication = ArrayList<String>()
+    val listCargaRouteDuration = ArrayList<String>()
+    val listCargaRouteStatus = ArrayList<String>()
+    val listcamion = ArrayList<Truck>()
+    val listfamproducto = ArrayList<FamilyProduct>()
+    val listpersonClientId = ArrayList<Person>()
+    val listpersonOperatorId = ArrayList<Person>()
+    val listpersonDriverId = ArrayList<Person>()
+
+
 
     lateinit var itemImageView: ImageView
     lateinit var itemImageEdit: ImageView
@@ -99,16 +115,26 @@ class FollowUpFragment : Fragment() {
                         val jsonArrayC = JSONArray(jsonArray1C)
                         for(i in 0 until jsonArrayC.length()) {
                             val jsonObjectC: JSONObject = jsonArrayC.getJSONObject(i)
+                            val cargoObject = Gson().fromJson(jsonObjectC.toString(), Cargo::class.java)
                             getCargoId=jsonObjectC.getInt("codigo")
                             getCargoName=jsonObjectC.getString("cargoName")
                             getCargoEstado=jsonObjectC.getString("cargoStatus")
                             listCargaId.add(getCargoId)
                             listCargaName.add(getCargoName)
                             listCargaEstado.add(getCargoEstado)
+                            listCargaDate.add(cargoObject.cargoDate)
+                            listCargaHour.add(cargoObject.cargoHour)
+                            listCargaInitialUbication.add(cargoObject.cargoInitialUbication)
+                            listCargaFinalUbication.add(cargoObject.cargoFinalUbication)
+                            listCargaRouteDuration.add(cargoObject.cargoRouteDuration)
+                            listCargaRouteStatus.add(cargoObject.cargoRouteStatus)
+                            listcamion.add(cargoObject.camion)
+                            listfamproducto.add(cargoObject.famproducto)
+                            listpersonClientId.add(cargoObject.personClientId)
+                            listpersonOperatorId.add(cargoObject.personOperatorId)
+                            listpersonDriverId.add(cargoObject.personDriverId)
                         }
                         init()
-                        //val contador = ArrayList<Int>()
-                        //val texto = ArrayList<String>()
                         for (i in 0 until tableCargas.childCount-1) {
                             tableRowCarga = tableCargas.getChildAt(i+1) as TableRow
                             itemImageView = tableRowCarga.getChildAt(3) as ImageView
@@ -130,6 +156,31 @@ class FollowUpFragment : Fragment() {
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
                                 startActivity(intent)
                             })
+                            itemImageCancel.setOnClickListener(View.OnClickListener {
+                                val cargoData = Cargo(  codigo = listCargaId[i],
+                                    cargoName = listCargaName[i],
+                                    cargoDate = listCargaDate[i],
+                                    cargoHour = listCargaHour[i],
+                                    cargoInitialUbication = listCargaInitialUbication[i],
+                                    cargoFinalUbication = listCargaFinalUbication[i],
+                                    cargoStatus = "Cancelada",
+                                    cargoRouteDuration = listCargaRouteDuration[i],
+                                    cargoRouteStatus = listCargaRouteStatus[i],
+                                    camion = listcamion[i],
+                                    famproducto = listfamproducto[i],
+                                    personClientId = listpersonClientId[i],
+                                    personOperatorId = listpersonOperatorId[i],
+                                    personDriverId = listpersonDriverId[i]
+                                )
+                                updateCargo(cargoData, listCargaId[i]) {
+                                    if (it?.codigo != null) {
+                                        Toast.makeText(requireContext(), "Se actualizó el estado de la carga", Toast.LENGTH_SHORT).show()
+
+                                    } else {
+                                        Toast.makeText(requireContext(), "Error al actualizar el estado de la carga", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            })
                         }
                     }
                     catch (ex: JSONException){
@@ -143,6 +194,19 @@ class FollowUpFragment : Fragment() {
         })
 
         return root
+    }
+
+    fun updateCargo(cargoData: Cargo, id: Int, onResult: (Cargo?) -> Unit){
+        val cargoService: CargoService = RetrofitClients.getUsersClient().create(CargoService::class.java)
+        cargoService.updateCargo(cargoData, id).enqueue(object : Callback<Cargo> {
+            override fun onResponse(call: Call<Cargo>, response: Response<Cargo>) {
+                val updatedCargo = response.body()
+                onResult(updatedCargo)
+            }
+            override fun onFailure(call: Call<Cargo>, t: Throwable) {
+                onResult(null)
+            }
+        })
     }
 
     fun init() {

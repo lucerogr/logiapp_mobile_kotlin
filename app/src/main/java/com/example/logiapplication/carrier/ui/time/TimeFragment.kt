@@ -190,7 +190,6 @@ class TimeFragment : Fragment() {
                             cargoFamilyList.add(getObjectCargoFamily)
                             cargoOperatorList.add(getObjectCargoOperator)
                             cargoCarrierList.add(getObjectCargoCarrier)
-                            //println(listFamilyProduct)
                         }
                         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, cargoNameList)
                         cargo.setAdapter(arrayAdapter)
