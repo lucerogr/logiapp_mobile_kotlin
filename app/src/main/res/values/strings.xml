@@ -21,26 +21,6 @@
     <string name="ingresar_contrasena">Ingresar contraseña para Iniciar sesión</string>
     <string name="hint_correo">Ingrese su correo electrónico</string>
 
-    <string-array name="cargamentos">
-        <item>Cargo-001</item>
-        <item>Cargo-002</item>
-        <item>Cargo-003</item>
-    </string-array>
-    <string-array name="familiasProducto">
-        <item>Frutos Rojos</item>
-        <item>Familia 2</item>
-        <item>Familia 3</item>
-    </string-array>
-    <string-array name="camiones">
-        <item>321QWE</item>
-        <item>123WQD</item>
-        <item>413FRG</item>
-    </string-array>
-    <string-array name="clientes">
-        <item>Jose Wong</item>
-        <item>Alberto Rivera</item>
-        <item>Luis Huaman</item>
-    </string-array>
     <string name="title_activity_logistic_main">LogisticMainActivity</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

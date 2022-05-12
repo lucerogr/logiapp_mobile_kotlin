@@ -16,9 +16,9 @@
 
     <TextView
         android:id="@+id/tv_carg_nro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cargo-007"
+        android:layout_width="130dp"
+        android:layout_height="28dp"
+        android:text=" "
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -27,7 +27,7 @@
         app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.139" />
+        app:layout_constraintVertical_bias="0.142" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/cargamentoTextInput"
@@ -61,7 +61,7 @@
         android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_transportista_text"
         app:layout_constraintEnd_toStartOf="@+id/tv_transportista_text"
-        app:layout_constraintHorizontal_bias="0.239"
+        app:layout_constraintHorizontal_bias="0.274"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -94,13 +94,13 @@
         android:id="@+id/tv_estado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Estado del cargamento:"
+        android:text="Estado de Carga:"
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/cargamentoTextInput"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.126"
+        app:layout_constraintHorizontal_bias="0.102"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -120,45 +120,45 @@
 
     <TextView
         android:id="@+id/tv_transportista_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hugo Maduro"
+        android:layout_width="130dp"
+        android:layout_height="28dp"
+        android:text=" "
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/tv_cliente_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.764"
+        app:layout_constraintHorizontal_bias="0.818"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.862" />
+        app:layout_constraintVertical_bias="0.857" />
 
     <TextView
         android:id="@+id/tv_cliente_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Wong SAC"
+        android:layout_width="130dp"
+        android:layout_height="28dp"
+        android:text=" "
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/tv_duracion_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.705"
+        app:layout_constraintHorizontal_bias="0.818"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.884" />
+        app:layout_constraintVertical_bias="0.882" />
 
     <TextView
         android:id="@+id/tv_duracion_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="8h 32min"
+        android:layout_width="130dp"
+        android:layout_height="28dp"
+        android:text=" "
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/cargamentoTextInput"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.682"
+        app:layout_constraintHorizontal_bias="0.818"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.934" />
+        app:layout_constraintVertical_bias="0.919" />
 
     <Button
         android:id="@+id/btn_confirm_cargo"
@@ -183,7 +183,7 @@
         app:layout_constraintHorizontal_bias="0.459"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.639">>
+        app:layout_constraintVertical_bias="0.707">>
 
         <AutoCompleteTextView
             android:id="@+id/comentarioAutoComplete"
@@ -191,7 +191,9 @@
             android:layout_height="match_parent"
             android:text=" "
             android:textColor="#000000"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="28dp"
+            tools:layout_editor_absoluteY="474dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

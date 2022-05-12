@@ -46,6 +46,9 @@ class ViewRegisterCargoActivity:AppCompatActivity() {
     lateinit var cargoHour : TextView
     lateinit var cargoLugarRecojo : TextView
     lateinit var cargoLugarEntrega : TextView
+    lateinit var cargoRouteStatus : TextView
+    lateinit var cargoComment : AutoCompleteTextView
+
 
 
     lateinit var getCrates : String
@@ -78,6 +81,8 @@ class ViewRegisterCargoActivity:AppCompatActivity() {
         cargoHour = binding.root.findViewById(R.id.tv_hora_recojo_text)
         cargoLugarRecojo = binding.root.findViewById(R.id.tv_lugar_recojo_text)
         cargoLugarEntrega = binding.root.findViewById(R.id.tv_lugar_entrega_text)
+        cargoRouteStatus = binding.root.findViewById(R.id.tv_route_status)
+        cargoComment = binding.root.findViewById(R.id.commentaAutoComplete)
 
 
         table = binding.root.findViewById(R.id.products_table)
@@ -104,6 +109,8 @@ class ViewRegisterCargoActivity:AppCompatActivity() {
                         cargoHour.text = cargoObject.cargoHour
                         cargoLugarRecojo.text = cargoObject.cargoInitialUbication
                         cargoLugarEntrega.text = cargoObject.cargoFinalUbication
+                        cargoRouteStatus.text = cargoObject.cargoRouteStatus
+                        cargoComment.setText(cargoObject.cargoComments)
                         val productCargoService: ProductCargoService = RetrofitClients.getUsersClient().create(ProductCargoService::class.java)
                         productCargoService.getProductCargoByCargoId(getCargoId).enqueue(object : Callback<List<ProductCargo>> {
                             override fun onResponse(call: Call<List<ProductCargo>>, response: Response<List<ProductCargo>>) {
@@ -125,7 +132,6 @@ class ViewRegisterCargoActivity:AppCompatActivity() {
                                             listCrates.add(getCrates)
                                         }
                                         init()
-
                                     }
                                     catch (ex: JSONException){
                                         ex.printStackTrace()

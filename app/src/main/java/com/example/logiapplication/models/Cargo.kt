@@ -36,4 +36,6 @@ class Cargo (
 
     val personDriverId: Person,
 
+    val cargoComments: String,
+
 )

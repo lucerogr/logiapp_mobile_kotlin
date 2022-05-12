@@ -49,6 +49,8 @@ class ClientViewRegisterActivity: AppCompatActivity() {
     lateinit var cargoHour : TextView
     lateinit var cargoLugarRecojo : TextView
     lateinit var cargoLugarEntrega : TextView
+    lateinit var cargoRouteStatus : TextView
+    lateinit var cargoComment : AutoCompleteTextView
 
 
     lateinit var getCrates : String
@@ -81,6 +83,8 @@ class ClientViewRegisterActivity: AppCompatActivity() {
         cargoHour = binding.root.findViewById(R.id.tv_hora_recojo_text_C)
         cargoLugarRecojo = binding.root.findViewById(R.id.tv_lugar_recojo_text_C)
         cargoLugarEntrega = binding.root.findViewById(R.id.tv_lugar_entrega_text_C)
+        cargoRouteStatus = binding.root.findViewById(R.id.tv_route_status_c)
+        cargoComment = binding.root.findViewById(R.id.commentAutoComplete)
 
 
         table = binding.root.findViewById(R.id.products_table_C)
@@ -107,6 +111,8 @@ class ClientViewRegisterActivity: AppCompatActivity() {
                         cargoHour.text = cargoObject.cargoHour
                         cargoLugarRecojo.text = cargoObject.cargoInitialUbication
                         cargoLugarEntrega.text = cargoObject.cargoFinalUbication
+                        cargoRouteStatus.text = "Estado de carga: " + cargoObject.cargoRouteStatus
+                        cargoComment.setText(cargoObject.cargoComments)
                         val productCargoService: ProductCargoService = RetrofitClients.getUsersClient().create(
                             ProductCargoService::class.java)
                         productCargoService.getProductCargoByCargoId(getCargoId).enqueue(object :

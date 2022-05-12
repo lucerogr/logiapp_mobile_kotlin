@@ -71,6 +71,7 @@ class FollowUpFragment : Fragment() {
     val listpersonClientId = ArrayList<Person>()
     val listpersonOperatorId = ArrayList<Person>()
     val listpersonDriverId = ArrayList<Person>()
+    val listCargaComments= ArrayList<String>()
 
 
 
@@ -133,6 +134,7 @@ class FollowUpFragment : Fragment() {
                             listpersonClientId.add(cargoObject.personClientId)
                             listpersonOperatorId.add(cargoObject.personOperatorId)
                             listpersonDriverId.add(cargoObject.personDriverId)
+                            listCargaComments.add(cargoObject.cargoComments)
                         }
                         init()
                         for (i in 0 until tableCargas.childCount-1) {
@@ -170,7 +172,8 @@ class FollowUpFragment : Fragment() {
                                     famproducto = listfamproducto[i],
                                     personClientId = listpersonClientId[i],
                                     personOperatorId = listpersonOperatorId[i],
-                                    personDriverId = listpersonDriverId[i]
+                                    personDriverId = listpersonDriverId[i],
+                                    cargoComments = listCargaComments[i]
                                 )
                                 updateCargo(cargoData, listCargaId[i]) {
                                     if (it?.codigo != null) {

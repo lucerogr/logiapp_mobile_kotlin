@@ -24,6 +24,7 @@ import com.example.logiapplication.client.ClientMainActivity.Companion.UserCodig
 import com.example.logiapplication.databinding.LogisticModifyProductsActivityBinding
 import com.example.logiapplication.interfaces.*
 import com.example.logiapplication.logisticOperator.LogisticMainActivity
+import com.example.logiapplication.logisticOperator.ui.followup.ModifyCargoActivity.Companion.CARGO_COMMENT
 import com.example.logiapplication.logisticOperator.ui.followup.ModifyCargoActivity.Companion.CARGO_DURATION
 import com.example.logiapplication.logisticOperator.ui.followup.ModifyCargoActivity.Companion.CARGO_ID
 import com.example.logiapplication.logisticOperator.ui.followup.ModifyCargoActivity.Companion.CARGO_ROUTE_STATUS
@@ -72,6 +73,7 @@ class ModifyProductsActivity:AppCompatActivity() {
     lateinit var getNombreCarga : String
     var getCargoId : Int = 0
     lateinit var getCargoStatus : String
+    lateinit var getCargoComments : String
     lateinit var getCargoRouteStatus : String
     lateinit var getCargoDuration : String
     var getListProductCarga = ArrayList<Int>()
@@ -119,6 +121,8 @@ class ModifyProductsActivity:AppCompatActivity() {
         getCargoStatus = intent.getStringExtra(CARGO_STATUS).toString()
         getCargoDuration = intent.getStringExtra(CARGO_DURATION).toString()
         getCargoRouteStatus = intent.getStringExtra(CARGO_ROUTE_STATUS).toString()
+        getCargoComments = intent.getStringExtra(CARGO_COMMENT).toString()
+
 
         //DE LA FAMILIA DE PRODUCTOS
         tvFamily = binding.root.findViewById(R.id.tv_family_name_L)
@@ -213,7 +217,8 @@ class ModifyProductsActivity:AppCompatActivity() {
                                                                                                             famproducto = familyProductObject,
                                                                                                             personClientId = clientObject,
                                                                                                             personOperatorId = operatorObject,
-                                                                                                            personDriverId = carrierObject
+                                                                                                            personDriverId = carrierObject,
+                                                                                                            cargoComments = getCargoComments
                                                                                                         )
 
                                                                                                         //println(cargoData)
@@ -399,7 +404,7 @@ class ModifyProductsActivity:AppCompatActivity() {
                 }
             }
             override fun onFailure(call: Call<List<Product>>, t: Throwable) {
-                Toast.makeText(applicationContext, "a", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT).show()
             }
         })
 

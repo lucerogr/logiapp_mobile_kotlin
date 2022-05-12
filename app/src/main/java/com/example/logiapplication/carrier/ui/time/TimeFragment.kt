@@ -83,6 +83,10 @@ class TimeFragment : Fragment() {
     lateinit var getCargoRouteSelected : String
     val cargoRouteList = ArrayList<String>()
 
+    lateinit var getObjectCargoComments : String
+    lateinit var getCargoCommentsSelected : String
+    val cargoCommentsList = ArrayList<String>()
+
     lateinit var getObjectCargoTruck : Truck
     var getCargoTruckSelected : Truck = Truck(0, "", "", 0, 0, 0)
     val cargoTruckList = ArrayList<Truck>()
@@ -160,6 +164,8 @@ class TimeFragment : Fragment() {
                         getCargoRouteSelected = "s"
                         getObjectCargoDuration = "u"
                         getCargoDurationSelected = "s"
+                        getObjectCargoComments = "u"
+                        getCargoCommentsSelected = "s"
                         for(i in 0 until jsonArrayC.length()) {
                             val jsonObjectF: JSONObject = jsonArrayC.getJSONObject(i)
                             //val jsonObjectCargo = JSONObject(Gson().toJson(jsonObjectF))
@@ -177,6 +183,7 @@ class TimeFragment : Fragment() {
                             getObjectCargoClient = cargoObject.personClientId
                             getObjectCargoOperator = cargoObject.personOperatorId
                             getObjectCargoCarrier = cargoObject.personDriverId
+                            getObjectCargoComments = cargoObject.cargoComments
                             cargoIdList.add(getObjectCargoId)
                             cargoNameList.add(getObjectCargoName)
                             cargoDateList.add(getObjectCargoDate)
@@ -190,6 +197,7 @@ class TimeFragment : Fragment() {
                             cargoFamilyList.add(getObjectCargoFamily)
                             cargoOperatorList.add(getObjectCargoOperator)
                             cargoCarrierList.add(getObjectCargoCarrier)
+                            cargoCommentsList.add(getObjectCargoComments)
                         }
                         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, cargoNameList)
                         cargo.setAdapter(arrayAdapter)
@@ -209,6 +217,7 @@ class TimeFragment : Fragment() {
                                     getCargoClientSelected = cargoClientList[i]
                                     getCargoOperatorSelected = cargoOperatorList[i]
                                     getCargoCarrierSelected = cargoCarrierList[i]
+                                    getCargoCommentsSelected = cargoCommentsList[i]
                                 }
                             }
                             val cargoData = Cargo(  codigo = getCargoIdSelected,
@@ -224,7 +233,8 @@ class TimeFragment : Fragment() {
                                 famproducto = getCargoFamilySelected,
                                 personClientId = getCargoClientSelected,
                                 personOperatorId = getCargoOperatorSelected,
-                                personDriverId = getCargoCarrierSelected
+                                personDriverId = getCargoCarrierSelected,
+                                cargoComments = getCargoCommentsSelected
                             )
                             btn_inicio.setOnClickListener(View.OnClickListener {
                                 //Toast.makeText(requireContext(), getCargoIdSelected.toString(),Toast.LENGTH_SHORT).show()

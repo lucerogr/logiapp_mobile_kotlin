@@ -197,7 +197,8 @@ class NextRegisterActivity : AppCompatActivity() {
                                                                                                             famproducto = familyProductObject,
                                                                                                             personClientId = clientObject,
                                                                                                             personOperatorId = operatorObject,
-                                                                                                            personDriverId = carrierObject
+                                                                                                            personDriverId = carrierObject,
+                                                                                                            cargoComments = " "
                                                                                                         )
 
                                                                                                         //println(cargoData)

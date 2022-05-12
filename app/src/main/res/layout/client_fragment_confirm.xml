@@ -25,162 +25,16 @@
         android:id="@+id/routes_table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray"
+        android:background="@color/white"
         android:paddingTop="1dp"
-        android:stretchColumns="0"
+        android:layout_margin="20dp"
+        android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_rutas_finalizadas"
         app:layout_constraintVertical_bias="0.17">
-
-        <TableRow
-            android:background="@color/gray"
-            android:paddingRight="1dp"
-            android:paddingBottom="1dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.7"
-                android:background="@color/third_gray"
-                android:gravity="center_horizontal"
-                android:padding="5dp"
-                android:text="#"
-                android:layout_marginLeft="1dp"
-                android:textColor="@color/black"
-                android:textSize="14sp"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.6"
-                android:background="@color/third_gray"
-                android:gravity="center_vertical"
-                android:padding="5dp"
-                android:text="Carga"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.8"
-                android:background="@color/third_gray"
-                android:gravity="center_horizontal"
-                android:padding="5dp"
-                android:text="Estado de la ruta"
-                android:textColor="@color/black"
-                android:textSize="14sp"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.5"
-                android:background="@color/third_gray"
-                android:gravity="center_horizontal"
-                android:padding="5dp"
-                android:text=" "
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-        </TableRow>
-
-        <TableRow
-            android:background="@color/gray"
-            android:paddingRight="1dp"
-            android:paddingBottom="1dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.7"
-                android:background="@color/white"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="1"
-                android:layout_marginLeft="1dp"
-                android:textColor="@color/black"
-                android:textSize="14sp"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.6"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:padding="5dp"
-                android:text="Cargo-007"
-                android:textColor="@color/black"
-                android:textSize="14sp"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.8"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:padding="5dp"
-                android:text="Finalizada"
-                android:textColor="@color/black"
-                android:textSize="14sp"/>
-            <Button
-                android:id="@+id/btn_confirm"
-                android:layout_width="0dp"
-                android:layout_height="39dp"
-                android:text="Confirmar"
-                android:layout_weight="1.5"
-                android:padding="5dp"/>
-
-        </TableRow>
-
-        <TableRow
-            android:background="@color/gray"
-            android:paddingRight="1dp"
-            android:paddingBottom="1dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.7"
-                android:background="@color/white"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="2"
-                android:layout_marginLeft="1dp"
-                android:textColor="@color/black"
-                android:textSize="14sp"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.6"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:padding="5dp"
-                android:text="Cargo-009"
-                android:textColor="@color/black"
-                android:textSize="14sp"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.8"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:padding="5dp"
-                android:text="Finalizada"
-                android:textColor="@color/black"
-                android:textSize="14sp"/>
-            <Button
-                android:id="@+id/btn_confirm_2"
-                android:layout_width="0dp"
-                android:layout_height="39dp"
-                android:text="Confirmar"
-                android:layout_weight="1.5"
-                android:padding="5dp"/>
-
-        </TableRow>
 
     </TableLayout>
 

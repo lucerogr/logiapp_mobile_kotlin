@@ -2,13 +2,10 @@ package com.example.logiapplication.carrier.ui.syncup
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -16,13 +13,12 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import com.example.logiapplication.LoginActivity
-import com.example.logiapplication.carrier.CarrierMainActivity
 import com.example.logiapplication.R
 import com.example.logiapplication.RetrofitClients
 import com.example.logiapplication.carrier.BluetoothConfiguration
 import com.example.logiapplication.carrier.CLocation
+import com.example.logiapplication.carrier.CarrierMainActivity
 import com.example.logiapplication.carrier.ui.time.TimeFragment.Companion.CARGO
 import com.example.logiapplication.databinding.CarrierActivityConnectionBinding
 import com.example.logiapplication.interfaces.CargoService
@@ -54,6 +50,9 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
     lateinit var longitude: String
 
     var contador : Int = 0
+    var minutos : Int = 0
+    var segundos : Int = 0
+    var horas : Int = 0
 
     var msj = ""
     var initHilo = false
@@ -85,8 +84,6 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
         boolean = true
         getCargoId = intent.getIntExtra(CARGO, 0)
 
-        //bluetoothJhr = BluetoothJhr(this, CarrierMainActivity::class.java)
-
         thread(start = true) {
             while (!initHilo && !hilo) {
                 Thread.sleep(50)
@@ -113,6 +110,9 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
 
                         getLastLocation()
                         contador++
+                        minutos = 0
+                        segundos = 0
+                        horas = 0
 
                         val cargoService: CargoService = RetrofitClients.getUsersClient().create(CargoService::class.java)
                         cargoService.getCargo(getCargoId).enqueue(object : Callback<Cargo> {
@@ -164,22 +164,30 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
                                                 }
                                             }
                                         }
-                                        val cargoData = Cargo(  codigo = cargoObject.codigo,
-                                            cargoName = cargoObject.cargoName,
-                                            cargoDate = cargoObject.cargoDate,
-                                            cargoHour = cargoObject.cargoHour,
-                                            cargoInitialUbication = cargoObject.cargoInitialUbication,
-                                            cargoFinalUbication = cargoObject.cargoFinalUbication,
-                                            cargoStatus = "Finalizada",
-                                            cargoRouteDuration = cargoObject.cargoRouteDuration,
-                                            cargoRouteStatus = cargoObject.cargoRouteStatus,
-                                            camion = cargoObject.camion,
-                                            famproducto = cargoObject.famproducto,
-                                            personClientId = cargoObject.personClientId,
-                                            personOperatorId = cargoObject.personOperatorId,
-                                            personDriverId = cargoObject.personDriverId
-                                        )
+
                                         botonFinRuta.setOnClickListener(View.OnClickListener{
+                                            segundos = contador*3
+                                            minutos = segundos / 60
+                                            horas = minutos / 60
+                                            minutos %= 60
+
+                                            val cargoData = Cargo(  codigo = cargoObject.codigo,
+                                                cargoName = cargoObject.cargoName,
+                                                cargoDate = cargoObject.cargoDate,
+                                                cargoHour = cargoObject.cargoHour,
+                                                cargoInitialUbication = cargoObject.cargoInitialUbication,
+                                                cargoFinalUbication = cargoObject.cargoFinalUbication,
+                                                cargoStatus = "Finalizada",
+                                                cargoRouteDuration = "$horas:$minutos",
+                                                cargoRouteStatus = cargoObject.cargoRouteStatus,
+                                                camion = cargoObject.camion,
+                                                famproducto = cargoObject.famproducto,
+                                                personClientId = cargoObject.personClientId,
+                                                personOperatorId = cargoObject.personOperatorId,
+                                                personDriverId = cargoObject.personDriverId,
+                                                cargoComments = cargoObject.cargoComments
+                                            )
+
                                             updateCargo(cargoData, getCargoId) {
                                                 if (it?.codigo != null) {
                                                     Toast.makeText(this@ConnectionActivity, "Se actualizó el estado de la carga", Toast.LENGTH_SHORT).show()

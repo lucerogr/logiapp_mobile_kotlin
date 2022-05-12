@@ -54,6 +54,7 @@ class ModifyCargoActivity:AppCompatActivity() {
         var CARGO_STATUS = "cargo_status"
         var CARGO_ROUTE_STATUS = "cargo_route_status"
         var CARGO_DURATION = "cargo_duration"
+        var CARGO_COMMENT = "cargo_comment"
     }
     private lateinit var registerViewModel: RegisterViewModel
     var getObjectFamilyProductId : Int = 0
@@ -464,6 +465,7 @@ class ModifyCargoActivity:AppCompatActivity() {
                                 intent.putExtra(CARGO_STATUS,cargoObject.cargoStatus)
                                 intent.putExtra(CARGO_ROUTE_STATUS,cargoObject.cargoRouteStatus)
                                 intent.putExtra(CARGO_DURATION,cargoObject.cargoRouteDuration)
+                                intent.putExtra(CARGO_COMMENT, cargoObject.cargoComments)
                                 startActivity(intent)
                             }
                         })
