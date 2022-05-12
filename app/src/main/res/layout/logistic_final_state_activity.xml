@@ -60,7 +60,7 @@
         android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_transportista_text"
         app:layout_constraintEnd_toStartOf="@+id/tv_transportista_text"
-        app:layout_constraintHorizontal_bias="0.238"
+        app:layout_constraintHorizontal_bias="0.209"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -93,13 +93,13 @@
         android:id="@+id/tv_estado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Estado del cargamento:"
+        android:text="Estado de carga:"
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_estado_text"
         app:layout_constraintEnd_toEndOf="@+id/app_bar_main"
-        app:layout_constraintHorizontal_bias="0.14"
+        app:layout_constraintHorizontal_bias="0.111"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -119,9 +119,8 @@
 
     <TextView
         android:id="@+id/tv_comentario_text"
-        android:layout_width="345dp"
-        android:layout_height="92dp"
-        android:text="Carga OK. Todo conforme"
+        android:layout_width="307dp"
+        android:layout_height="86dp"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -129,60 +128,56 @@
         app:layout_constraintHorizontal_bias="0.469"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.608" />
+        app:layout_constraintVertical_bias="0.625" />
 
     <TextView
         android:id="@+id/tv_transportista_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hugo Maduro"
+        android:layout_width="130dp"
+        android:layout_height="28dp"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/tv_cliente_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.764"
+        app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.893" />
 
     <TextView
         android:id="@+id/tv_cliente_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Wong SAC"
+        android:layout_width="130dp"
+        android:layout_height="28dp"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/tv_duracion_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.705"
+        app:layout_constraintHorizontal_bias="0.928"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.918" />
+        app:layout_constraintVertical_bias="0.916" />
 
     <TextView
         android:id="@+id/tv_duracion_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="8h 32min"
+        android:layout_width="130dp"
+        android:layout_height="28dp"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/tv_estado_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.682"
+        app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.93" />
+        app:layout_constraintVertical_bias="0.931" />
 
     <TextView
         android:id="@+id/tv_estado_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sin observaciones"
+        android:layout_width="130dp"
+        android:layout_height="28dp"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.867"
+        app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.411" />
