@@ -55,6 +55,7 @@ class ConditionsActivity:AppCompatActivity() {
     var listLogFecha = ArrayList<String>()
     var listLogUbicacion = ArrayList<String>()
     var listLogParametro = ArrayList<String>()
+    var listLogs = ArrayList<Logs>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,17 +109,12 @@ class ConditionsActivity:AppCompatActivity() {
                                         cargoRAutoComplete.setText("")
                                     }
                                     else {
-
-                                        Toast.makeText(this@ConditionsActivity, getCargaId.toString(), Toast.LENGTH_SHORT).show()
-
                                         //ALERTAS
                                         logsService.getLogsByCargoId(getCargaId).enqueue(object : Callback<List<Logs>> {
                                             override fun onResponse(call: Call<List<Logs>>, response: Response<List<Logs>>) {
                                                 if(response.isSuccessful) {
                                                     Log.i("Success", response.body().toString())
                                                     try {
-                                                        //Toast.makeText(this@ConditionsActivity, "Holaaaa", Toast.LENGTH_SHORT).show()
-
                                                         val mapperL = ObjectMapper()
                                                         val listL: List<Logs>? = response.body()
                                                         val jsonArray1L: String = mapperL.writeValueAsString(listL)
@@ -126,9 +122,10 @@ class ConditionsActivity:AppCompatActivity() {
                                                         for(i in 0 until jsonArrayL.length()) {
                                                             val jsonObjectL: JSONObject = jsonArrayL.getJSONObject(i)
                                                             val logObject = Gson().fromJson(jsonObjectL.toString(), Logs::class.java)
+                                                            //lista de todos los logs aunque alert type sea false
+                                                            listLogs.add(logObject)
                                                             if(logObject.logCargoAlertType) {
                                                                 listLogId.add(jsonObjectL.getInt("codigo"))
-                                                                //println("holaaaa")
                                                                 listLogHour.add(logObject.logCargoHour)
                                                                 listLogFecha.add(logObject.logCargoDate)
                                                                 listLogUbicacion.add(logObject.logCargoUbication)
@@ -348,49 +345,86 @@ class ConditionsActivity:AppCompatActivity() {
     fun setLineGraphicData() {
         graphic = binding.root.findViewById(R.id.graphic)
 
-        //EJE X
-        val xValue = ArrayList<String>()
-        xValue.add("0")
-        xValue.add("1")
+        //EJE Y (PARAMETRO)
+        var listParametro = ArrayList<Float>()
+        var listMinutos = ArrayList<Int>()
+        var listDuracion = ArrayList<Int>()
+
+        for (i in 0 until listLogs.size) {
+            val time: List<String> = listLogs[i].cargo.cargoRouteDuration.split(":")
+            //time[ultimo de lalista]
+            var minute = time[time.size-1].toInt() //minuto = 2
+            //si duracion es 0:2, va a recorrer el 1 y 2
+            for (i in 1 until minute+1) { //recorre todos los minutos de la lista desde 1
+                listDuracion.add(i) //lista con cada minuto [1, 2]
+            }
+
+            if (parameterAutoComplete.text.toString() == "Temperatura") {
+                listParametro.add(listLogs[i].logCargoTemperature.toFloat())
+                listMinutos.add(listDuracion[i])
+            }
+            else if(parameterAutoComplete.text.toString() == "Humedad"){
+                listParametro.add(listLogs[i].logCargoHumidity.toFloat())
+                listMinutos.add(listDuracion[i])
+
+            }
+            else if(parameterAutoComplete.text.toString() == "Velocidad") {
+                listParametro.add(listLogs[i].logCargoVelocity.toFloat())
+                listMinutos.add(listDuracion[i])
+            }
+        }
+
+        //EJE X (MINUTOS)
+
+        /*xValue.add("1")
         xValue.add("2")
         xValue.add("3")
         xValue.add("4")
         xValue.add("5")
         xValue.add("6")
-        xValue.add("7")
+        xValue.add("7")*/
 
-        val xVal = graphic.xAxis
-        xVal.position = XAxis.XAxisPosition.BOTTOM
+        val xValue = ArrayList<String>()
+        xValue.add("0")
 
-
-        //EJE Y
         val lineEntry = ArrayList<Entry>()
-        lineEntry.add(Entry(24f, 0))
+        lineEntry.add(Entry(0f, 0))
+        for (i in 0 until listLogs.size) {
+            xValue.add(listMinutos[i].toString())
+            lineEntry.add(Entry(listParametro[i], listMinutos[i]))
+        }
+        /*
         lineEntry.add(Entry(28f, 1))
         lineEntry.add(Entry(23f, 2))
         lineEntry.add(Entry(30f, 3))
         lineEntry.add(Entry(35f, 4))
         lineEntry.add(Entry(29f, 5))
         lineEntry.add(Entry(28f, 6))
-        lineEntry.add(Entry(26f, 7))
+        lineEntry.add(Entry(26f, 7))*/
+
+        val xVal = graphic.xAxis
+        xVal.position = XAxis.XAxisPosition.BOTTOM
 
         val yValRight = graphic.axisRight
         yValRight.isEnabled = false
+        val yValLeft = graphic.axisLeft
+        yValLeft.isGranularityEnabled = true
+        yValLeft.granularity = 3f
 
-        val lineDataSet = LineDataSet(lineEntry, "Temperatura de la carga por tiempo de ruta")
+        val lineDataSet = LineDataSet(lineEntry,  parameterAutoComplete.text.toString() + " de la carga por minutos de ruta")
         lineDataSet.color=resources.getColor(R.color.green)
 
         lineDataSet.circleRadius = 0f
         lineDataSet.setDrawFilled(true)
+        lineDataSet.valueTextColor=resources.getColor(R.color.colorPrimaryDark)
         lineDataSet.fillColor=resources.getColor(R.color.colorPrimaryDark)
         lineDataSet.fillAlpha = 30
-
         val data = LineData(xValue, lineDataSet)
 
 
         graphic.data=data
         graphic.setBackgroundColor(resources.getColor(R.color.white))
-
+        graphic.setDescription("Minutos")
         //graphic.animateXY(3000, 3000)
 
 
