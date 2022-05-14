@@ -54,11 +54,10 @@
         app:layout_constraintVertical_bias="1.0">
 
         <AutoCompleteTextView
-            android:id="@+id/camionAutoComplete"
+            android:id="@+id/cargoRAutoComplete"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"
-            android:text=" "
             android:textColor="#000000"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -81,7 +80,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"
-            android:text=" "
             android:textColor="#000000"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -112,169 +110,40 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.622" />
 
-    <TableLayout
-        android:id="@+id/alerts_table"
+    <ScrollView
+        android:id="@+id/sv_table"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:background="@color/gray"
-        android:paddingTop="1dp"
-        android:stretchColumns="0"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:scrollbarStyle="outsideInset"
+        android:scrollbars="horizontal|vertical"
         app:layout_constraintBottom_toTopOf="@+id/btn_export"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_alertas">
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbars="horizontal|vertical">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TableLayout
+                    android:id="@+id/alerts_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/gray"
+                    android:paddingTop="1dp"
+                    android:gravity="center_horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+                </TableLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </HorizontalScrollView>
+    </ScrollView>
 
-        <TableRow
-            android:background="@color/gray"
-            android:paddingRight="1dp"
-            android:paddingBottom="1dp"
-            tools:layout_editor_absoluteX="54dp"
-            tools:layout_editor_absoluteY="265dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="1dp"
-                android:layout_weight="1.5"
-                android:background="@color/third_gray"
-                android:gravity="center_horizontal"
-                android:padding="5dp"
-                android:text="Nº"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                tools:layout_editor_absoluteX="121dp"
-                tools:layout_editor_absoluteY="265dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:background="@color/third_gray"
-                android:gravity="center_horizontal"
-                android:padding="5dp"
-                android:text="Hora"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                tools:layout_editor_absoluteX="121dp"
-                tools:layout_editor_absoluteY="265dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:background="@color/third_gray"
-                android:gravity="center_horizontal"
-                android:padding="5dp"
-                android:text="Fecha"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                tools:layout_editor_absoluteX="121dp"
-                tools:layout_editor_absoluteY="265dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:background="@color/third_gray"
-                android:gravity="center_horizontal"
-                android:padding="5dp"
-                android:text="Ubicación"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                tools:layout_editor_absoluteX="121dp"
-                tools:layout_editor_absoluteY="265dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:background="@color/third_gray"
-                android:gravity="center_horizontal"
-                android:padding="5dp"
-                android:text="Temperatura"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                tools:layout_editor_absoluteX="121dp"
-                tools:layout_editor_absoluteY="265dp" />
-
-        </TableRow>
-
-        <TableRow
-            android:background="@color/gray"
-            android:paddingRight="1dp"
-            android:paddingBottom="1dp"
-            tools:layout_editor_absoluteX="54dp"
-            tools:layout_editor_absoluteY="265dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="1dp"
-                android:layout_weight="1.5"
-                android:background="@color/white"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="1"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                tools:layout_editor_absoluteX="121dp"
-                tools:layout_editor_absoluteY="265dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:background="@color/white"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="15:00"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                tools:layout_editor_absoluteX="121dp"
-                tools:layout_editor_absoluteY="265dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:background="@color/white"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="05/03/2022"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                tools:layout_editor_absoluteX="121dp"
-                tools:layout_editor_absoluteY="265dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:background="@color/white"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="23123,-123213"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                tools:layout_editor_absoluteX="121dp"
-                tools:layout_editor_absoluteY="265dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:background="@color/white"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="33ºC"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                tools:layout_editor_absoluteX="121dp"
-                tools:layout_editor_absoluteY="265dp" />
-
-        </TableRow>
-    </TableLayout>
 
     <Button
         android:id="@+id/btn_export"

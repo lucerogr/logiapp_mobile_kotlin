@@ -22,9 +22,9 @@ import com.example.logiapplication.carrier.CarrierMainActivity
 import com.example.logiapplication.carrier.ui.time.TimeFragment.Companion.CARGO
 import com.example.logiapplication.databinding.CarrierActivityConnectionBinding
 import com.example.logiapplication.interfaces.CargoService
-import com.example.logiapplication.interfaces.LogService
+import com.example.logiapplication.interfaces.LogsService
 import com.example.logiapplication.models.Cargo
-import com.example.logiapplication.models.Log
+import com.example.logiapplication.models.Logs
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
@@ -130,24 +130,24 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
 
                                         val cargoTemperature = data2.text.toString().fullTrim().toDouble()
                                         val cargoHumidity = data4.text.toString().fullTrim().toDouble()
-                                        var cargoAlert = 0
+                                        var cargoAlert = false
                                         if(cargoTemperature < minTemperatura) {
-                                            cargoAlert = 1
+                                            cargoAlert = true
                                             data2.setBackgroundResource(R.drawable.box_yellow)
                                         }
                                         if(cargoHumidity < minHumedad) {
-                                            cargoAlert = 1
+                                            cargoAlert = true
                                             data4.setBackgroundResource(R.drawable.box_yellow)
                                         }
                                         if(cargoTemperature > maxTemperatura) {
-                                            cargoAlert = 1
+                                            cargoAlert = true
                                             data2.setBackgroundResource(R.drawable.box_red)
                                         }
                                         if(cargoHumidity > maxHumedad) {
-                                            cargoAlert = 1
+                                            cargoAlert = true
                                             data4.setBackgroundResource(R.drawable.box_red)
                                         }
-                                        val logData = Log(  codigo = null,
+                                        val logData = Logs(  codigo = null,
                                             logCargoDate = fechaActual.toString(),
                                             logCargoHour = horaActual.toString(),
                                             logCargoUbication = "$latitude, $longitude",
@@ -159,7 +159,7 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
                                         )
                                         if(contador%20 == 0){
                                             addLog(logData) {
-                                                if (cargoAlert == 1) {
+                                                if (cargoAlert == true) {
                                                     Toast.makeText(applicationContext, "ALERTA GENERADA", Toast.LENGTH_SHORT).show()
                                                 }
                                             }
@@ -253,14 +253,14 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
             }
     }
 
-    fun addLog(logData: Log, onResult: (Log?) -> Unit){
-        val logService: LogService = RetrofitClients.getUsersClient().create(LogService::class.java)
-        logService.addLog(logData).enqueue(object : Callback<Log> {
-            override fun onResponse(call: Call<Log>, response: Response<Log>) {
+    fun addLog(logData: Logs, onResult: (Logs?) -> Unit){
+        val logService: LogsService = RetrofitClients.getUsersClient().create(LogsService::class.java)
+        logService.addLog(logData).enqueue(object : Callback<Logs> {
+            override fun onResponse(call: Call<Logs>, response: Response<Logs>) {
                 val addedLog = response.body()
                 onResult(addedLog)
             }
-            override fun onFailure(call: Call<Log>, t: Throwable) {
+            override fun onFailure(call: Call<Logs>, t: Throwable) {
                 onResult(null)
             }
         })

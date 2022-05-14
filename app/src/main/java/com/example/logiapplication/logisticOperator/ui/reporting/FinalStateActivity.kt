@@ -71,8 +71,6 @@ class FinalStateActivity:AppCompatActivity() {
         cargoEstado = findViewById(R.id.tv_estado_text)
         cargoComentario = findViewById(R.id.tv_comentario_text)
 
-
-        //GET CARGO
         //CARGAS
         val cargoService: CargoService = RetrofitClients.getUsersClient().create(CargoService::class.java)
         cargoService.getCargoByOperator(getOperatorCodigo).enqueue(object : Callback<List<Cargo>> {
