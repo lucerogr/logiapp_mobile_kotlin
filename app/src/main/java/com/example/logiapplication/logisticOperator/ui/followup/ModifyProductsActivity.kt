@@ -82,6 +82,7 @@ class ModifyProductsActivity:AppCompatActivity() {
 
     lateinit var botonRegistrar : Button
     lateinit var botonRegistrarProductos : Button
+    lateinit var botonCancel: Button
     lateinit var tv_nombre_carga : TextView
 
     lateinit var table : TableLayout
@@ -128,7 +129,14 @@ class ModifyProductsActivity:AppCompatActivity() {
         tvFamily = binding.root.findViewById(R.id.tv_family_name_L)
         tvFamily.text = getFamilyProductName
         tv_nombre_carga.text = getNombreCarga
+        botonCancel = binding.root.findViewById(R.id.btn_cancel_cargo)
 
+
+        botonCancel.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this, ModifyCargoActivity ::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            startActivity(intent)
+        })
 
         //PRODUCTOS
         val productService: ProductService = RetrofitClients.getUsersClient().create(ProductService::class.java)
@@ -300,8 +308,10 @@ class ModifyProductsActivity:AppCompatActivity() {
                                                                                                                                                                             if (it?.codigo != null) {
                                                                                                                                                                                 // it = newly added user parsed as response
                                                                                                                                                                                 // it?.id = newly added user ID
-                                                                                                                                                                                Toast.makeText(applicationContext, "Se actualizacion los productos de la carga", Toast.LENGTH_SHORT).show()
-
+                                                                                                                                                                                Toast.makeText(applicationContext, "Se actualizaron los productos de la carga", Toast.LENGTH_SHORT).show()
+                                                                                                                                                                                val intent = Intent(this@ModifyProductsActivity, LogisticMainActivity::class.java)
+                                                                                                                                                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                                                                                                                                                                                startActivity(intent)
                                                                                                                                                                             } else {
                                                                                                                                                                                 Toast.makeText(applicationContext, "Error al actualizar los productos de la carga", Toast.LENGTH_SHORT).show()
                                                                                                                                                                             }

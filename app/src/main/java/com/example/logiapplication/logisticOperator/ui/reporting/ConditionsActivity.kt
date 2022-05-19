@@ -3,14 +3,19 @@ package com.example.logiapplication.logisticOperator.ui.reporting
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.drawToBitmap
 import com.example.logiapplication.LoginActivity
 import com.example.logiapplication.R
 import com.example.logiapplication.RetrofitClients
@@ -28,12 +33,21 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.google.gson.Gson
+import com.itextpdf.text.*
+import com.itextpdf.text.pdf.PdfContentByte
+import com.itextpdf.text.pdf.PdfWriter
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
+import java.io.FileOutputStream
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+
 
 class ConditionsActivity:AppCompatActivity() {
     private lateinit var binding: LogisticConditionsActivityBinding
@@ -57,6 +71,9 @@ class ConditionsActivity:AppCompatActivity() {
     var listLogParametro = ArrayList<String>()
     var listLogs = ArrayList<Logs>()
 
+    private val STORAGE_CODE = 1001
+    lateinit var botonExportar : Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -70,6 +87,8 @@ class ConditionsActivity:AppCompatActivity() {
         cargoRAutoComplete = findViewById(R.id.cargoRAutoComplete)
         parameterAutoComplete = findViewById(R.id.parameterAutoComplete)
         tableAlertas = findViewById(R.id.alerts_table)
+        botonExportar = findViewById(R.id.btn_export)
+
 
         //TABLA DE ALERTAS
         val logsService: LogsService = RetrofitClients.getUsersClient().create(LogsService::class.java)
@@ -170,7 +189,79 @@ class ConditionsActivity:AppCompatActivity() {
             }
         })
 
+        botonExportar.setOnClickListener{
+            if(Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+                if(checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
+                    val permission = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    requestPermissions(permission, STORAGE_CODE)
+                }
+                else {
+                    exportPDF()
+                }
+            }
+            else {
+                exportPDF()
+            }
+        }
+
     }
+    private fun exportPDF() {
+        val doc = Document()
+        //se guarda en descargas
+        val fileName = SimpleDateFormat("yyyMMdd_HHmmss", Locale.getDefault()).format(System.currentTimeMillis())
+        val filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + fileName + ".pdf"
+
+        try {
+            PdfWriter.getInstance(doc, FileOutputStream(filePath))
+
+            doc.open()
+            val streamG = ByteArrayOutputStream()
+            val streamT = ByteArrayOutputStream()
+            //grafico
+            val bitmapG: Bitmap = graphic.chartBitmap
+            bitmapG.compress(Bitmap.CompressFormat.JPEG, 100, streamG)
+            val myGraph: Image = Image.getInstance(streamG.toByteArray())
+            myGraph.scalePercent(50F)
+            myGraph.alignment = Image.MIDDLE
+            //tabla
+            val bitmapT : Bitmap = tableAlertas.drawToBitmap()
+            bitmapT.compress(Bitmap.CompressFormat.JPEG, 100, streamT)
+            val myTable : Image = Image.getInstance(streamT.toByteArray())
+
+            //myTable.scaleToFit(PageSize.A4.width, PageSize.A4.height)
+            myTable.scalePercent(50f)
+            myTable.alignment = Image.MIDDLE
+            val boldFont = Font(Font.FontFamily.TIMES_ROMAN, 22f, Font.BOLD)
+            val semiBoldFont = Font(Font.FontFamily.TIMES_ROMAN, 16f, Font.BOLD)
+            val titulo = Paragraph(Chunk("Condiciones de Carga", boldFont))
+            titulo.alignment = Paragraph.ALIGN_CENTER
+            doc.add(titulo)
+            doc.add(Paragraph(Chunk(getCargaNameSelected, semiBoldFont)))
+            doc.add(myGraph)
+            doc.newPage()
+            doc.add(Paragraph(Chunk("Alertas", semiBoldFont)))
+            doc.add(myTable)
+            doc.addAuthor("LogiApp")
+            doc.close()
+            Toast.makeText(this,"$fileName.pdf\n se ha creado en \n$filePath", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            Toast.makeText(this, ""+e.toString(), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when(requestCode) {
+            STORAGE_CODE -> {
+                if(grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    exportPDF()
+                } else{
+                    Toast.makeText(this, "Permiso denegado", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
     fun init() {
         val row0 = TableRow(this)
 
@@ -350,7 +441,57 @@ class ConditionsActivity:AppCompatActivity() {
         var listMinutos = ArrayList<Int>()
         var listDuracion = ArrayList<Int>()
 
+
+        //desde aca
+        val time: List<String> = listLogs[0].cargo.cargoRouteDuration.split(":") //obtengo la duracion
+        var minute = time[time.size-1].toInt() //minuto = 2 ...obtengo los minutos
+        for (i in 0 until minute+1) { //recorre todos los minutos de la lista desde 1
+            listDuracion.add(i) //lista con cada minuto [0, 1, 2]
+        }
+
+        //recorrer list duracion creo
+        // si es 0, toma el primer minuto, si es 1, el segundo, si es 2, el tercero
+        //mas abajo en listLogs, tambien cambiar
         for (i in 0 until listLogs.size) {
+            if (parameterAutoComplete.text.toString() == "Temperatura") {
+                listParametro.add(listLogs[i].logCargoTemperature.toFloat())
+                val time: List<String> = listLogs[i].logCargoHour.split(":")
+                var minute = time[time.size-1].toInt()
+                if (listMinutos.isEmpty()) {
+                    listMinutos.add(minute)
+                }
+                else if(minute != listMinutos[listMinutos.size-1]){
+                    listMinutos.add(minute)
+                }
+
+            }
+            else if(parameterAutoComplete.text.toString() == "Humedad"){
+                listParametro.add(listLogs[i].logCargoHumidity.toFloat())
+                val time: List<String> = listLogs[i].logCargoHour.split(":")
+                var minute = time[time.size-1].toInt()
+                if (listMinutos.isEmpty()) {
+                    listMinutos.add(minute)
+                }
+                else if(minute != listMinutos[listMinutos.size-1]){
+                    listMinutos.add(minute)
+                }
+
+            }
+            else if(parameterAutoComplete.text.toString() == "Velocidad") {
+                listParametro.add(listLogs[i].logCargoVelocity.toFloat())
+                val time: List<String> = listLogs[i].logCargoHour.split(":")
+                var minute = time[time.size-1].toInt()
+                if (listMinutos.isEmpty()) {
+                    listMinutos.add(minute)
+                }
+                else if(minute != listMinutos[listMinutos.size-1]){
+                    listMinutos.add(minute)
+                }
+            }
+        }
+
+        //hasta aca
+        /*for (i in 0 until listLogs.size) {
             val time: List<String> = listLogs[i].cargo.cargoRouteDuration.split(":")
             //time[ultimo de lalista]
             var minute = time[time.size-1].toInt() //minuto = 2
@@ -372,35 +513,36 @@ class ConditionsActivity:AppCompatActivity() {
                 listParametro.add(listLogs[i].logCargoVelocity.toFloat())
                 listMinutos.add(listDuracion[i])
             }
-        }
+        }*/
 
         //EJE X (MINUTOS)
 
-        /*xValue.add("1")
+
+        val xValue = ArrayList<String>()
+        /*xValue.add("0")
+        xValue.add("1")
         xValue.add("2")
         xValue.add("3")
         xValue.add("4")
-        xValue.add("5")
-        xValue.add("6")
-        xValue.add("7")*/
-
-        val xValue = ArrayList<String>()
-        xValue.add("0")
 
         val lineEntry = ArrayList<Entry>()
-        lineEntry.add(Entry(0f, 0))
-        for (i in 0 until listLogs.size) {
-            xValue.add(listMinutos[i].toString())
-            lineEntry.add(Entry(listParametro[i], listMinutos[i]))
+        lineEntry.add(Entry(19f, 0))
+        lineEntry.add(Entry(19f, 1))
+        lineEntry.add(Entry(8f, 2))
+        lineEntry.add(Entry(6f, 2))
+        lineEntry.add(Entry(8f, 2))*/
+
+        val lineEntry = ArrayList<Entry>()
+        for (i in 0 until listDuracion.size) {
+            for (j in 0 until listLogs.size) {
+                xValue.add(j.toString())
+                val t: List<String> = listLogs[j].logCargoHour.split(":")
+                var m = t[t.size - 1].toInt()
+                if (m == listMinutos[i]) {
+                    lineEntry.add(Entry(listParametro[j], i))
+                }
+            }
         }
-        /*
-        lineEntry.add(Entry(28f, 1))
-        lineEntry.add(Entry(23f, 2))
-        lineEntry.add(Entry(30f, 3))
-        lineEntry.add(Entry(35f, 4))
-        lineEntry.add(Entry(29f, 5))
-        lineEntry.add(Entry(28f, 6))
-        lineEntry.add(Entry(26f, 7))*/
 
         val xVal = graphic.xAxis
         xVal.position = XAxis.XAxisPosition.BOTTOM

@@ -12,12 +12,16 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.example.logiapplication.R
 import com.example.logiapplication.RetrofitClients
 import com.example.logiapplication.databinding.LogisticFragmentRegisterBinding
+import com.example.logiapplication.interfaces.CargoService
 import com.example.logiapplication.interfaces.FamilyProductService
 import com.example.logiapplication.interfaces.TruckService
 import com.example.logiapplication.interfaces.UserService
+import com.example.logiapplication.logisticOperator.ui.profile.LogisticProfileFragment
+import com.example.logiapplication.models.Cargo
 import com.example.logiapplication.models.FamilyProduct
 import com.example.logiapplication.models.Truck
 import com.example.logiapplication.models.User
@@ -83,7 +87,7 @@ class RegisterFragment : Fragment() {
     lateinit var horaRecojo : AutoCompleteTextView
     lateinit var lugarRecojo : AutoCompleteTextView
     lateinit var lugarEntrega : AutoCompleteTextView
-    lateinit var nombreCarga : EditText
+    lateinit var nombreCarga : TextView
 
     var getFamilyProductSelected : Int = 0
     var getTruckSelected : Int = 0
@@ -96,6 +100,7 @@ class RegisterFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     lateinit var nextButton : Button
+    lateinit var cancelButton : Button
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -109,6 +114,7 @@ class RegisterFragment : Fragment() {
         val root: View = binding.root
 
         nextButton = binding.root.findViewById(R.id.btn_next_register)
+        cancelButton = binding.root.findViewById(R.id.btn_cancel_register)
         familiaProducto = binding.root.findViewById(R.id.familyAutoComplete)
         camion = binding.root.findViewById(R.id.camionAutoComplete)
         transportista = binding.root.findViewById(R.id.carrierAutoComplete)
@@ -119,6 +125,30 @@ class RegisterFragment : Fragment() {
         lugarEntrega = binding.root.findViewById(R.id.lugarEntregaAutoComplete)
         nombreCarga=binding.root.findViewById(R.id.tv_cargo_number)
 
+        //NOMBRE DE LA CARGA
+        val cargaService: CargoService = RetrofitClients.getUsersClient().create(CargoService::class.java)
+
+        cargaService.getCargoList().enqueue(object : Callback<List<Cargo>> {
+            override fun onResponse(call: Call<List<Cargo>>, response: Response<List<Cargo>>) {
+                if(response.isSuccessful) {
+                    Log.i("Success", response.body().toString())
+                    try {
+                        val mapperF = ObjectMapper()
+                        val listF: List<Cargo>? = response.body()
+                        val jsonArray1F: String = mapperF.writeValueAsString(listF)
+                        val jsonArrayF = JSONArray(jsonArray1F)
+                        var cantidad = jsonArrayF.length()
+                        nombreCarga.text = "Carga - " + (cantidad + 1).toString()
+                    }
+                    catch (ex: JSONException){
+                        ex.printStackTrace()
+                    }
+                }
+            }
+            override fun onFailure(call: Call<List<Cargo>>, t: Throwable) {
+                Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+            }
+        })
 
         //FAMILIA DE PRODUCTO
         val familyProductService: FamilyProductService = RetrofitClients.getUsersClient().create(FamilyProductService::class.java)
@@ -384,6 +414,9 @@ class RegisterFragment : Fragment() {
             ).show()
         })
 
+        cancelButton.setOnClickListener { view ->
+            view.findNavController().navigate(R.id.action_nav_register_to_nav_logistic_profile)
+        }
         //VALIDACIONES
         nextButton.setOnClickListener(View.OnClickListener {
             if(familiaProducto.text.isEmpty()

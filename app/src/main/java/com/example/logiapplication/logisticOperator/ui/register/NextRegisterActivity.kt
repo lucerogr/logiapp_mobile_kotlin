@@ -17,6 +17,8 @@ import androidx.core.view.isVisible
 import com.example.logiapplication.LoginActivity
 import com.example.logiapplication.R
 import com.example.logiapplication.RetrofitClients
+import com.example.logiapplication.carrier.CarrierMainActivity
+import com.example.logiapplication.client.ClientMainActivity
 import com.example.logiapplication.databinding.LogisticNextRegisterActivityBinding
 import com.example.logiapplication.interfaces.*
 import com.example.logiapplication.logisticOperator.LogisticMainActivity
@@ -68,6 +70,7 @@ class NextRegisterActivity : AppCompatActivity() {
 
     lateinit var botonRegistrar : Button
     lateinit var botonRegistrarProductos : Button
+    lateinit var botonCancelar : Button
     lateinit var tv_nombre_carga : TextView
 
     var truckObject : Truck = Truck(0, "", "", 0, 0, 0)
@@ -88,6 +91,7 @@ class NextRegisterActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
+        botonCancelar = binding.root.findViewById(R.id.btn_cancel_cargo)
         botonRegistrar = binding.root.findViewById(R.id.btn_register_cargo)
         botonRegistrarProductos = binding.root.findViewById(R.id.btn_register_products)
         table = binding.root.findViewById(R.id.add_product_table)
@@ -115,6 +119,12 @@ class NextRegisterActivity : AppCompatActivity() {
         //DURACION INICIAL
         val duracionInicial = "00:00"
         //REGISTRAR CARGO
+
+        botonCancelar.setOnClickListener(View.OnClickListener{
+            val intent = Intent(this, LogisticMainActivity()::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            startActivity(intent)
+        })
 
         //PRODUCTOS
         val productService: ProductService = RetrofitClients.getUsersClient().create(ProductService::class.java)
@@ -268,6 +278,7 @@ class NextRegisterActivity : AppCompatActivity() {
                                                                                                                                                                 // it?.id = newly added user ID
                                                                                                                                                                 Toast.makeText(applicationContext, "Se registraron los productos de la carga", Toast.LENGTH_SHORT).show()
 
+
                                                                                                                                                             } else {
                                                                                                                                                                 Toast.makeText(applicationContext, "Error al registrar los productos de la carga", Toast.LENGTH_SHORT).show()
                                                                                                                                                             }
@@ -298,6 +309,9 @@ class NextRegisterActivity : AppCompatActivity() {
 
                                                                                                                     }
                                                                                                                 }
+                                                                                                                val intent = Intent(this@NextRegisterActivity, LogisticMainActivity::class.java)
+                                                                                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                                                                                                                startActivity(intent)
                                                                                                             })
                                                                                                         })
                                                                                                     }

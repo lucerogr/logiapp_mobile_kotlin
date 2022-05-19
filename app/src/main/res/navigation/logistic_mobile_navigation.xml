@@ -15,7 +15,11 @@
         android:id="@+id/nav_register"
         android:name="com.example.logiapplication.logisticOperator.ui.register.RegisterFragment"
         android:label="Registrar carga"
-        tools:layout="@layout/logistic_fragment_register" />
+        tools:layout="@layout/logistic_fragment_register" >
+        <action
+            android:id="@+id/action_nav_register_to_nav_logistic_profile"
+            app:destination="@id/nav_logistic_profile" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_followup"

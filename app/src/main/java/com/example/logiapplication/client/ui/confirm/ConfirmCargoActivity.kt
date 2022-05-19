@@ -15,16 +15,11 @@ import com.example.logiapplication.R
 import com.example.logiapplication.RetrofitClients
 import com.example.logiapplication.client.ClientMainActivity
 import com.example.logiapplication.client.ui.confirm.ConfirmFragment.Companion.CARGA_CONFIRMADA
-import com.example.logiapplication.client.ui.followup.ClientFollowUpFragment
+import com.example.logiapplication.client.ui.profile.ClientProfileFragment
 import com.example.logiapplication.databinding.ClientConfirmCargoActivityBinding
 import com.example.logiapplication.interfaces.CargoService
-import com.example.logiapplication.interfaces.ProductCargoService
-import com.example.logiapplication.logisticOperator.ui.followup.ModifyProductsActivity
 import com.example.logiapplication.models.Cargo
-import com.example.logiapplication.models.ProductCargo
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
-import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
@@ -123,7 +118,7 @@ class ConfirmCargoActivity : AppCompatActivity() {
                                     }
                                 }
 
-                                val intent = Intent(this@ConfirmCargoActivity, ClientMainActivity::class.java)
+                                val intent = Intent(this@ConfirmCargoActivity, ClientMainActivity()::class.java)
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
                                 startActivity(intent)
 

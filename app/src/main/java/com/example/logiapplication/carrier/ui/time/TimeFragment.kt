@@ -184,20 +184,22 @@ class TimeFragment : Fragment() {
                             getObjectCargoOperator = cargoObject.personOperatorId
                             getObjectCargoCarrier = cargoObject.personDriverId
                             getObjectCargoComments = cargoObject.cargoComments
-                            cargoIdList.add(getObjectCargoId)
-                            cargoNameList.add(getObjectCargoName)
-                            cargoDateList.add(getObjectCargoDate)
-                            cargoHourList.add(getObjectCargoHour)
-                            cargoInitialList.add(getObjectCargoInitial)
-                            cargoFinalList.add(getObjectCargoFinal)
-                            cargoRouteList.add(getObjectCargoRoute)
-                            cargoDurationList.add(getObjectCargoDuration)
-                            cargoTruckList.add(getObjectCargoTruck)
-                            cargoClientList.add(getObjectCargoClient)
-                            cargoFamilyList.add(getObjectCargoFamily)
-                            cargoOperatorList.add(getObjectCargoOperator)
-                            cargoCarrierList.add(getObjectCargoCarrier)
-                            cargoCommentsList.add(getObjectCargoComments)
+                            if(cargoObject.cargoStatus == "Registrado") {
+                                cargoIdList.add(getObjectCargoId)
+                                cargoNameList.add(getObjectCargoName)
+                                cargoDateList.add(getObjectCargoDate)
+                                cargoHourList.add(getObjectCargoHour)
+                                cargoInitialList.add(getObjectCargoInitial)
+                                cargoFinalList.add(getObjectCargoFinal)
+                                cargoRouteList.add(getObjectCargoRoute)
+                                cargoDurationList.add(getObjectCargoDuration)
+                                cargoTruckList.add(getObjectCargoTruck)
+                                cargoClientList.add(getObjectCargoClient)
+                                cargoFamilyList.add(getObjectCargoFamily)
+                                cargoOperatorList.add(getObjectCargoOperator)
+                                cargoCarrierList.add(getObjectCargoCarrier)
+                                cargoCommentsList.add(getObjectCargoComments)
+                            }
                         }
                         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, cargoNameList)
                         cargo.setAdapter(arrayAdapter)
@@ -245,7 +247,7 @@ class TimeFragment : Fragment() {
                                 else {
                                     updateCargo(cargoData, getCargoIdSelected) {
                                         if (it?.codigo != null) {
-                                            Toast.makeText(requireContext(), "Se actualizó el estado de la carga", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(requireContext(), "Se inició ruta de carga", Toast.LENGTH_SHORT).show()
                                            //esto
                                             val intent = Intent(requireContext(), ConnectionActivity::class.java)
                                             //
@@ -254,7 +256,7 @@ class TimeFragment : Fragment() {
                                             startActivity(intent)
 
                                         } else {
-                                            Toast.makeText(requireContext(), "Error al actualizar el estado de la carga", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(requireContext(), "Error al iniciar ruta de carga", Toast.LENGTH_SHORT).show()
                                         }
                                     }
                                 }

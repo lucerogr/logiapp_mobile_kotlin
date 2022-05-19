@@ -93,7 +93,7 @@ class ModifyCargoActivity:AppCompatActivity() {
     lateinit var horaRecojo : AutoCompleteTextView
     lateinit var lugarRecojo : AutoCompleteTextView
     lateinit var lugarEntrega : AutoCompleteTextView
-    lateinit var nombreCarga : EditText
+    lateinit var nombreCarga : TextView
 
     var getFamilyProductSelected : Int = 0
     var getTruckSelected : Int = 0
@@ -151,7 +151,7 @@ class ModifyCargoActivity:AppCompatActivity() {
                         val cargo: Cargo? = response.body()
                         val jsonObjectCargo= JSONObject(Gson().toJson(cargo))
                         val cargoObject = Gson().fromJson(jsonObjectCargo.toString(), Cargo::class.java)
-                        nombreCarga.setText(cargoObject.cargoName)
+                        nombreCarga.text = cargoObject.cargoName
 
                         //FAMILIA DE PRODUCTO
 

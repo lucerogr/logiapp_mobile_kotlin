@@ -60,6 +60,7 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
     var boolean: Boolean = true
 
     var mLocation: Location? = null
+    lateinit var logData : Logs
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     @SuppressLint("MissingPermission")
@@ -97,8 +98,8 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
                         runOnUiThread(Runnable {
                             val input: String = msj
                             val lines: List<String> = input.split("\n")
-                            data2.text = lines[1]
-                            data4.text = lines[3]
+                            data2.text = lines[1].toDouble().toInt().toString()
+                            data4.text = lines[3].toDouble().toInt().toString()
 
                         })
                         fun String.fullTrim() = trim().replace("\uFEFF", "")
@@ -113,7 +114,6 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
                         minutos = 0
                         segundos = 0
                         horas = 0
-
                         val cargoService: CargoService = RetrofitClients.getUsersClient().create(CargoService::class.java)
                         cargoService.getCargo(getCargoId).enqueue(object : Callback<Cargo> {
                             override fun onResponse(call: Call<Cargo>, response: Response<Cargo>) {
@@ -128,8 +128,19 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
                                         val minHumedad = cargoObject.famproducto.familyProductHumidityMin
                                         val maxHumedad = cargoObject.famproducto.familyProductHumidityMax
 
+                                        var temp = ""
+                                        var hum = ""
+                                        var vel = ""
+                                        if(contador>=3) {
+                                            temp = logData.logCargoTemperature
+                                            hum = logData.logCargoHumidity
+                                            vel = logData.logCargoVelocity
+                                        }
+
+
                                         val cargoTemperature = data2.text.toString().fullTrim().toDouble()
                                         val cargoHumidity = data4.text.toString().fullTrim().toDouble()
+                                        val cargoVelocidad = data6.text.toString().fullTrim().toDouble()
                                         var cargoAlert = false
                                         if(cargoTemperature < minTemperatura) {
                                             cargoAlert = true
@@ -147,21 +158,33 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
                                             cargoAlert = true
                                             data4.setBackgroundResource(R.drawable.box_red)
                                         }
-                                        val logData = Logs(  codigo = null,
+                                        if(cargoVelocidad > 60.0) {
+                                            cargoAlert = true
+                                            data6.setBackgroundResource(R.drawable.box_red)
+                                        }
+                                        logData = Logs(  codigo = null,
                                             logCargoDate = fechaActual.toString(),
                                             logCargoHour = horaActual.toString(),
                                             logCargoUbication = "$latitude, $longitude",
                                             logCargoTemperature = cargoTemperature.toString(),
                                             logCargoHumidity = cargoHumidity.toString(),
-                                            logCargoVelocity = data6.text.toString(),
+                                            logCargoVelocity = cargoVelocidad.toString(),
                                             logCargoAlertType = cargoAlert,
                                             cargo = cargoObject
                                         )
-                                        if(contador%20 == 0){
-                                            addLog(logData) {
-                                                if (cargoAlert == true) {
+
+                                        //CUANDO EL ENTERO VARIA SE GUARDA EL LOG
+                                        if(contador>=3) {
+                                            if (cargoTemperature.toString()!=temp || cargoHumidity.toString()!=hum || cargoVelocidad.toInt().toString()!=vel.toDouble().toInt().toString()) {
+                                                addLog(logData) {
                                                     Toast.makeText(applicationContext, "ALERTA GENERADA", Toast.LENGTH_SHORT).show()
                                                 }
+                                            }
+                                        }
+                                        //POR CADA MINUTO SE GUARDA EL LOG
+                                        if(contador%20 == 0){ //cada minuto
+                                            addLog(logData) {
+                                                Toast.makeText(applicationContext, "LOG GUARDADO", Toast.LENGTH_SHORT).show()
                                             }
                                         }
 
@@ -190,14 +213,14 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
 
                                             updateCargo(cargoData, getCargoId) {
                                                 if (it?.codigo != null) {
-                                                    Toast.makeText(this@ConnectionActivity, "Se actualizó el estado de la carga", Toast.LENGTH_SHORT).show()
+                                                    Toast.makeText(this@ConnectionActivity, "Se finalizó ruta de carga", Toast.LENGTH_SHORT).show()
                                                     val intent = Intent(this@ConnectionActivity, CarrierMainActivity::class.java)
                                                     //
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
                                                     startActivity(intent)
 
                                                 } else {
-                                                    Toast.makeText(this@ConnectionActivity, "Error al actualizar el estado de la carga", Toast.LENGTH_SHORT).show()
+                                                    Toast.makeText(this@ConnectionActivity, "Error al finalizar ruta de carga", Toast.LENGTH_SHORT).show()
                                                 }
                                             }
                                         })
@@ -347,7 +370,7 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
         var strCurrentSpeed = fmt.toString()
         strCurrentSpeed = strCurrentSpeed.replace(" ", "0")
         if (useMetricUnits()) {
-            data6.setText("$strCurrentSpeed km/h")
+            data6.setText("$strCurrentSpeed")
         }
     }
 
