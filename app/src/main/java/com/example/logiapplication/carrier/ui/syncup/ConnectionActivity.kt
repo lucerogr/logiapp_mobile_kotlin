@@ -43,6 +43,14 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
     lateinit var data2: TextView
     lateinit var data4: TextView
     lateinit var data6: TextView
+
+
+    lateinit var minTemp: TextView
+    lateinit var maxTemp: TextView
+    lateinit var minHum: TextView
+    lateinit var maxHum: TextView
+    lateinit var maxVel: TextView
+
     lateinit var botonFinRuta: Button
     var getCargoId : Int = 0
 
@@ -78,6 +86,11 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
         data4 = findViewById(R.id.humidity)
         data6 = findViewById(R.id.velocity)
         botonFinRuta = findViewById(R.id.btn_fin_ruta)
+        minTemp = findViewById(R.id.minT)
+        maxTemp = findViewById(R.id.maxT)
+        minHum = findViewById(R.id.minH)
+        maxHum = findViewById(R.id.maxH)
+        maxVel = findViewById(R.id.maxV)
 
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
@@ -116,6 +129,7 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
                         horas = 0
                         val cargoService: CargoService = RetrofitClients.getUsersClient().create(CargoService::class.java)
                         cargoService.getCargo(getCargoId).enqueue(object : Callback<Cargo> {
+                            @SuppressLint("SetTextI18n")
                             override fun onResponse(call: Call<Cargo>, response: Response<Cargo>) {
                                 if(response.isSuccessful) {
                                     android.util.Log.i("Success", response.body().toString())
@@ -127,6 +141,12 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
                                         val maxTemperatura = cargoObject.famproducto.familyProductTemperatureMax
                                         val minHumedad = cargoObject.famproducto.familyProductHumidityMin
                                         val maxHumedad = cargoObject.famproducto.familyProductHumidityMax
+
+                                        minTemp.text = "$minTemperatura ºC"
+                                        maxTemp.text = "$maxTemperatura ºC"
+                                        minHum.text = "$minHumedad %"
+                                        maxHum.text = "$maxHumedad %"
+                                        maxVel.text = "60.0 km/h"
 
                                         var temp = ""
                                         var hum = ""
@@ -142,26 +162,39 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
                                         val cargoHumidity = data4.text.toString().fullTrim().toDouble()
                                         val cargoVelocidad = data6.text.toString().fullTrim().toDouble()
                                         var cargoAlert = false
-                                        if(cargoTemperature < minTemperatura) {
-                                            cargoAlert = true
-                                            data2.setBackgroundResource(R.drawable.box_yellow)
-                                        }
-                                        if(cargoHumidity < minHumedad) {
-                                            cargoAlert = true
-                                            data4.setBackgroundResource(R.drawable.box_yellow)
-                                        }
-                                        if(cargoTemperature > maxTemperatura) {
+                                        if(cargoTemperature < minTemperatura || cargoTemperature > maxTemperatura) {
                                             cargoAlert = true
                                             data2.setBackgroundResource(R.drawable.box_red)
                                         }
-                                        if(cargoHumidity > maxHumedad) {
+                                        if(cargoTemperature >= (maxTemperatura - 2) && cargoTemperature <= maxTemperatura) {
+                                            data2.setBackgroundResource(R.drawable.box_yellow)
+                                        }
+                                        if(cargoTemperature >= minTemperatura && cargoTemperature < (maxTemperatura-2)){
+                                            data4.setBackgroundResource(R.drawable.box_green)
+                                        }
+                                        if(cargoHumidity < minHumedad || cargoHumidity > maxHumedad) {
                                             cargoAlert = true
                                             data4.setBackgroundResource(R.drawable.box_red)
+                                        }
+                                        if(cargoHumidity >= (maxHumedad - 2) && cargoHumidity <= maxHumedad) {
+                                            data4.setBackgroundResource(R.drawable.box_yellow)
+                                        }
+                                        if(cargoHumidity >= minHumedad && cargoHumidity < (maxHumedad-2)){
+                                            data4.setBackgroundResource(R.drawable.box_green)
                                         }
                                         if(cargoVelocidad > 60.0) {
                                             cargoAlert = true
                                             data6.setBackgroundResource(R.drawable.box_red)
                                         }
+                                        if(cargoVelocidad > 50.0 && cargoVelocidad <= 60.0) {
+                                            data6.setBackgroundResource(R.drawable.box_yellow)
+                                        }
+                                        if(cargoVelocidad <= 50.0) {
+                                            data6.setBackgroundResource(R.drawable.box_green)
+                                        }
+
+
+
                                         logData = Logs(  codigo = null,
                                             logCargoDate = fechaActual.toString(),
                                             logCargoHour = horaActual.toString(),
@@ -176,15 +209,18 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
                                         //CUANDO EL ENTERO VARIA SE GUARDA EL LOG
                                         if(contador>=3) {
                                             if (cargoTemperature.toString()!=temp || cargoHumidity.toString()!=hum || cargoVelocidad.toInt().toString()!=vel.toDouble().toInt().toString()) {
-                                                addLog(logData) {
-                                                    Toast.makeText(applicationContext, "ALERTA GENERADA", Toast.LENGTH_SHORT).show()
+                                                if(cargoAlert) {
+                                                    addLog(logData) {
+                                                        Toast.makeText(applicationContext, "ALERTA GENERADA", Toast.LENGTH_SHORT).show()
+                                                    }
                                                 }
                                             }
                                         }
                                         //POR CADA MINUTO SE GUARDA EL LOG
                                         if(contador%20 == 0){ //cada minuto
                                             addLog(logData) {
-                                                Toast.makeText(applicationContext, "LOG GUARDADO", Toast.LENGTH_SHORT).show()
+                                                println("minute")
+                                                //Toast.makeText(applicationContext, "LOG GUARDADO", Toast.LENGTH_SHORT).show()
                                             }
                                         }
 
