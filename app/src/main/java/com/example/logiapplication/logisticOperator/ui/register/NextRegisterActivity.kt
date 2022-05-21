@@ -12,6 +12,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.logiapplication.LoginActivity
@@ -508,8 +509,22 @@ class NextRegisterActivity : AppCompatActivity() {
         startActivity(intent)
     }
     fun goToLoginActivity() {
-        val intent = Intent(this, LoginActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-        startActivity(intent)
+        val alerta: AlertDialog.Builder = AlertDialog.Builder(this)
+        alerta.setMessage("¿Desea salir de la aplicación?")
+            .setCancelable(false)
+            .setPositiveButton("Si") { dialog, which ->
+                val editor: SharedPreferences.Editor=sharedPreferences.edit()
+                editor.clear()
+                editor.apply()
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                startActivity(intent)
+            }
+            .setNegativeButton("No") { dialog, which ->
+                dialog.cancel()
+            }
+        val titulo: AlertDialog = alerta.create()
+        titulo.setTitle("Cerrar sesión")
+        titulo.show()
     }
 }

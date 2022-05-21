@@ -1,6 +1,7 @@
 package com.example.logiapplication.client
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -9,6 +10,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
 import androidx.drawerlayout.widget.DrawerLayout
@@ -94,12 +97,24 @@ class ClientMainActivity:AppCompatActivity() {
         startActivity(intent)
     }
     fun goToLoginActivity() {
-        val editor: SharedPreferences.Editor=sharedPreferences.edit()
-        editor.clear()
-        editor.apply()
-        val intent = Intent(this, LoginActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-        startActivity(intent)
+
+        val alerta: AlertDialog.Builder = AlertDialog.Builder(this)
+        alerta.setMessage("¿Desea salir de la aplicación?")
+            .setCancelable(false)
+            .setPositiveButton("Si") { dialog, which ->
+                val editor: SharedPreferences.Editor=sharedPreferences.edit()
+                editor.clear()
+                editor.apply()
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                startActivity(intent)
+            }
+            .setNegativeButton("No") { dialog, which ->
+                dialog.cancel()
+            }
+        val titulo: AlertDialog = alerta.create()
+        titulo.setTitle("Cerrar sesión")
+        titulo.show()
     }
 
     override fun onSupportNavigateUp(): Boolean {

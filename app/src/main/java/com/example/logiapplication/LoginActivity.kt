@@ -6,8 +6,8 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.util.Log
+import android.util.Patterns
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -17,13 +17,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.logiapplication.carrier.CarrierMainActivity
 import com.example.logiapplication.client.ClientMainActivity
-import com.example.logiapplication.interfaces.RolService
 import com.example.logiapplication.interfaces.UserService
 import com.example.logiapplication.logisticOperator.LogisticMainActivity
-import com.example.logiapplication.models.Rol
 import com.example.logiapplication.models.User
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.google.gson.Gson
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -31,7 +28,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
-import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
+import java.util.regex.Pattern
 
 
 class LoginActivity : AppCompatActivity() {
@@ -202,7 +199,12 @@ class LoginActivity : AppCompatActivity() {
                                                     }
 
                                                 }else{
-                                                    Toast.makeText(this@LoginActivity, "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT).show()
+                                                    if (!validarEmail(editUsuario.text.toString())){
+                                                        editUsuario.error = "Correo no válido"
+                                                    }
+                                                    else {
+                                                        Toast.makeText(this@LoginActivity, "Correo o contraseña no válidos", Toast.LENGTH_SHORT).show()
+                                                    }
                                                 }
                                             }
                                             catch (ex: JSONException){
@@ -230,6 +232,10 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    private fun validarEmail(email: String): Boolean {
+        val pattern: Pattern = Patterns.EMAIL_ADDRESS
+        return pattern.matcher(email).matches()
+    }
     fun forget(view: View) {
         val intent = Intent(this, ForgetPassword::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
