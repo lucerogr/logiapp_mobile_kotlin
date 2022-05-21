@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -447,7 +449,8 @@ class ModifyCargoActivity:AppCompatActivity() {
                                 || lugarRecojo.text.isEmpty()
                                 || lugarEntrega.text.isEmpty()
                                 || nombreCarga.text.isEmpty()){
-                                Toast.makeText(applicationContext, "Ingrese todos la información solicitada",Toast.LENGTH_SHORT).show()
+                                println("falta informacion")
+                                //Toast.makeText(applicationContext, "Ingrese todos la información solicitada",Toast.LENGTH_SHORT).show()
                             } else{
                                 //IR A LA SIGUIENTE ACTIVIDAD PARA ELEGIR PRODUCTOS
                                 val intent = Intent(applicationContext, ModifyProductsActivity::class.java)
@@ -469,6 +472,14 @@ class ModifyCargoActivity:AppCompatActivity() {
                                 intent.putExtra(CARGO_COMMENT, cargoObject.cargoComments)
                                 startActivity(intent)
                             }
+                        })
+
+                        lugarEntrega.addTextChangedListener(object : TextWatcher {
+                            override fun afterTextChanged(s: Editable) {
+                                nextButton.isEnabled = s.toString().isNotEmpty()
+                            }
+                            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+                            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
                         })
 
                     }

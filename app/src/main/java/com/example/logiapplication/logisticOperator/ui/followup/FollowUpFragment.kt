@@ -177,7 +177,7 @@ class FollowUpFragment : Fragment() {
                                 )
                                 updateCargo(cargoData, listCargaId[i]) {
                                     if (it?.codigo != null) {
-                                        Toast.makeText(requireContext(), "Se canceló la carga", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(requireContext(), cargoData.cargoName + " cancelado", Toast.LENGTH_SHORT).show()
 
                                     } else {
                                         Toast.makeText(requireContext(), "Error al cancelar la carga", Toast.LENGTH_SHORT).show()
