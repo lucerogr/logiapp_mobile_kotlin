@@ -83,6 +83,9 @@ class SyncUpFragment : Fragment() {
                     )
                 }
             }
+            else{
+                Toast.makeText(requireContext(), "No se encontraron dispositivos", Toast.LENGTH_SHORT).show()
+            }
         })
         listDevices.setOnItemClickListener { adapterView, view, i, l ->
            // bluetoothJhr.bluetoothSeleccion(i)
