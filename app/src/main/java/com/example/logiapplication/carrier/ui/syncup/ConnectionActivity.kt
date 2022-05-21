@@ -161,9 +161,9 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
                                         val cargoTemperature = data2.text.toString().fullTrim().toDouble()
                                         val cargoHumidity = data4.text.toString().fullTrim().toDouble()
                                         val cargoVelocidad = data6.text.toString().fullTrim().toDouble()
-                                        var cargoAlert = false
+                                        var cargoAlert = "0"
                                         if(cargoTemperature < minTemperatura || cargoTemperature > maxTemperatura) {
-                                            cargoAlert = true
+                                            cargoAlert = "1"
                                             data2.setBackgroundResource(R.drawable.box_red)
                                         }
                                         if(cargoTemperature >= (maxTemperatura - 2) && cargoTemperature <= maxTemperatura) {
@@ -173,7 +173,7 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
                                             data4.setBackgroundResource(R.drawable.box_green)
                                         }
                                         if(cargoHumidity < minHumedad || cargoHumidity > maxHumedad) {
-                                            cargoAlert = true
+                                            cargoAlert = "2"
                                             data4.setBackgroundResource(R.drawable.box_red)
                                         }
                                         if(cargoHumidity >= (maxHumedad - 2) && cargoHumidity <= maxHumedad) {
@@ -183,7 +183,7 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
                                             data4.setBackgroundResource(R.drawable.box_green)
                                         }
                                         if(cargoVelocidad > 60.0) {
-                                            cargoAlert = true
+                                            cargoAlert = "3"
                                             data6.setBackgroundResource(R.drawable.box_red)
                                         }
                                         if(cargoVelocidad > 50.0 && cargoVelocidad <= 60.0) {
@@ -209,7 +209,7 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
                                         //CUANDO EL ENTERO VARIA SE GUARDA EL LOG
                                         if(contador>=3) {
                                             if (cargoTemperature.toString()!=temp || cargoHumidity.toString()!=hum || cargoVelocidad.toInt().toString()!=vel.toDouble().toInt().toString()) {
-                                                if(cargoAlert) {
+                                                if(cargoAlert!="0") {
                                                     addLog(logData) {
                                                         Toast.makeText(applicationContext, "ALERTA GENERADA", Toast.LENGTH_SHORT).show()
                                                     }

@@ -276,7 +276,7 @@ class NextRegisterActivity : AppCompatActivity() {
                                                                                                                                                             if (it?.codigo != null) {
                                                                                                                                                                 // it = newly added user parsed as response
                                                                                                                                                                 // it?.id = newly added user ID
-                                                                                                                                                                Toast.makeText(applicationContext, "Se registraron los productos de la carga", Toast.LENGTH_SHORT).show()
+                                                                                                                                                                Toast.makeText(applicationContext, "REGISTRO EXITOSO", Toast.LENGTH_SHORT).show()
 
 
                                                                                                                                                             } else {

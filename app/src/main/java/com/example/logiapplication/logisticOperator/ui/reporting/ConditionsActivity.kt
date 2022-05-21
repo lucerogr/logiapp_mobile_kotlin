@@ -143,12 +143,16 @@ class ConditionsActivity:AppCompatActivity() {
                                                             val logObject = Gson().fromJson(jsonObjectL.toString(), Logs::class.java)
                                                             //lista de todos los logs aunque alert type sea false
                                                             listLogs.add(logObject)
-                                                            if(logObject.logCargoAlertType) {
+                                                            println(logObject.logCargoTemperature)
+                                                            println(jsonObjectL.getString("logCargoAlertType"))
+                                                            println(logObject.logCargoAlertType)
+                                                            if(parameterAutoComplete.text.toString() == "Temperatura" && logObject.logCargoAlertType == "1") {
                                                                 listLogId.add(jsonObjectL.getInt("codigo"))
                                                                 listLogHour.add(logObject.logCargoHour)
                                                                 listLogFecha.add(logObject.logCargoDate)
                                                                 listLogUbicacion.add(logObject.logCargoUbication)
-                                                                when {
+                                                                listLogParametro.add(logObject.logCargoTemperature)
+                                                                /*when {
                                                                     parameterAutoComplete.text.toString() == "Temperatura" -> {
                                                                         listLogParametro.add(logObject.logCargoTemperature)
                                                                     }
@@ -158,9 +162,23 @@ class ConditionsActivity:AppCompatActivity() {
                                                                     parameterAutoComplete.text.toString() == "Velocidad" -> {
                                                                         listLogParametro.add(logObject.logCargoVelocity)
                                                                     }
-                                                                }
+                                                                }*/
+                                                            } else if(parameterAutoComplete.text.toString() == "Humedad" && logObject.logCargoAlertType == "2") {
+                                                                listLogId.add(jsonObjectL.getInt("codigo"))
+                                                                listLogHour.add(logObject.logCargoHour)
+                                                                listLogFecha.add(logObject.logCargoDate)
+                                                                listLogUbicacion.add(logObject.logCargoUbication)
+                                                                listLogParametro.add(logObject.logCargoHumidity)
+
+                                                            } else if(parameterAutoComplete.text.toString() == "Velocidad" && logObject.logCargoAlertType == "3") {
+                                                                listLogId.add(jsonObjectL.getInt("codigo"))
+                                                                listLogHour.add(logObject.logCargoHour)
+                                                                listLogFecha.add(logObject.logCargoDate)
+                                                                listLogUbicacion.add(logObject.logCargoUbication)
+                                                                listLogParametro.add(logObject.logCargoVelocity)
                                                             }
                                                         }
+                                                        println(listLogParametro.size)
                                                         init()
                                                         setLineGraphicData()
                                                     }
@@ -263,149 +281,168 @@ class ConditionsActivity:AppCompatActivity() {
     }
 
     fun init() {
-        val row0 = TableRow(this)
+        if (listLogId.size == 0) {
+            val row0 = TableRow(this)
 
-        val tv0 = TextView(this)
-        tv0.layoutParams = TableRow.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            1.5f
-        )
-        tv0.text = " Nº "
-        tv0.setTextColor(Color.BLACK)
-        tv0.setBackgroundColor(Color.LTGRAY)
-        tv0.gravity = Gravity.CENTER
-        row0.addView(tv0)
-
-        val tv1 = TextView(this)
-        tv1.layoutParams = TableRow.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            2f
-        )
-        tv1.text = " Hora "
-        tv1.setTextColor(Color.BLACK)
-        tv1.setBackgroundColor(Color.LTGRAY)
-        tv1.gravity = Gravity.CENTER
-        row0.addView(tv1)
-
-        val tv2 = TextView(this)
-        tv2.layoutParams = TableRow.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            3f
-        )
-        tv2.text = " Fecha "
-        tv2.setTextColor(Color.BLACK)
-        tv2.setBackgroundColor(Color.LTGRAY)
-        tv2.gravity = Gravity.CENTER
-        row0.addView(tv2)
-
-        val tv3 = TextView(this)
-        tv3.layoutParams = TableRow.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            3f
-        )
-        tv3.text = " Ubicación "
-        tv3.setTextColor(Color.BLACK)
-        tv3.setBackgroundColor(Color.LTGRAY)
-        tv3.gravity = Gravity.CENTER
-        row0.addView(tv3)
-
-        val tv4 = TextView(this)
-        tv4.layoutParams = TableRow.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            3f
-        )
-        tv4.text = parameterAutoComplete.text
-        tv4.setTextColor(Color.BLACK)
-        tv4.setBackgroundColor(Color.LTGRAY)
-        tv4.gravity = Gravity.CENTER
-        row0.addView(tv4)
-
-        tableAlertas.addView(row0)
-        for (i in 0 until listLogId.size) {
-            val tbrow = TableRow(this)
-            val lp: TableRow.LayoutParams = TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT)
-            tbrow.layoutParams = lp
-
-            //NUMERO DE CARGA
-            val t0v = TextView(this)
-            t0v.layoutParams = TableRow.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
+            val tv0 = TextView(this)
+            tv0.layoutParams = TableRow.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 1.5f
             )
-            t0v.text = (i+1).toString()
-            t0v.gravity = Gravity.CENTER
-            t0v.setTextColor(Color.BLACK)
-            t0v.setBackgroundColor(Color.WHITE)
-            t0v.setPadding(5, 5, 5, 5)
-            tbrow.addView(t0v)
+            tv0.text = "No se reportaron alertas"
+            tv0.setTextColor(Color.BLACK)
+            tv0.setBackgroundColor(Color.LTGRAY)
+            tv0.gravity = Gravity.CENTER
+            row0.addView(tv0)
 
-            //HORA DE ALERTA
-            val t1v = TextView(this)
-            t1v.layoutParams = TableRow.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
+            tableAlertas.addView(row0)
+        }
+        else {
+            val row0 = TableRow(this)
+            val tv0 = TextView(this)
+            tv0.layoutParams = TableRow.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                1.5f
+            )
+            tv0.text = " Nº "
+            tv0.setTextColor(Color.BLACK)
+            tv0.setBackgroundColor(Color.LTGRAY)
+            tv0.gravity = Gravity.CENTER
+            row0.addView(tv0)
+
+            val tv1 = TextView(this)
+            tv1.layoutParams = TableRow.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 2f
             )
-            t1v.text = listLogHour[i]
-            t1v.gravity = Gravity.CENTER
-            t1v.setTextColor(Color.BLACK)
-            t1v.setBackgroundColor(Color.WHITE)
-            t1v.setPadding(5, 5, 5, 5)
-            tbrow.addView(t1v)
+            tv1.text = " Hora "
+            tv1.setTextColor(Color.BLACK)
+            tv1.setBackgroundColor(Color.LTGRAY)
+            tv1.gravity = Gravity.CENTER
+            row0.addView(tv1)
 
-            //FECHA DE ALERTA
-            val t2v = TextView(this)
-            t2v.layoutParams = TableRow.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
+            val tv2 = TextView(this)
+            tv2.layoutParams = TableRow.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 3f
             )
-            t2v.text = listLogFecha[i]
-            t2v.gravity = Gravity.CENTER
-            t2v.setTextColor(Color.BLACK)
-            t2v.setBackgroundColor(Color.WHITE)
-            t2v.setPadding(5, 5, 5, 5)
-            tbrow.addView(t2v)
+            tv2.text = " Fecha "
+            tv2.setTextColor(Color.BLACK)
+            tv2.setBackgroundColor(Color.LTGRAY)
+            tv2.gravity = Gravity.CENTER
+            row0.addView(tv2)
 
-            //UBICACION DE ALERTA
-            val t3v = TextView(this)
-            t3v.layoutParams = TableRow.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
+            val tv3 = TextView(this)
+            tv3.layoutParams = TableRow.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 3f
             )
-            t3v.text = listLogUbicacion[i]
-            t3v.gravity = Gravity.CENTER
-            t3v.setTextColor(Color.BLACK)
-            t3v.setBackgroundColor(Color.WHITE)
-            t3v.setPadding(5, 5, 5, 5)
-            tbrow.addView(t3v)
+            tv3.text = " Ubicación "
+            tv3.setTextColor(Color.BLACK)
+            tv3.setBackgroundColor(Color.LTGRAY)
+            tv3.gravity = Gravity.CENTER
+            row0.addView(tv3)
 
-            //PARAMETRO
-            val t4v = TextView(this)
-            t4v.layoutParams = TableRow.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
+            val tv4 = TextView(this)
+            tv4.layoutParams = TableRow.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 3f
             )
-            t4v.text = listLogParametro[i]
-            t4v.gravity = Gravity.CENTER
-            t4v.setTextColor(Color.BLACK)
-            t4v.setBackgroundColor(Color.WHITE)
-            t4v.setPadding(5, 5, 5, 5)
-            tbrow.addView(t4v)
+            tv4.text = parameterAutoComplete.text
+            tv4.setTextColor(Color.BLACK)
+            tv4.setBackgroundColor(Color.LTGRAY)
+            tv4.gravity = Gravity.CENTER
+            row0.addView(tv4)
+
+            tableAlertas.addView(row0)
+            for (i in 0 until listLogId.size) {
+                val tbrow = TableRow(this)
+                val lp: TableRow.LayoutParams = TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT)
+                tbrow.layoutParams = lp
+
+                //NUMERO DE CARGA
+                val t0v = TextView(this)
+                t0v.layoutParams = TableRow.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    1.5f
+                )
+                t0v.text = (i+1).toString()
+                t0v.gravity = Gravity.CENTER
+                t0v.setTextColor(Color.BLACK)
+                t0v.setBackgroundColor(Color.WHITE)
+                t0v.setPadding(5, 5, 5, 5)
+                tbrow.addView(t0v)
+
+                //HORA DE ALERTA
+                val t1v = TextView(this)
+                t1v.layoutParams = TableRow.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    2f
+                )
+                t1v.text = listLogHour[i]
+                t1v.gravity = Gravity.CENTER
+                t1v.setTextColor(Color.BLACK)
+                t1v.setBackgroundColor(Color.WHITE)
+                t1v.setPadding(5, 5, 5, 5)
+                tbrow.addView(t1v)
+
+                //FECHA DE ALERTA
+                val t2v = TextView(this)
+                t2v.layoutParams = TableRow.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    3f
+                )
+                t2v.text = listLogFecha[i]
+                t2v.gravity = Gravity.CENTER
+                t2v.setTextColor(Color.BLACK)
+                t2v.setBackgroundColor(Color.WHITE)
+                t2v.setPadding(5, 5, 5, 5)
+                tbrow.addView(t2v)
+
+                //UBICACION DE ALERTA
+                val t3v = TextView(this)
+                t3v.layoutParams = TableRow.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    3f
+                )
+                t3v.text = listLogUbicacion[i]
+                t3v.gravity = Gravity.CENTER
+                t3v.setTextColor(Color.BLACK)
+                t3v.setBackgroundColor(Color.WHITE)
+                t3v.setPadding(5, 5, 5, 5)
+                tbrow.addView(t3v)
+
+                //PARAMETRO
+                val t4v = TextView(this)
+                t4v.layoutParams = TableRow.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    3f
+                )
+                t4v.text = listLogParametro[i]
+                t4v.gravity = Gravity.CENTER
+                t4v.setTextColor(Color.BLACK)
+                t4v.setBackgroundColor(Color.WHITE)
+                t4v.setPadding(5, 5, 5, 5)
+                tbrow.addView(t4v)
 
 
 
-            tableAlertas.addView(tbrow)
+                tableAlertas.addView(tbrow)
 
+            }
         }
+
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.

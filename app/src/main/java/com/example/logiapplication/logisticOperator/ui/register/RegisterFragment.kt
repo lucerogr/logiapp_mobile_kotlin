@@ -5,6 +5,8 @@ import android.app.DatePickerDialog.OnDateSetListener
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +22,6 @@ import com.example.logiapplication.interfaces.CargoService
 import com.example.logiapplication.interfaces.FamilyProductService
 import com.example.logiapplication.interfaces.TruckService
 import com.example.logiapplication.interfaces.UserService
-import com.example.logiapplication.logisticOperator.ui.profile.LogisticProfileFragment
 import com.example.logiapplication.models.Cargo
 import com.example.logiapplication.models.FamilyProduct
 import com.example.logiapplication.models.Truck
@@ -146,7 +147,7 @@ class RegisterFragment : Fragment() {
                 }
             }
             override fun onFailure(call: Call<List<Cargo>>, t: Throwable) {
-                Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Error de conexión, intentelo nuevamente", Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -199,7 +200,7 @@ class RegisterFragment : Fragment() {
                 }
             }
             override fun onFailure(call: Call<List<FamilyProduct>>, t: Throwable) {
-                Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Error de conexión, intentelo nuevamente", Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -241,7 +242,7 @@ class RegisterFragment : Fragment() {
                 }
             }
             override fun onFailure(call: Call<List<Truck>>, t: Throwable) {
-                Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Error de conexión, intentelo nuevamente", Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -289,7 +290,7 @@ class RegisterFragment : Fragment() {
                                     }
                                 }
                                 override fun onFailure(call: Call<Array<Any?>?>, t: Throwable) {
-                                    Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(requireContext(), "Error de conexión, intentelo nuevamente", Toast.LENGTH_SHORT).show()
                                 }
                             })
                         }
@@ -310,7 +311,7 @@ class RegisterFragment : Fragment() {
                 }
             }
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
-                Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Error de conexión, intentelo nuevamente", Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -355,7 +356,7 @@ class RegisterFragment : Fragment() {
                                     }
                                 }
                                 override fun onFailure(call: Call<Array<Any?>?>, t: Throwable) {
-                                    Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(requireContext(), "Error de conexión, intentelo nuevamente", Toast.LENGTH_SHORT).show()
                                 }
                             })
                         }
@@ -428,9 +429,10 @@ class RegisterFragment : Fragment() {
                 || lugarRecojo.text.isEmpty()
                 || lugarEntrega.text.isEmpty()
                 || nombreCarga.text.isEmpty()){
-                Toast.makeText(requireContext(), "Ingrese todos la información solicitada",Toast.LENGTH_SHORT).show()
+                println("no ok")
             } else{
                 //IR A LA SIGUIENTE ACTIVIDAD PARA ELEGIR PRODUCTOS
+                //nextButton.isEnabled = true
                 val intent = Intent(requireContext(), NextRegisterActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
                 intent.putExtra(FAMILY_ID,getFamilyProductSelected)
@@ -445,6 +447,14 @@ class RegisterFragment : Fragment() {
                 intent.putExtra(NOMBRE_CARGA,nombreCarga.text.toString())
                 startActivity(intent)
             }
+        })
+
+        lugarEntrega.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                nextButton.isEnabled = s.toString().isNotEmpty()
+            }
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
         })
         return root
     }
@@ -465,4 +475,5 @@ class RegisterFragment : Fragment() {
         val timeFormat = SimpleDateFormat(myFormat)
         horaRecojo.setText(timeFormat.format(calendario.time))
     }
+
 }

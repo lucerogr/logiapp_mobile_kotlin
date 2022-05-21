@@ -133,7 +133,7 @@ class LoginActivity : AppCompatActivity() {
                                         }
                                     }
                                     override fun onFailure(call: Call<Array<Any?>?>, t: Throwable) {
-                                        Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(applicationContext, "Error de conexión, intentelo nuevamente", Toast.LENGTH_SHORT).show()
                                     }
                                 })
                                 userService.getPersonByUserId(getCodigo).enqueue(object: Callback<Array<Any?>?> {
@@ -211,7 +211,7 @@ class LoginActivity : AppCompatActivity() {
                                         }
                                     }
                                     override fun onFailure(call: Call<Array<Any?>?>, t: Throwable) {
-                                        Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(applicationContext, "Error de conexión, intentelo nuevamente", Toast.LENGTH_SHORT).show()
                                     }
                                 })
                             }
@@ -221,7 +221,7 @@ class LoginActivity : AppCompatActivity() {
                         }
                     }
                     override fun onFailure(call: Call<List<User>>, t: Throwable) {
-                        Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, "Error de conexión, intentelo nuevamente", Toast.LENGTH_SHORT).show()
                     }
                 })
 

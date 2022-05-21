@@ -15,7 +15,7 @@ class Logs (
 
     val logCargoVelocity: String,
 
-    val logCargoAlertType: Boolean,
+    val logCargoAlertType: String,
 
     val cargo: Cargo
 )
