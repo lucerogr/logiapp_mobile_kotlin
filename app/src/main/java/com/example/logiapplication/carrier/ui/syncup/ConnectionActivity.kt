@@ -378,7 +378,7 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
         val alerta: AlertDialog.Builder = AlertDialog.Builder(this)
         alerta.setMessage("¿Desea salir de la aplicación?")
             .setCancelable(false)
-            .setPositiveButton("Si") { dialog, which ->
+            .setPositiveButton("Aceptar") { dialog, which ->
                 val intent = Intent(this, LoginActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
                 startActivity(intent)

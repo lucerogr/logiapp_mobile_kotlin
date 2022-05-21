@@ -97,7 +97,7 @@ class CarrierMainActivity : AppCompatActivity() {
         val alerta: AlertDialog.Builder = AlertDialog.Builder(this)
         alerta.setMessage("¿Desea salir de la aplicación?")
             .setCancelable(false)
-            .setPositiveButton("Si") { dialog, which ->
+            .setPositiveButton("Aceptar") { dialog, which ->
                 val editor: SharedPreferences.Editor=sharedPreferences.edit()
                 editor.clear()
                 editor.apply()
