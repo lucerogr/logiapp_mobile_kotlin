@@ -72,6 +72,7 @@ class FollowUpFragment : Fragment() {
     val listpersonOperatorId = ArrayList<Person>()
     val listpersonDriverId = ArrayList<Person>()
     val listCargaComments= ArrayList<String>()
+    val listCargoObject= ArrayList<Cargo>()
 
 
 
@@ -117,6 +118,7 @@ class FollowUpFragment : Fragment() {
                         for(i in 0 until jsonArrayC.length()) {
                             val jsonObjectC: JSONObject = jsonArrayC.getJSONObject(i)
                             val cargoObject = Gson().fromJson(jsonObjectC.toString(), Cargo::class.java)
+                            listCargoObject.add(cargoObject)
                             getCargoId=jsonObjectC.getInt("codigo")
                             getCargoName=jsonObjectC.getString("cargoName")
                             getCargoEstado=jsonObjectC.getString("cargoStatus")
@@ -151,37 +153,45 @@ class FollowUpFragment : Fragment() {
                                 startActivity(intent)
                             })
                             itemImageEdit.setOnClickListener(View.OnClickListener {
-                                val editor: SharedPreferences.Editor=sharedPreferences.edit()
-                                editor.putInt(CARGA_ID, listCargaId[i])
-                                editor.apply()
-                                val intent = Intent(requireContext(), ModifyCargoActivity::class.java)
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-                                startActivity(intent)
+                                if (listCargoObject[i].cargoStatus == "Registrado") {
+                                    val editor: SharedPreferences.Editor=sharedPreferences.edit()
+                                    editor.putInt(CARGA_ID, listCargaId[i])
+                                    editor.apply()
+                                    val intent = Intent(requireContext(), ModifyCargoActivity::class.java)
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                                    startActivity(intent)
+                                } else{
+                                    Toast.makeText(requireContext(), "No es posible EDITAR la carga", Toast.LENGTH_SHORT).show()
+                                }
                             })
                             itemImageCancel.setOnClickListener(View.OnClickListener {
-                                val cargoData = Cargo(  codigo = listCargaId[i],
-                                    cargoName = listCargaName[i],
-                                    cargoDate = listCargaDate[i],
-                                    cargoHour = listCargaHour[i],
-                                    cargoInitialUbication = listCargaInitialUbication[i],
-                                    cargoFinalUbication = listCargaFinalUbication[i],
-                                    cargoStatus = "Cancelada",
-                                    cargoRouteDuration = listCargaRouteDuration[i],
-                                    cargoRouteStatus = listCargaRouteStatus[i],
-                                    camion = listcamion[i],
-                                    famproducto = listfamproducto[i],
-                                    personClientId = listpersonClientId[i],
-                                    personOperatorId = listpersonOperatorId[i],
-                                    personDriverId = listpersonDriverId[i],
-                                    cargoComments = listCargaComments[i]
-                                )
-                                updateCargo(cargoData, listCargaId[i]) {
-                                    if (it?.codigo != null) {
-                                        Toast.makeText(requireContext(), cargoData.cargoName + " cancelado", Toast.LENGTH_SHORT).show()
+                                if (listCargoObject[i].cargoStatus == "Registrado" || listCargoObject[i].cargoStatus == "Cancelada") {
+                                    val cargoData = Cargo(  codigo = listCargaId[i],
+                                        cargoName = listCargaName[i],
+                                        cargoDate = listCargaDate[i],
+                                        cargoHour = listCargaHour[i],
+                                        cargoInitialUbication = listCargaInitialUbication[i],
+                                        cargoFinalUbication = listCargaFinalUbication[i],
+                                        cargoStatus = "Cancelada",
+                                        cargoRouteDuration = listCargaRouteDuration[i],
+                                        cargoRouteStatus = listCargaRouteStatus[i],
+                                        camion = listcamion[i],
+                                        famproducto = listfamproducto[i],
+                                        personClientId = listpersonClientId[i],
+                                        personOperatorId = listpersonOperatorId[i],
+                                        personDriverId = listpersonDriverId[i],
+                                        cargoComments = listCargaComments[i]
+                                    )
+                                    updateCargo(cargoData, listCargaId[i]) {
+                                        if (it?.codigo != null) {
+                                            Toast.makeText(requireContext(), cargoData.cargoName + " cancelado", Toast.LENGTH_SHORT).show()
 
-                                    } else {
-                                        Toast.makeText(requireContext(), "Error al cancelar la carga", Toast.LENGTH_SHORT).show()
+                                        } else {
+                                            Toast.makeText(requireContext(), "Error al cancelar la carga", Toast.LENGTH_SHORT).show()
+                                        }
                                     }
+                                } else {
+                                    Toast.makeText(requireContext(), "No es posible CANCELAR la carga", Toast.LENGTH_SHORT).show()
                                 }
                             })
                         }
