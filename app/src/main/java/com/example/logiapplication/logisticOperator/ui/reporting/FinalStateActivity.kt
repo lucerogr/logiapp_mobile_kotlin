@@ -17,6 +17,11 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.amplifyframework.AmplifyException
+import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
+import com.amplifyframework.core.Amplify
+import com.amplifyframework.core.AmplifyConfiguration
+import com.amplifyframework.storage.s3.AWSS3StoragePlugin
 import com.example.logiapplication.LoginActivity
 import com.example.logiapplication.R
 import com.example.logiapplication.RetrofitClients
@@ -36,6 +41,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
+import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
@@ -71,6 +77,7 @@ class FinalStateActivity:AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        configureAmplify()
         binding = LogisticFinalStateActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -162,7 +169,16 @@ class FinalStateActivity:AppCompatActivity() {
 
     }
 
-    
+    private fun uploadFile(Uri: String, name: String) {
+        val File = File(Uri)
+
+        Amplify.Storage.uploadFile(
+            name,
+            File,
+            {result -> Toast.makeText(this, "Se subio el archivo", Toast.LENGTH_SHORT).show()},
+            {error -> Log.e("LogiApp", "Error al subir archivo", error)}
+        )
+    }
     private fun exportPDF() {
         val doc = Document()
         //se guarda en descargas
@@ -198,11 +214,23 @@ class FinalStateActivity:AppCompatActivity() {
             doc.add(table)
             doc.close()
             Toast.makeText(this,"$fileName.pdf\n se ha creado en \n$filePath", Toast.LENGTH_SHORT).show()
+            uploadFile(filePath, fileName)
         } catch (e: Exception) {
             Toast.makeText(this, ""+e.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 
+    private fun configureAmplify() {
+        try{
+            Amplify.addPlugin(AWSCognitoAuthPlugin())
+            Amplify.addPlugin(AWSS3StoragePlugin())
+            Amplify.configure(applicationContext)
+
+            Log.i("logiapp", "Amplify se inicializo")
+        } catch (error: AmplifyException) {
+            Log.e("logiapp", "No se inicializo Amplify", error)
+        }
+    }
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when(requestCode) {

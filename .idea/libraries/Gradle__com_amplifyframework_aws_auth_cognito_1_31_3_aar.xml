@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.amplifyframework:aws-auth-cognito:1.31.3@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/681bf06a996fd1b3f37209c41e1d7008/aws-auth-cognito-1.31.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/681bf06a996fd1b3f37209c41e1d7008/aws-auth-cognito-1.31.3/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/681bf06a996fd1b3f37209c41e1d7008/aws-auth-cognito-1.31.3/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.amplifyframework/aws-auth-cognito/1.31.3/c0030bdc23f479bcbc304472dbc2b558393b63f8/aws-auth-cognito-1.31.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

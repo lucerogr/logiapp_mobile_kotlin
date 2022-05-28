@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.amplifyframework:aws-storage-s3:1.31.3@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d057b21f4de9bf9e2f000cbbb0b50474/aws-storage-s3-1.31.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d057b21f4de9bf9e2f000cbbb0b50474/aws-storage-s3-1.31.3/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d057b21f4de9bf9e2f000cbbb0b50474/aws-storage-s3-1.31.3/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.amplifyframework/aws-storage-s3/1.31.3/c3b5be7454d31dc1d2b5d0929394ddd9ae6dde92/aws-storage-s3-1.31.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -15,7 +15,7 @@ class RetrofitClients {
             interceptor.level = HttpLoggingInterceptor.Level.BODY
             val httpClient : OkHttpClient=OkHttpClient.Builder().addInterceptor(interceptor).build()
 
-            return Retrofit.Builder().baseUrl("http://ec2-3-89-123-155.compute-1.amazonaws.com:8080/api/")
+            return Retrofit.Builder().baseUrl("http://ec2-3-82-225-89.compute-1.amazonaws.com:8080/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient)
                 .build()

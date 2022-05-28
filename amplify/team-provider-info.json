@@ -1,0 +1,21 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-logiappmobilekotlin-dev-112001-authRole",
+      "UnauthRoleArn": "arn:aws:iam::515778372621:role/amplify-logiappmobilekotlin-dev-112001-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::515778372621:role/amplify-logiappmobilekotlin-dev-112001-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-logiappmobilekotlin-dev-112001-deployment",
+      "UnauthRoleName": "amplify-logiappmobilekotlin-dev-112001-unauthRole",
+      "StackName": "amplify-logiappmobilekotlin-dev-112001",
+      "StackId": "arn:aws:cloudformation:us-east-1:515778372621:stack/amplify-logiappmobilekotlin-dev-112001/0959c8b0-dea2-11ec-b195-0acc1b8a7a61",
+      "AmplifyAppId": "d3onn1bfliv4m9"
+    },
+    "categories": {
+      "auth": {
+        "logiappmobilekotlin51f30b1e": {},
+        "true": {}
+      }
+    }
+  }
+}

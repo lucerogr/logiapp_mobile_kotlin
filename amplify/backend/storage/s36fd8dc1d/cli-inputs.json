@@ -1,0 +1,18 @@
+{
+  "resourceName": "s36fd8dc1d",
+  "policyUUID": "6fd8dc1d",
+  "bucketName": "logiappmobilekotlin629adf61cb6d45838a8aec1bc105",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

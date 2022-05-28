@@ -67,6 +67,9 @@ dependencies {
 
     implementation 'com.itextpdf:itextg:5.5.10'
 
+    def amplify_version = "1.31.3"
+    implementation "com.amplifyframework:aws-storage-s3:$amplify_version"
+    implementation "com.amplifyframework:aws-auth-cognito:$amplify_version"
 
 
 
