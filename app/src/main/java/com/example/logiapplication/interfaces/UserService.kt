@@ -1,10 +1,9 @@
 package com.example.logiapplication.interfaces
 
+import com.example.logiapplication.models.Cargo
 import com.example.logiapplication.models.User
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
 interface UserService {
@@ -22,4 +21,7 @@ interface UserService {
 
     @GET("buscarUsersPorRol/{codigo}")
     fun getUsersByRolId(@Path("codigo") id: Int): Call<List<User>>
+
+    @POST("actualizarUsers/{codigo}")
+    fun updateUser(@Body userData: User, @Path("codigo") id: Int): Call<User>
 }

@@ -210,11 +210,9 @@ class ConnectionActivity : AppCompatActivity(), LocationListener {
 
                                         //CUANDO EL ENTERO VARIA SE GUARDA EL LOG
                                         if(contador>=3) {
-                                            if (cargoTemperature.toString()!=temp || cargoHumidity.toString()!=hum || cargoVelocidad.toInt().toString()!=vel.toDouble().toInt().toString()) {
-                                                if(cargoAlert!="0") {
-                                                    addLog(logData) {
-                                                        Toast.makeText(applicationContext, "ALERTA GENERADA", Toast.LENGTH_SHORT).show()
-                                                    }
+                                            if ((cargoTemperature.toString()!=temp && cargoAlert=="1") || (cargoHumidity.toString()!=hum && cargoAlert=="2") || (cargoVelocidad.toInt().toString()!=vel.toDouble().toInt().toString() && cargoAlert=="3")) {
+                                                addLog(logData) {
+                                                    Toast.makeText(applicationContext, "ALERTA GENERADA", Toast.LENGTH_SHORT).show()
                                                 }
                                             }
                                         }

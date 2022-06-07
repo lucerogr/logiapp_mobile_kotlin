@@ -71,6 +71,7 @@ dependencies {
     implementation "com.amplifyframework:aws-storage-s3:$amplify_version"
     implementation "com.amplifyframework:aws-auth-cognito:$amplify_version"
 
-
+    implementation 'com.sun.mail:android-mail:1.6.0'
+    implementation 'com.sun.mail:android-activation:1.6.0'
 
 }
